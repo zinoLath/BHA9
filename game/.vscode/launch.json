@@ -1,0 +1,83 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug LuaSTG",
+            "type": "lua-local",
+            "request": "launch",
+            "program": {
+                "command": "./LuaSTG"
+            },
+            "cwd": "${workspaceFolder}/",
+            "program.communication": "pipe"
+        },
+        {
+            "name": "Debug Spell",
+            "type": "lua-local",
+            "request": "launch",
+            "program": {
+                "command": "./LuaSTG"
+            },
+            "args": ["--spell", "${input:spellID}"],
+            "cwd": "${workspaceFolder}/",
+            "program.communication": "pipe"
+        },
+        {
+            "name": "Debug Card",
+            "type": "lua-local",
+            "request": "launch",
+            "program": {
+                "command": "./LuaSTG"
+            },
+            "args": ["--card", "${input:cardID}"],
+            "cwd": "${workspaceFolder}/",
+            "program.communication": "pipe"
+        },
+    ],
+    "inputs": [
+        {
+            "id": "spellID",
+            "type": "pickString",
+
+            "description": "Which pattern will you debug?",
+            "options": [
+                "game.boss.haiji.nonspell1",
+                "game.boss.haiji.spell1",
+                "game.boss.haiji.nonspell2",
+                "game.boss.haiji.spell2",
+                "game.boss.haiji.nonspell3",
+                "game.boss.haiji.spell3",
+                "game.boss.haiji.nonspell4",
+                "game.boss.haiji.spell4",
+                "game.boss.haiji.spell5",
+                "game.boss.haiji.spell6",
+                "game.boss.haiji.spell7",
+                "game.boss.haiji.spell8",
+                "game.boss.midboss.nonspell1",
+                "game.boss.midboss.spell1",
+            ],
+            "default": "game.boss.haiji.nonspell4"
+            
+        },
+        {
+            "id": "cardID",
+            "type": "pickString",
+
+            "description": "Which card will you debug?",
+            "options": [
+                "game.card.clock",
+                "game.card.corolla",
+                "game.card.crod",
+                "game.card.gourd",
+                "game.card.grimoire",
+                "game.card.rblade",
+                "game.card.sp_doll",
+                "game.card.tfan",
+                "game.card.sheart",
+                "game.card.earrow",
+            ],
+            "default": "game.card.earrow"
+            
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    "sevolume": 100,
+    "bgmvolume": 100,
+    "mod": "hello-world",
+    "username": "User",
+    "last_mod": "hello-world",
+    "locale": "en_us",
+    "keysys": {
+        "snapshot": 1073741898,
+        "repfast": 1073742048,
+        "repslow": 1073742049,
+        "menu": 27,
+        "retry": 114
+    },
+    "timezone": 8,
+    "keys": {
+        "down": 1073741905,
+        "left": 1073741904,
+        "right": 1073741903,
+        "slow": 1073742049,
+        "shoot": 122,
+        "spell": 120,
+        "special": 99,
+        "up": 1073741906
+    },
+    "keys2": {
+        "down": 1073741914,
+        "left": 1073741913,
+        "right": 1073741915,
+        "slow": 97,
+        "shoot": 115,
+        "spell": 100,
+        "special": 102,
+        "up": 1073741917
+    },
+    "windowed": true,
+    "resx": 640,
+    "resy": 480,
+    "vsync": false
+}

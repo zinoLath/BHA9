@@ -1,0 +1,10 @@
+LoadTexture("cvfx1", "assets/card/cardvfx1.png")
+
+require("game.card.clock")
+require("game.card.crod")
+require("game.card.gourd")
+require("game.card.grimoire")
+require("game.card.tfan")
+require("game.card.corolla")
+require("game.card.sp_doll")
+require("game.card.rblade")
