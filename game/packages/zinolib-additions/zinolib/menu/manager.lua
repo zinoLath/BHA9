@@ -4,6 +4,7 @@ local namedtask = require("zinolib.namedtask")
 
 function manager:init()
     self.menu_stack = {} --stack of menu object
+    self.children = {}
 end
 
 function manager:frame()
@@ -14,10 +15,19 @@ function manager:frame()
     end
 end
 
+function manager:del()
+    for index, value in ipairs(self.menu_stack) do
+        Del(value)
+    end
+    for index, value in pairs(self.children) do
+        Del(value)
+    end
+end
+
 function manager:push(new_menu)
     local old_menu = self.menu_stack[#self.menu_stack]
-    namedtask.New(old_menu,"move",old_menu.class.move_out(old_menu,new_menu))
-    namedtask.New(new_menu,"move",new_menu.class.move_in(new_menu,old_menu))
+    old_menu.class.move_out(old_menu,new_menu)
+    new_menu.class.move_in(new_menu,old_menu)
 
 
     table.insert(self.menu_stack,new_menu)
@@ -26,7 +36,8 @@ end
 function manager:pop()
     local old_menu = self.menu_stack[#self.menu_stack]
     local new_menu = self.menu_stack[#self.menu_stack-1]
-    namedtask.New(old_menu,"move",old_menu.class.move_out(old_menu,new_menu))
+    old_menu.class.move_out(old_menu,new_menu)
+    new_menu.class.move_in(new_menu,old_menu)
 
 
     table.remove(self.menu_stack)

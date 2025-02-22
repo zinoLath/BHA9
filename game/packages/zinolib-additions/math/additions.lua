@@ -4,8 +4,15 @@ function math.clamp(val, lower, upper)
 end
 
 function math.lerp(a,b,x)
-    return a + (b-a) * x
+    return a - (a-b) * x
 end
+function math.lerpcolor(a,b,x)
+    return Color(math.lerp(a.a,b.a,x),
+                math.lerp(a.r,b.r,x),
+                math.lerp(a.g,b.g,x),
+                math.lerp(a.b,b.b,x))
+end
+
 function math.signpow(a,b)
     return math.pow(math.abs(a),b) * sign(a)
 end

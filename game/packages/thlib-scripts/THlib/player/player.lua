@@ -128,6 +128,7 @@ function grazer:init(player)
     self.log_state = self.player.slow
     self._slowTimer = 0
     self._pause = 0
+    self.last_graze = 0
 end
 
 function grazer:frame()
@@ -178,6 +179,7 @@ function grazer:colli(other)
     if other.group ~= GROUP_ENEMY and (not (other._graze) or other._inf_graze) then
         item.PlayerGraze()
         self.grazed = true
+        self.last_graze = self.timer
         if not (other._inf_graze) then
             other._graze = true
         end

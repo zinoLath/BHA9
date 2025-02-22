@@ -41,7 +41,7 @@ BUL_COLOR = {
 function BulletColor(hue,sat,alpha)
     alpha = alpha or 255
     sat = sat or 100
-    hue = (-(hue/2-47)) % 360
+    hue = hue % 360
     return Color(alpha, hue*255/360,sat*2.55,0)
 end
 

@@ -1,5 +1,12 @@
 local M = boss.card.New("Influencer Trap \"Virginia Betting\"", 3, 5, 60, 100, {0, 0, 0}, false)
 M.boss = "game.boss.haiji"
+boss.addspell {
+    name = "Influencer Trap \"Virginia Betting\"",
+    owner = "Haiji Senri",
+    comment = "This is one of my favorite skillcards in Hisoutensoku! Also\n\
+                don't ask me what I was thinking naming this, lol.",
+    id = "game.boss.haiji.spell7"
+}
 local bullet = require("zinolib.bullet")
 local afor = require("zinolib.advancedfor")
 local familiar = require("game.enemy.familiar")

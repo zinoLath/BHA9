@@ -8,6 +8,7 @@ function menu:init()
     self.children = {}
     self.selected = nil
     self.prev_selected = nil
+    self._servants = self.children
 end
 
 function menu:frame()
@@ -25,6 +26,7 @@ end
 function menu:update()
     local C, E = coroutine.resume(self.coroutine,self)
     if(not C)then
+        print(E)
         error(E)
     end
 end
@@ -41,10 +43,20 @@ function menu:kill()
     for id, obj in ipairs(self.children) do
         Kill(obj)
     end
+    if self.selectables then
+        for id, obj in ipairs(self.selectables) do
+            Kill(obj)
+        end
+    end
 end
 function menu:del()
     for id, obj in ipairs(self.children) do
         Del(obj)
+    end
+    if self.selectables then
+        for id, obj in ipairs(self.selectables) do
+            Del(obj)
+        end
     end
 end
 
@@ -71,6 +83,7 @@ function menu:select_dir(direction)
     if new_select == self.select_id then
         return
     end
+    self.prev_selid = self.select_id
     self.select_id = new_select
     self.class.select_update(self,self.selectables[self.select_id])
 end

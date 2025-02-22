@@ -33,8 +33,29 @@
             "cwd": "${workspaceFolder}/",
             "program.communication": "pipe"
         },
+        {
+            "name": "Debug Background",
+            "type": "lua-local",
+            "request": "launch",
+            "program": {
+                "command": "./LuaSTG"
+            },
+            "args": ["--bg", "${input:bgID}"],
+            "cwd": "${workspaceFolder}/",
+        },
     ],
     "inputs": [
+        {
+            "id": "bgID",
+            "type": "pickString",
+
+            "description": "Which background will you debug?",
+            "options": [
+                "game.background",
+            ],
+            "default": "game.background"
+            
+        },
         {
             "id": "spellID",
             "type": "pickString",
@@ -49,14 +70,17 @@
                 "game.boss.haiji.spell3",
                 "game.boss.haiji.nonspell4",
                 "game.boss.haiji.spell4",
+                "game.boss.haiji.nonspell5",
                 "game.boss.haiji.spell5",
+                "game.boss.haiji.nonspell6",
                 "game.boss.haiji.spell6",
                 "game.boss.haiji.spell7",
                 "game.boss.haiji.spell8",
+                "game.boss.haiji.spell9",
                 "game.boss.midboss.nonspell1",
                 "game.boss.midboss.spell1",
             ],
-            "default": "game.boss.haiji.nonspell4"
+            "default": "game.boss.haiji.spell9"
             
         },
         {

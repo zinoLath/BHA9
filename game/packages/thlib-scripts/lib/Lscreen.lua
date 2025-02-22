@@ -285,6 +285,21 @@ function SetViewMode(mode)
         SetRenderRect(world.l, world.r, world.b, world.t, w.scrl, w.scrr, w.scrb, w.scrt)
     elseif mode == 'ui' then
         SetRenderRect(0, screen.width, 0, screen.height, 0, screen.width, 0, screen.height)
+    elseif mode == '3dui' then
+            SetViewport(screen.dx, screen.width * screen.scale + screen.dx,
+                    screen.dy, screen.height * screen.scale + screen.dy)
+            SetPerspective(
+                    lstg.view3d.eye[1], lstg.view3d.eye[2], lstg.view3d.eye[3],
+                    lstg.view3d.at[1], lstg.view3d.at[2], lstg.view3d.at[3],
+                    lstg.view3d.up[1], lstg.view3d.up[2], lstg.view3d.up[3],
+                    lstg.view3d.fovy, (screen.width) / (screen.height),
+                    lstg.view3d.z[1], lstg.view3d.z[2]
+            )
+            SetFog(lstg.view3d.fog[1], lstg.view3d.fog[2], lstg.view3d.fog[3])
+            SetImageScale(((((lstg.view3d.eye[1] - lstg.view3d.at[1]) ^ 2
+                    + (lstg.view3d.eye[2] - lstg.view3d.at[2]) ^ 2
+                    + (lstg.view3d.eye[3] - lstg.view3d.at[3]) ^ 2) ^ 0.5)
+                    * 2 * math.tan(lstg.view3d.fovy * 0.5)) / (screen.width*screen.scale))
     else
         error('Invalid arguement.')
     end

@@ -1,5 +1,12 @@
 local M = boss.card.New("Nether Puppet \"European Doll Dance\"", 3, 5, 60, 100, {0, 0, 0}, false)
 M.boss = "game.boss.haiji"
+boss.addspell {
+    name = "Nether Puppet \"European Doll Dance\"",
+    owner = "Haiji Senri",
+    comment = "I really like using this spellcard on Hisoutensoku!! Blockstrings\n\
+                go crazy with this one!",
+    id = "game.boss.haiji.spell2"
+}
 
 local bullet = require("zinolib.bullet")
 local afor = require("zinolib.advancedfor")
@@ -31,7 +38,7 @@ local function holland_doll(self,x,y,omiga)
                 fam.eang = fam.eang + fam.eomg
                 fam.ang = fam.ang + fam.omg
                 fam.ang1 = fam.ang1 + fam.omg1
-                local pol = math.rotate2(math.ang2(fam.ang1) * Vector2(1,0.2) * initrad,fam.eang)
+                local pol = math.rotate2(math.ang2(fam.ang1) * Vector2(1,0.2) * initrad,-fam.eang)
                 fam.x, fam.y = pol.x, pol.y
             end)
             task.Wait(300)

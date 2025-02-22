@@ -163,16 +163,6 @@ SetBGMSpeed = lstg.SetBGMSpeed
 GetBGMVolume = lstg.GetBGMVolume
 GetMusicFFT = lstg.GetMusicFFT
 SetTexturePreMulAlphaState = lstg.SetTexturePreMulAlphaState
-HSVColor = lstg.HSVColor
-
-Vector2 = lstg.Vector2
-Vector = Vector2
-Vector3 = lstg.Vector3
-Vector4 = lstg.Vector4
-Matrix2 = lstg.Matrix2
-Matrix3 = lstg.Matrix3
-Matrix4 = lstg.Matrix4
-Rect = lstg.Rect
 --ObjTable = lstg.ObjTable -- Internal/内部方法
 
 -- Completely deprecated API, are empty function

@@ -28,6 +28,7 @@ function classthing:render()
     Render(self.img,self.x,self.y,self.rot,self.hscale*0.75,self.vscale*0.75)
     RenderText("menu",tostring(self.hue),self.x,self.y,1,"vcenter","center")
 end
+local uiname = "game.ui.hud"
 local console = require("game.debug.console")
 stage.group.New('SC Debugger', 'init', {lifeleft=2,power=100,faith=30000,bomb=3}, false, 1)
 stage.group.AddStage('SC Debugger', 'SC Debugger@SC Debugger', {lifeleft=8,power=400,faith=30000,bomb=8}, false)
@@ -62,6 +63,8 @@ stage.group.DefStageFunc('SC Debugger@SC Debugger', "init", function(self)
             local spells = {}
             local bossname = ""
             local __boss
+            package.loaded[uiname] = nil
+            local uiclass = require(uiname)
 
             for k, value in ipairs(lstg.settings["spell"]) do
                 package.loaded[value] = nil
@@ -71,6 +74,7 @@ stage.group.DefStageFunc('SC Debugger@SC Debugger', "init", function(self)
             package.loaded[bossname] = nil
             __boss = require(bossname)
             InitAllClass()
+            New(uiclass)
 
             local delboss = false 
             local delboss_press = false
@@ -100,4 +104,6 @@ stage.group.DefStageFunc('SC Debugger@SC Debugger', "init", function(self)
         task.Wait(_infinite) -- wait 1 minute
         stage.group.FinishGroup()
     end)
+end)
+stage.group.DefStageFunc('SC Debugger@SC Debugger', "render", function(self)
 end)

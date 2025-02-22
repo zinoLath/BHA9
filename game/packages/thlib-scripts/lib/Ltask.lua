@@ -72,7 +72,7 @@ function task.Do(target)
                 target_stack[target_stack_n] = target
                 co_stack_n = co_stack_n + 1
                 co_stack[co_stack_n] = co
-                local result, errmsg = resume(co)
+                local result, errmsg = resume(co,target)
                 if not result then
                     print(tostring(errmsg)
                     .. "\n========== coroutine traceback ==========\n"
@@ -100,7 +100,7 @@ function task.Do(target)
                 target_stack[target_stack_n] = target
                 co_stack_n = co_stack_n + 1
                 co_stack[co_stack_n] = co
-                local result, errmsg = resume(co)
+                local result, errmsg = resume(co,target)
                 if not result then
                     error(
                         tostring(errmsg)

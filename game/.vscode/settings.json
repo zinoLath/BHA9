@@ -1,0 +1,21 @@
+{
+    "Lua.runtime.path": [
+        "mod/bha9/?.lua",
+        "mod/bha9/?/init.lua",
+        "packages/luasocket/?.lua",
+        "packages/luasocket/?/init.lua",
+        "packages/thlib-experiment/?.lua",
+        "packages/thlib-experiment/?/init.lua",
+        "packages/thlib-resources/?.lua",
+        "packages/thlib-resources/?/init.lua",
+        "packages/thlib-scripts/?.lua",
+        "packages/thlib-scripts/?/init.lua",
+        "packages/zinolib-additions/?.lua",
+        "packages/zinolib-additions/?/init.lua"
+    ],
+    "Lua.runtime.pathStrict": true,
+    "workbench.editor.customLabels.enabled": true,
+    "workbench.editor.customLabels.patterns": {
+        "*/init.lua": "${dirname(1)}/init.lua"
+    }
+}

@@ -3,7 +3,25 @@ local satori_player = M
 LoadTexture('marisa_player','game/player/marisa.png')
 LoadImageGroup('marisa_player','marisa_player',0,0,32,48,8,3,1,1)
 LoadImage('marisa_support','marisa_player',144,144,16,16)
+
 function satori_player:init()
+
+    self.drawlist = {
+        "satoriLegL",
+        "satoriLegR",
+        "satoriSkirt",
+        "satoriTorso",
+        "satoriArmL1",
+        "satoriArmL2",
+        "satoriHead",
+        "satoriArmR",
+    }
+    self.anglist = {}
+    for k,v in pairs(self.drawlist) do
+        self.anglist[v] = 0
+    end
+    package.loaded["game.player.positions"] = nil
+    self.poslist = require("game.player.positions")
 	player_class.init(self)
     
     self.name = "Satori"
@@ -74,6 +92,21 @@ function satori_player:frame()
     end
     self.hspeed = self.base_speed[1] * self.stats.speed
     self.lspeed = self.base_speed[2]
+    
+    if self.dx > 0 then
+        for index, value in pairs(self.anglist) do
+            self.anglist[index] = math.lerp(value, self.poslist.anglist[index][4],0.23)
+        end
+    elseif self.dx < 0 then
+        for index, value in pairs(self.anglist) do
+            self.anglist[index] = math.lerp(value, self.poslist.anglist[index][3],0.23)
+        end
+    else
+        for index, value in pairs(self.anglist) do
+            local tgtang = math.lerp(self.poslist.anglist[index][1],self.poslist.anglist[index][2],nsin(self.timer*5))
+            self.anglist[index] = math.lerp(value, tgtang,0.1)
+        end
+    end
 end
 
 function satori_player:shoot()
@@ -87,10 +120,19 @@ end
 function satori_player:render()
 	for i=1,4 do
 		if self.sp[i] and self.sp[i][3]>0.5 then
-			Render('marisa_support',self.supportx+self.sp[i][1],self.supporty+self.sp[i][2],self.timer*3)
+			--Render('marisa_support',self.supportx+self.sp[i][1],self.supporty+self.sp[i][2],self.timer*3)
 		end
 	end
-	player_class.render(self)
+    for k,v in ipairs(self.drawlist)do
+        local pos = self.poslist[v]
+        if pos == nil then
+            pos = {{x = -1000, y = 1000},0}
+        end
+        local scale = 0.15
+        local finalpos = Vector(pos[1].x, pos[1].y) * scale + math.vecfromobj(self) + Vector(0,6)
+        Render(v, finalpos.x, finalpos.y,self.anglist[v],scale,scale)
+    end
+	--player_class.render(self)
     if self.charge_value > 0 then
         local w = 64
         local h = 4

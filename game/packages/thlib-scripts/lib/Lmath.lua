@@ -108,6 +108,7 @@ function math.polar(radius,theta)
 end
 
 function math.rotate2(vec, ang)
+    ang = -ang
     return Vector2(vec.x * cos(ang) + vec.y * sin(ang), vec.x * -sin(ang) + vec.y * cos(ang))
 end
 

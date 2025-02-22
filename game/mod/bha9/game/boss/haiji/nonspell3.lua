@@ -1,4 +1,13 @@
 local M = boss.card.New("", 3, 5, 60, 100, {0, 0, 0}, false)
+
+boss.addspell {
+    name = "Nonspell #3",
+    owner = "Haiji Senri",
+    comment = "A really big inspiration for this non came from a Yukari script,\n\
+                and since this is Haiji, I had the opportunity to reheat some\n\
+                nachos.",
+    id = "game.boss.haiji.nonspell3"
+}
 M.boss = "game.boss.haiji"
 local bullet = require("zinolib.bullet")
 local afor = require("zinolib.advancedfor")
@@ -40,7 +49,7 @@ function M:init()
 
                         local sqang = fam.theta
                         for itersq in afor(18) do
-                            local vec = math.rotate2(math.polygon(6,itersq:circle()/360),sqang)
+                            local vec = math.rotate2(math.polygon(6,itersq:circle()/360),-sqang)
                             local pos = math.vecfromobj(fam) + vec * 32
                             local obj = bullet("scale", BulletColor(210),pos.x, pos.y, 0, itersq:circle())
                             local spd = vec * 2

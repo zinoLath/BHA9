@@ -2,8 +2,12 @@
 -- 警告：该功能可能会被恶意利用，请考虑在正式项目发行版中移除
 if os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1" then
     package.path = package.path .. os.getenv("LUA_PATH")
-	start_game = true
 	is_debug = true
+    require("lldebugger").start()
+end
+package.path = package.path .. "/?/?.lua"
+if is_debug or true then
+	start_game = true
 	lstg.settings = {}
 	for k,v in ipairs(lstg.args) do
 		print(v)
@@ -21,7 +25,6 @@ if os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1" then
 			end
 		end
 	end
-    require("lldebugger").start()
 end
 ---@param name string
 ---@param str string
@@ -87,6 +90,7 @@ lstg.FileManager.AddSearchPath("packages/zinolib-additions/")
 -- 将 lstg 库的方法导入到全局（很神秘的设计）
 
 lstg.DoFile("lib/Lapi.lua")
+lstg.DoFile("lib/Levo.lua")
 
 -- 按键常量
 

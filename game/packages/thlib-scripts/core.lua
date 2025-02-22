@@ -10,7 +10,7 @@ lstg = lstg or {}
 function PrintTable(tb)
     local ret = ""
     for k,v in pairs(tb) do
-        ret = ret .. string.format("Key: %s | Value: %s\n\n", k,tostring(v))
+        ret = ret .. string.format("Key: %s | Value: %s\n", k,tostring(v))
     end
     return ret
 end

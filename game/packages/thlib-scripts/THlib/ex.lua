@@ -50,6 +50,9 @@ end
 function ex.SetSignal(slot, value)
     ex.signals[slot] = value
 end
+function ex.GetSignal(slot)
+    return ex.signals[slot]
+end
 
 ---等待标签所指的值达到传入的value
 ---！警告：该方法依赖task环境

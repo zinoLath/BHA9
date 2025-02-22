@@ -6,7 +6,7 @@ local M = function(times)
         current = 0,
         linear = function(self, a,b,tween)
             tween = tween or tw.linear
-            return math.lerp(a,b,tween((self.current-1)/(self.max_count-1)))
+            return math.lerp(a,b,tween((self.current-1)/math.max(self.max_count-1,1)))
         end,
         linearA = function(self, a,b,tween)
             tween = tween or tw.linear
@@ -31,15 +31,14 @@ local M = function(times)
         end,
         zigzag = function(self,a,b,times,tween)
             tween = tween or tw.linear
-            local t = (((self.current-1)/(self.max_count-1))*times)
+            local t = (((self.current-1)/math.max(self.max_count-1,1))*times)
             local tt = t -int(t)
             if int(t) % 2 == 0 then            
                 return math.lerp(a,b,tween(tt))
             else
                 return math.lerp(a,b,1-tween(tt))
-            end
-            
-        end
+            end 
+        end,
     }
     return function ()
         iter.current = iter.current + 1

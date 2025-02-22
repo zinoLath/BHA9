@@ -211,7 +211,7 @@ function M.bounceInOut(t)
 end
 
 function math.lerp(a,b,x)
-    return a + (b-a) * x
+    return a - (a-b) * x
 end
 
 return M

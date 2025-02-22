@@ -3,7 +3,7 @@ local M = Class(bcard)
 local card = M
 local manager = require("zinolib.card.manager")
 card.id = "earrow"
-card.img = "img_void"
+card.img = manager:LoadCardIcon("earrow","earrow")
 card.name = "Entropy Arrow"
 card.description = "Charges up and shoots omnidirectional arrows"
 card.cost = 1
@@ -74,7 +74,7 @@ function shot:render()
     local cw2 = Color(alpha,255,0,0)
     local vec = {}
     for k,v in ipairs(vecbase) do
-        vec[k] = math.rotate2(v,rot) + math.vecfromobj(self)
+        vec[k] = math.rotate2(v,-rot) + math.vecfromobj(self)
     end
 
     RenderTexture("earrow", "mul+add",
@@ -129,4 +129,5 @@ function card:init(is_focus)
     end)
 end
 manager.cardlist[card.id] = M 
+table.insert(manager.cardorder,card.id)
 return M

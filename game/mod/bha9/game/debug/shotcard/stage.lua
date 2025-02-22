@@ -8,8 +8,10 @@ end
 
 local cardmanager = require("zinolib.card.manager")
 lstg.cm = cardmanager
+local afor = require("zinolib.advancedfor")
 
-
+local uiname = "game.ui.hud"
+local cuiname = "game.ui.cardui"
 local console = require("game.debug.console")
 stage.group.New('CARDDEBUG', 'init', {lifeleft=2,power=100,faith=30000,bomb=3}, false, 1)
 stage.group.AddStage('CARDDEBUG', 'CARDDEBUG@CARDDEBUG', {lifeleft=8,power=400,faith=30000,bomb=8}, false)
@@ -17,6 +19,14 @@ stage.group.DefStageFunc('CARDDEBUG@CARDDEBUG', "init", function(self)
     _init_item(self)
     difficulty=self.group.difficulty
     New(mask_fader,'open')
+
+    lstg.var.starting_deck = {
+        crod = 4,
+        clock = 4,
+        gourd = 4,
+        tfan = 4,
+        grimoire = 4,
+    }
     New(satori_player)
     New(temple_background)
     --LoadMusicRecord('spellcard')
@@ -42,14 +52,20 @@ stage.group.DefStageFunc('CARDDEBUG@CARDDEBUG', "init", function(self)
             end)
         end
         while true do
-            task.Wait(30)
+            task.Wait(1)
             local cards = {}
 
             for k, value in ipairs(lstg.settings["card"]) do
                 package.loaded[value] = nil
                 table.insert(cards,require(value))
             end
+            package.loaded[uiname] = nil
+            local uiclass = require(uiname)
+            package.loaded[cuiname] = nil
+            local cuiclass = require(cuiname)
             InitAllClass()
+            New(uiclass)
+            New(cuiclass)
             task.Clear(player)
             item.PlayerInit()
             for k, v in ipairs(cards) do
@@ -65,6 +81,7 @@ stage.group.DefStageFunc('CARDDEBUG@CARDDEBUG', "init", function(self)
                 delboss = KEY.GetKeyState(KEY.R)
                 delboss_press = delboss and not delboss_pre
                 if delboss_press then
+                    stage.Restart()
                     break
                 end
                 task.Wait(1) 
@@ -73,4 +90,6 @@ stage.group.DefStageFunc('CARDDEBUG@CARDDEBUG', "init", function(self)
         task.Wait(_infinite) -- wait 1 minute
         stage.group.FinishGroup()
     end)
+end)
+stage.group.DefStageFunc('CARDDEBUG@CARDDEBUG', "render", function(self)
 end)

@@ -2,6 +2,10 @@
 boss = Class(enemybase)
 local boss = boss
 boss.record = {}
+boss.spells = {}
+function boss.addspell(spell)
+    table.insert(boss.spells,spell)
+end
 
 function boss:init(x, y, name, cards, bg, diff)
     enemybase.init(self, 999999999)

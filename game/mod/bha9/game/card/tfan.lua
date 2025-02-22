@@ -3,7 +3,7 @@ local M = Class(bcard)
 local card = M
 local manager = require("zinolib.card.manager")
 card.id = "tfan"
-card.img = "img_void"
+card.img = manager:LoadCardIcon("tfan","tfan")
 card.name = "Tengu Fan"
 card.description = "Increases your speed."
 card.cost = 1
@@ -18,4 +18,5 @@ function card:init(is_focus)
 end
 
 manager.cardlist[card.id] = M 
+table.insert(manager.cardorder,card.id)
 return M

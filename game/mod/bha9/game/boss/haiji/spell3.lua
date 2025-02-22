@@ -1,5 +1,12 @@
 local M = boss.card.New("Eleventh Curse \"Precursor of Kaiser\"", 3, 5, 60, 100, {0, 0, 0}, false)
 M.boss = "game.boss.haiji"
+boss.addspell {
+    name = "Eleventh Curse \"Precursor of Kaiser\"",
+    owner = "Haiji Senri",
+    comment = "I inspired myself on Autocatalysis of Unrecognizable\n\
+                Katzenjammer's Act #4. I also added some Senri spice!",
+    id = "game.boss.haiji.spell3"
+}
 
 local bullet = require("zinolib.bullet")
 local afor = require("zinolib.advancedfor")

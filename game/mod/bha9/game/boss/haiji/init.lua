@@ -14,10 +14,17 @@ haiji.cards = {
     require("game.boss.haiji.spell1"),
     require("game.boss.haiji.nonspell2"),
     require("game.boss.haiji.spell2"),
+    require("game.boss.haiji.nonspell3"),
     require("game.boss.haiji.spell3"),
+    require("game.boss.haiji.nonspell4"),
     require("game.boss.haiji.spell4"),
+    require("game.boss.haiji.nonspell5"),
     require("game.boss.haiji.spell5"),
+    require("game.boss.haiji.nonspell6"),
     require("game.boss.haiji.spell6"),
+    require("game.boss.haiji.spell7"),
+    require("game.boss.haiji.spell8"),
+    require("game.boss.haiji.spell9"),
 }
 function haiji:init(cards)
     local _cards = cards or self.class.cards

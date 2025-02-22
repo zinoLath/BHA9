@@ -1,40 +1,40 @@
 {
-    "resx": 960,
+    "keys2": {
+        "slow": 97,
+        "shoot": 115,
+        "up": 1073741917,
+        "special": 102,
+        "spell": 100,
+        "down": 1073741914,
+        "left": 1073741913,
+        "right": 1073741915
+    },
     "resy": 720,
     "vsync": false,
     "sevolume": 30,
     "last_mod": "bha9",
     "mod": "bha9",
     "keysys": {
-        "repfast": 1073742048,
-        "repslow": 1073742049,
         "menu": 27,
         "retry": 114,
-        "snapshot": 1073741898
+        "snapshot": 1073741898,
+        "repfast": 1073742048,
+        "repslow": 1073742049
     },
-    "locale": "en_us",
+    "resx": 960,
     "username": "User",
+    "windowed": true,
+    "locale": "en_us",
     "bgmvolume": 0,
-    "keys2": {
-        "special": 102,
-        "up": 1073741917,
-        "spell": 100,
-        "down": 1073741914,
-        "left": 1073741913,
-        "right": 1073741915,
-        "slow": 97,
-        "shoot": 115
-    },
+    "timezone": 8,
     "keys": {
-        "special": 99,
+        "slow": 1073742049,
+        "shoot": 122,
         "up": 1073741906,
+        "special": 99,
         "spell": 120,
         "down": 1073741905,
         "left": 1073741904,
-        "right": 1073741903,
-        "slow": 1073742049,
-        "shoot": 122
-    },
-    "timezone": 8,
-    "windowed": true
+        "right": 1073741903
+    }
 }

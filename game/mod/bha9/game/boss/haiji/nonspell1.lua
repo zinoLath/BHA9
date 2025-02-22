@@ -1,4 +1,11 @@
 local M = boss.card.New("", 3, 5, 60, 100, {0, 0, 0}, false)
+boss.addspell {
+    name = "Nonspell #1",
+    owner = "Haiji Senri",
+    comment = "This is the first spell I made for the game! I was testing the bullets\n\
+                and familiars here.",
+    id = "game.boss.haiji.nonspell1"
+}
 M.boss = "game.boss.haiji"
 local bullet = require("zinolib.bullet")
 local afor = require("zinolib.advancedfor")
@@ -29,7 +36,7 @@ function M:init()
             last.rvec = Vector2(0,0)
             task.NewUpdate(last,function()
                 last.ang = last.ang + last.angomg
-                local vec = math.rotate2(math.ang2(last.ang) * last.rvec,-self.famangle) 
+                local vec = math.rotate2(math.ang2(last.ang) * last.rvec,self.famangle) 
                             + Vector2(self.x, self.y)
                 last.x,last.y = vec.x, vec.y
             end)

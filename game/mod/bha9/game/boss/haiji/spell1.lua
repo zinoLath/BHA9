@@ -1,5 +1,12 @@
 local M = boss.card.New("Explosive Bikini \"Sponge Homeland\"", 3, 5, 60, 100, {0, 0, 0}, false)
 M.boss = "game.boss.haiji"
+boss.addspell {
+    name = "Explosive Bikini \"Sponge Homeland\"",
+    owner = "Haiji Senri",
+    comment = "This spell is a copy of a copy, so I don't know if Haiji should credit\n\
+                Housui or Rachel. Maybe both?",
+    id = "game.boss.haiji.spell1"
+}
 
 local bullet = require("zinolib.bullet")
 local afor = require("zinolib.advancedfor")

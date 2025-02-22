@@ -150,7 +150,7 @@ local _Del = lstg.Del
 
 --- 删除对象和绑定到其上的所有对象
 function Kill(o)
-    if o then
+    if IsValid(o) then
         if o._servants then
             _kill_servants(o)
         end
@@ -160,7 +160,7 @@ end
 
 --- 击杀对象和绑定到其上的所有对象
 function Del(o)
-    if o then
+    if IsValid(o) then
         if o._servants then
             _del_servants(o)
         end
@@ -170,7 +170,7 @@ end
 
 --- 删除对象和绑定到其上的所有对象，不触发回调函数
 function RawDel(o)
-    if o then
+    if IsValid(o) then
         o.status = 'del'
         if o._servants then
             _del_servants(o)
@@ -180,7 +180,7 @@ end
 
 --- 击杀对象和绑定到其上的所有对象，不触发回调函数
 function RawKill(o)
-    if o then
+    if IsValid(o) then
         o.status = 'kill'
         if o._servants then
             _kill_servants(o)
@@ -342,6 +342,9 @@ end
 
 _can_be_master = { [_object] = true, [enemy] = true, [boss] = true, [laser] = true, [bullet] = true }--没用上？？
 function _connect(master, servant, dmg_transfer, con_death)
+    if con_death == nil then
+        con_death = true
+    end
     if IsValid(master) and IsValid(servant) then
         if con_death then
             master._servants = master._servants or {}

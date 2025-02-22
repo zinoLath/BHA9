@@ -1,4 +1,12 @@
 local M = boss.card.New("Hanafuda Mirror \"Spreading Amulet\"", 3, 5, 60, 100, {0, 0, 0}, false)
+boss.addspell {
+    name = "Hanafuda Mirror \"Spreading Amulet\"",
+    owner = "Haiji Senri",
+    comment = "Referring to Hakurei as Hanafuda is a really niche inside joke,\n\
+                but when finding out Hanafuda is some sort of flower card\n\
+                game, I realized I hit jackpot!",
+    id = "game.boss.haiji.spell6"
+}
 M.boss = "game.boss.haiji"
 local bullet = require("zinolib.bullet")
 local afor = require("zinolib.advancedfor")

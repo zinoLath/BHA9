@@ -2,7 +2,7 @@
 
 Include('THlib.lua')
 
---require("game.menu.main")
+require("doremy.main")
 satori_player = require("game.player.satori")
 AddPlayerToPlayerList('Satori Komeiji','satori_player','Satori')
 
@@ -12,17 +12,16 @@ local cardui = require("game.ui.cardui")
 require("game.debug.imgui")
 
 lstg.var.starting_deck = {
-    "clock",
-    "crod",
-    "gourd",
-    "grimoire",
-    "tfan"
+    crod = 4,
+    clock = 4,
+    gourd = 4,
+    tfan = 4,
+    grimoire = 4,
 }
 local cardmanager = require("zinolib.card.manager")
 local haiji_boss = require("game.boss.haiji")
 local console = require("game.debug.console")
 
-local doremy_laser = require("doremy.laser")
 
 LoadImageFromFile("reddebug","debug_red.png",true,0,0,false)
 
@@ -68,4 +67,6 @@ if lstg.settings["spell"] then
     require("game.debug.spellcard.stage")
 elseif lstg.settings["card"] then
     require("game.debug.shotcard.stage")
+elseif lstg.settings["bg"] then
+    require("game.debug.background.stage")
 end
