@@ -3,6 +3,7 @@ local ui = M
 local cardmanager = require("zinolib.card.manager")
 local prefix_path = "assets/ui/"
 local afor = require("zinolib.advancedfor")
+require("game.vfx.misc")
 local function ReloadTexture(tex,path,mipmap)
     local pool = CheckRes("tex",tex)
     if pool then

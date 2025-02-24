@@ -1,4 +1,4 @@
-local M = require("yabmfr.class")()
+local M = require("utils.class")()
 local xml2lua = require("utils.xml")
 local handler = require("utils.xml.xmlhandler.tree")
 local function parsePath(input)
@@ -68,12 +68,12 @@ end
 function transformenv.matrix(a,b,c,d,x,y)
     transformenv.current = transformenv.current *Matrix3(a,b,x,c,d,y,0,0,1)
 end
-transformenv.Matrix3 = Matrix3
+transformenv.Matrix3 = lstg.Matrix3
 transformenv.cos = cos
 transformenv.sin = sin
 transformenv.print = print
 transformenv.transformenv = transformenv
-transformenv.current = Matrix3(1,0,0,0,1,0,0,0,1)
+transformenv.current = lstg.Matrix3(1,0,0,0,1,0,0,0,1)
 local function readtransform(str)
     if str:byte(1) == 27 then return nil, "binary bytecode prohibited" end
     local strcpy = ""
@@ -89,7 +89,7 @@ local function readtransform(str)
     local untrusted_function, message = loadstring(str1)
     --print(str1)
     if not untrusted_function then return nil, message end
-    transformenv.current = Matrix3(1,0,0,0,1,0,0,0,1)
+    transformenv.current = lstg.Matrix3(1,0,0,0,1,0,0,0,1)
     return pcall(setfenv(untrusted_function, transformenv))
 end
 function M:path(str,strtrans)
@@ -97,12 +97,6 @@ function M:path(str,strtrans)
     local parsed = parsePath(str)
     local ret = path()
     local _, transform = readtransform(strtrans)
-    print("===TRANSFORM_CODE")
-    print(strtrans)
-    print("===TRANSFORM_MATRIX")
-    print(transform)
-    print("===TRANSFORM_TYPE")
-    print(type(transform))
     ret.transform = transform
     local cursor = Vector(0,0)
     local last_control = Vector(0,0)
