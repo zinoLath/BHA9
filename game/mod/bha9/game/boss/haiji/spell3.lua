@@ -4,7 +4,7 @@ boss.addspell {
     name = "Eleventh Curse \"Precursor of Kaiser\"",
     owner = "Haiji Senri",
     comment = "I inspired myself on Autocatalysis of Unrecognizable\n\
-                Katzenjammer's Act #4. I also added some Senri spice!",
+Katzenjammer's Act #4. I also added some Senri spice!",
     id = "game.boss.haiji.spell3"
 }
 

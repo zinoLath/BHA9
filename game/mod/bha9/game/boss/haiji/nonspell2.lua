@@ -4,7 +4,7 @@ boss.addspell {
     name = "Nonspell #2",
     owner = "Haiji Senri",
     comment = "I'm a really, really big fan of patterns that force you to dodge big\n\
-               chunks of bullets, as you can see.",
+chunks of bullets, as you can see.",
     id = "game.boss.haiji.nonspell2"
 }
 M.boss = "game.boss.haiji"

@@ -202,7 +202,7 @@ function death_weapon:frame()
     for i, o in ObjList(GROUP_ENEMY) do
         if o.colli == true then
             if Dist(self, o) < 800 and self.timer > 60 then
-                Damage(o, 0.75)
+                Damage(o, 0.75, death_weapon)
                 if o.dmgsound == 1 then
                     if o.dmg_factor then
                         if o.hp > 100 then
@@ -224,7 +224,7 @@ function death_weapon:frame()
     for i, o in ObjList(GROUP_NONTJT) do
         if o.colli == true then
             if Dist(self, o) < 800 and self.timer > 60 then
-                Damage(o, 0.75)
+                Damage(o, 0.75,death_weapon)
                 if o.dmgsound == 1 then
                     if o.dmg_factor then
                         if o.hp > 100 then

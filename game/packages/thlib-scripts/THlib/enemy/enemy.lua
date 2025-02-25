@@ -56,6 +56,7 @@ function enemybase:init(hp, nontaijutsu)
     setmetatable(self, { __index = GetAttr, __newindex = enemy_meta_newindex })
     self.colli = true
     self._servants = {}
+    self.damage_instances = {}
 end
 
 function enemy_meta_newindex(t, k, v)
@@ -68,6 +69,13 @@ end
 
 function enemybase:frame()
     SetAttr(self, 'colli', BoxCheck(self, lstg.world.boundl, lstg.world.boundr, lstg.world.boundb, lstg.world.boundt) and self._colli)
+    
+    for key, value in pairs(self.damage_instances) do
+        if self.timer % (key.damage_delay or 1) == 0 then
+            self.hp = self.hp - value
+            self.damage_instances[key] = 0
+        end
+    end
     if self.hp <= 0 then
         Kill(self)
     end
@@ -78,9 +86,9 @@ function enemybase:colli(other)
     if other.dmg then
         lstg.var.score = lstg.var.score + 10
         local dmg = other.dmg
-        Damage(self, dmg)
+        Damage(self, dmg,other)
         if self._master and self._dmg_transfer and IsValid(self._master) then
-            Damage(self._master, dmg * self._dmg_transfer)
+            Damage(self._master, dmg,other,self._dmg_transfer)
         end
     end
     other.killerenemy = self
@@ -112,9 +120,10 @@ function enemybase:del()
     _del_servants(self)
 end
 
-function Damage(obj, dmg)
+function Damage(obj, dmg, other,mul)
+    mul = mul or 1
     if obj.class.base.take_damage then
-        obj.class.base.take_damage(obj, dmg)
+        obj.class.base.take_damage(obj, dmg,other,mul)
     end
 end
 
@@ -145,12 +154,31 @@ function enemy:render()
     self._wisys:render(self.dmgt, self.dmgmaxt)--by OLC and ETC，新行走图系统
 end
 
-function enemy:take_damage(dmg)
+function enemy:take_damage(dmg,other,mul1)
     if self.dmgmaxt then
         self.dmgt = self.dmgmaxt
     end
     if not self.protect then
-        self.hp = self.hp - dmg
+        if other == nil then
+            other = {}
+            other.class = {
+            }
+        end
+        local mul = player.stats.damage
+        if other.class.dmgtype == "shot" then
+            mul = mul * player.stats.shot_damage
+        end
+        if other.class.dmgtype == "spell" then
+            mul = mul * player.stats.spell_damage
+        end
+        if other.class.dmgtype == "item" then
+            mul = mul * player.stats.item_damage
+        end
+        if not self.damage_instances[other.class] then
+            self.damage_instances[other.class] = 0
+        end
+        self.damage_instances[other.class] = math.lerp(self.damage_instances[other.class], dmg*mul*(other.class.damage_delay or 1), (other.class.damage_factor or 0.5)*mul1)
+    
     end
 end
 

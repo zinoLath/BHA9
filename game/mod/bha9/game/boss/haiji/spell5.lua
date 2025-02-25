@@ -4,7 +4,7 @@ boss.addspell {
     name = "Argentina Lace \"Wig the Stealer\"",
     owner = "Haiji Senri",
     comment = "Fun Fact: Argentina Lace is the sister of Chile Wig. This is also\n\
-                one of my favorite Touhou scripts!",
+one of my favorite Touhou scripts!",
     id = "game.boss.haiji.spell5"
 }
 local bullet = require("zinolib.bullet")

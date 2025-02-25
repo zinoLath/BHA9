@@ -16,6 +16,9 @@ LoadImageFromFile("corolla_shot","game/card/corolla_eye.png",true,64,32,true)
 card.shot = Class()
 local shot = card.shot
 shot[".render"] = true
+shot.damage_delay = 4
+shot.damage_factor = 0.2
+shot.dmgtype = "shot"
 function shot:init(x,y,maxalpha,maxscale,time,dmg)
     self.x, self.y = x,y
     self.img = "corolla_shot"
@@ -60,7 +63,7 @@ function card:init(is_focus)
             while player.fire > 0 and player.slow == self.context.is_focus do
                 local dmgmul = player.stats.shot_damage
                 local x, y = player.x, player.y
-                New(card.shot,x,y,255,6,120,1*dmgmul)
+                New(card.shot,x,y,255,6,120,1.6)
                 task.Wait(5)
                 local count = {
                     2,
@@ -71,7 +74,7 @@ function card:init(is_focus)
                 for iter in afor(count[self.context.lvl]) do
                     local s = iter:linear(5,4.8)
                     local t = iter:linear(120,180)
-                    New(card.shot,x,y,128,s,t,0.1*dmgmul)
+                    New(card.shot,x,y,128,s,t,1.6)
                     task.Wait(5)
                 end
                 if self.context.lvl ~= 4 then          

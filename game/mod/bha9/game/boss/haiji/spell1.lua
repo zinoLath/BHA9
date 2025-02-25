@@ -4,7 +4,7 @@ boss.addspell {
     name = "Explosive Bikini \"Sponge Homeland\"",
     owner = "Haiji Senri",
     comment = "This spell is a copy of a copy, so I don't know if Haiji should credit\n\
-                Housui or Rachel. Maybe both?",
+Housui or Rachel. Maybe both?",
     id = "game.boss.haiji.spell1"
 }
 

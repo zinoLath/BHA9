@@ -9,6 +9,7 @@ end
 local cardmanager = require("zinolib.card.manager")
 lstg.cm = cardmanager
 local afor = require("zinolib.advancedfor")
+local bullet = require("zinolib.bullet")
 
 local uiname = "game.ui.hud"
 local cuiname = "game.ui.cardui"
@@ -48,6 +49,14 @@ stage.group.DefStageFunc('CARDDEBUG@CARDDEBUG', "init", function(self)
                         lstg.tmpvar.console = New(console)
                     end
                     task.Wait(1)
+                end
+            end)
+            task.New(self, function()
+                while true do
+                    for iter in afor(15) do
+                        bullet("amulet",BulletColor(120),0,120,4,iter:circle())
+                    end
+                    task.Wait(6)
                 end
             end)
         end

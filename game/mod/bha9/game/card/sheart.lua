@@ -21,7 +21,9 @@ local colli = require("zinolib.misc.collision")
 
 local heartbullet = Class()
 heartbullet[".render"] = true 
-
+heartbullet.damage_delay = 4
+heartbullet.damage_factor = 0.4
+heartbullet.dmgtype = "shot"
 function heartbullet:init(x,y,rot)
     self.x, self.y = x,y
     self._speed = ran:Float(13,16)
@@ -31,7 +33,7 @@ function heartbullet:init(x,y,rot)
     self.img = "sbullet"
     self.navi = true
     self._a = 128
-
+    self.dmg = 4
 end
 
 local seekingheart = Class()

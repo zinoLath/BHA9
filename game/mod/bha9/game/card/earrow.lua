@@ -11,6 +11,7 @@ card.discard = false
 card.type = manager.TYPE_SKILL
 
 local afor = require("zinolib.advancedfor")
+local colli = require("zinolib.misc.collision")
 
 LoadImageFromFile("earrow", "assets/card/earrow.png")
 SetTextureSamplerState("earrow","point+clamp")
@@ -19,6 +20,9 @@ SetImageCenter("earrowbase",10,32)
 
 card.shot = Class()
 local shot = card.shot
+shot.damage_delay = 4
+shot.damage_factor = 1
+shot.dmgtype = "shot"
 function shot:init(x,y,rot,_card)
     self.x, self.y = x,y
     self._x, self._y = x,y
@@ -31,6 +35,7 @@ function shot:init(x,y,rot,_card)
     self.rect = false
     self.colli = true
     self.killflag=true
+    self.dmg = 1.7
     self.w = 0
     self.h = 0
     self.rot = rot
@@ -57,6 +62,16 @@ function shot:init(x,y,rot,_card)
 end
 function shot:frame()
     task.Do(self)
+    for i,o in ObjList(GROUP_ENEMY) do
+        if colli:CircleToCapsule(o._pos,o.a,self._pos, self._pos + math.polar(self.h,self.rot),self.w) then
+            o.class.colli(o,self)
+        end
+    end
+    for i,o in ObjList(GROUP_NONTJT) do
+        if colli:CircleToCapsule(o._pos,o.a,self._pos, self._pos + math.polar(self.h,self.rot),self.w) then
+            o.class.colli(o,self)
+        end
+    end
 end
 
 function shot:render()
@@ -74,7 +89,7 @@ function shot:render()
     local cw2 = Color(alpha,255,0,0)
     local vec = {}
     for k,v in ipairs(vecbase) do
-        vec[k] = math.rotate2(v,-rot) + math.vecfromobj(self)
+        vec[k] = math.rotate2(v,rot) + math.vecfromobj(self)
     end
 
     RenderTexture("earrow", "mul+add",

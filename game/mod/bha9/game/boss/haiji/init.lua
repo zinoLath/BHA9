@@ -22,8 +22,11 @@ haiji.cards = {
     require("game.boss.haiji.spell5"),
     require("game.boss.haiji.nonspell6"),
     require("game.boss.haiji.spell6"),
+    require("game.boss.haiji.nonspell7"),
     require("game.boss.haiji.spell7"),
+    require("game.boss.haiji.nonspell8"),
     require("game.boss.haiji.spell8"),
+    require("game.boss.haiji.nonspell9"),
     require("game.boss.haiji.spell9"),
 }
 function haiji:init(cards)

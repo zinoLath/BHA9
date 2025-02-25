@@ -1,19 +1,15 @@
 local M = boss.card.New("", 3, 5, 60, 100, {0, 0, 0}, false)
-
 boss.addspell {
     name = "Nonspell #3",
     owner = "Haiji Senri",
-    comment = "A really big inspiration for this non came from a Yukari script,\n\
-                and since this is Haiji, I had the opportunity to reheat some\n\
-                nachos.",
-    id = "game.boss.haiji.nonspell3"
+    comment = "I am a sucker for Nue Houjuu's nonspells, so I made one for Haiji too!",
+    id = "game.boss.haiji.nonspell6"
 }
 M.boss = "game.boss.haiji"
 local bullet = require("zinolib.bullet")
 local afor = require("zinolib.advancedfor")
 local familiar = require("game.enemy.familiar")
 local tween = require("math.tween")
-local logicobj = require("game.misc.logicobj")
 require("zinolib.misc")
 require("math.additions")
 ---general help!!
@@ -24,46 +20,31 @@ function M:init()
 
     task.New(self, function()
         task.MoveTo(0,120,60,MOVE_ACC_DEC)
-        local _sign = 1
+        task.New(self, function ()
+            while true do
+                
+                task.MoveToPlayer(120, 
+                            -100, 100, 60, 150, 
+                            32, 32, 8, 16, 
+                            MOVE_ACC_DEC, MOVE_RANDOM
+                )
+                task.Wait(30)
+            end
+        end)
         while true do
-            
-            local t = 240
-            local lo = New(logicobj, self.x, self.y,self)
-            task.New(lo, function()
-                for iter in afor(5) do
-                    local fam = familiar(self, lo.x, lo.y, 9000, ColorS("FF4979FF"),0)
-                    fam.center = lo
-                    fam.theta = iter:circle()
-                    fam.wvel = 6*_sign
-                    task.NewPolar(fam)
-                    task.New(fam, function()
-                        ex.AsyncSmoothSetValueTo(fam,"rad", 128, t, MOVE_DECEL)
-                        for iter1 in afor(60) do
-                            local bul = bullet("kunai", BulletColor(0), fam.x, fam.y, 0, fam.theta)
-                            task.New(bul, function()
-                                task.Wait(30)
-                                ex.SmoothSetValueTo("_speed", 3, 120, MOVE_DECEL)
-                            end)
-                            task.Wait(t/iter1.max_count)
-                        end
-
-                        local sqang = fam.theta
-                        for itersq in afor(18) do
-                            local vec = math.rotate2(math.polygon(6,itersq:circle()/360),-sqang)
-                            local pos = math.vecfromobj(fam) + vec * 32
-                            local obj = bullet("scale", BulletColor(210),pos.x, pos.y, 0, itersq:circle())
-                            local spd = vec * 2
-                            ex.AsyncSmoothSetValueTo(obj,"vx",spd.x,120,MOVE_DECEL)
-                            ex.AsyncSmoothSetValueTo(obj,"vy",spd.y,120,MOVE_DECEL)
-                        end
-                        Del(fam)
-                    end)
+            for iter1 in afor(25) do
+                for iter in afor(40) do
+                    local offset =15 * cos(self.timer)*1.5
+                    local ang = iter:circle()+offset
+                    local bul = bullet("amulet", BulletColor(120),self._pos.x,self._pos.y,0,ang)
+                    bul._vel = math.polar(8,ang)  
+                    bul._vel = bul._vel * (nsin((iter:circle()+offset)*2+90)*0.5 + 0.5)
                 end
-                task.MoveTo(lo.x + 100*_sign, lo.y - 100, t, MOVE_ACCEL)
-            end)
-            task.Wait(t/2)
-            _sign = -_sign
+                task.Wait(2)
+            end
+            task.Wait(7)
         end
+        
     end)
 end
 

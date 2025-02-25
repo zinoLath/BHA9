@@ -28,26 +28,49 @@ function boss:frame()
     if self.dmgt then
         self.dmgt = max(0, self.dmgt - 1)
     end
+
+    for key, value in pairs(self.damage_instances) do
+        if self.timer % (key.damage_delay or 1) == 0 then
+            self.hp = self.hp - value
+            self.damage_instances[key] = 0
+        end
+    end
 end
 function boss:render()
     self._bosssys:render() --boss系统渲染
     self._wisys:render(self.dmgt, self.dmgmaxt) --行走图渲染
 end
 function boss:kill()
-    print("whsasdsh")
     self._bosssys:kill() --boss系统kill
 end
 function boss:del()
     self._bosssys:del() --boss系统del
 end
-function boss:take_damage(dmg)
+function boss:take_damage(dmg,other,mul1)
     if self.dmgmaxt then
         self.dmgt = self.dmgmaxt
     end
     if not self.protect then
-        local dmg0 = dmg * self.dmg_factor * self.DMG_factor
-        self.spell_damage = self.spell_damage + dmg0
-        self.hp = self.hp - dmg0
+        if other == nil then
+            other = {}
+            other.class = {
+            }
+        end
+        local mul = player.stats.damage
+        if other.class.dmgtype == "shot" then
+            mul = mul * player.stats.shot_damage
+        end
+        if other.class.dmgtype == "spell" then
+            mul = mul * player.stats.spell_damage
+        end
+        if other.class.dmgtype == "item" then
+            mul = mul * player.stats.item_damage
+        end
+        if not self.damage_instances[other.class] then
+            self.damage_instances[other.class] = 0
+        end
+        self.damage_instances[other.class] = math.lerp(self.damage_instances[other.class], dmg*mul*(other.class.damage_delay or 1), (other.class.damage_factor or 0.5)*mul1)
+    
         lstg.var.score = lstg.var.score + 10
     end
 end

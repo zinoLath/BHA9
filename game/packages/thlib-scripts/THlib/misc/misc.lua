@@ -227,9 +227,21 @@ function renderstar(x, y, r, point)
     --?
     local ang = 360 / (2 * point)
     for angle = 360 / point, 360, 360 / point do
-        local x1, y1 = x + r * cos(angle + ang) ^ 3, r * sin(angle + ang) ^ 3
-        local x2, y2 = x + r * cos(angle - ang) ^ 3, r * sin(angle - ang) ^ 3
+        local x1, y1 = x + r * cos(angle + ang), y + r * sin(angle + ang)
+        local x2, y2 = x + r * cos(angle - ang), y + r * sin(angle - ang)
         Render4V('_sub_white', x, y, 0.5,
+                x, y, 0.5,
+                x1, y1, 0.5,
+                x2, y2, 0.5)
+    end
+end
+function rendercircimg(img,x, y, r, point)
+    --?
+    local ang = 360 / (2 * point)
+    for angle = 360 / point, 360, 360 / point do
+        local x1, y1 = x + r * cos(angle + ang), y + r * sin(angle + ang)
+        local x2, y2 = x + r * cos(angle - ang), y + r * sin(angle - ang)
+        Render4V(img, x, y, 0.5,
                 x, y, 0.5,
                 x1, y1, 0.5,
                 x2, y2, 0.5)
@@ -413,7 +425,7 @@ LoadImage('player_aura', 'misc', 128, 0, 64, 64)
 LoadImageGroup('bubble', 'misc', 192, 0, 64, 64, 1, 4)
 LoadImage('border', 'misc', 128, 192, 64, 64)
 LoadImage('leaf', 'misc', 0, 32, 32, 32)
-LoadImage('white', 'misc', 56, 8, 16, 16)
+LoadImage('white', 'misc', 56, 8, 16, 16,16,16,true)
 --预制粒子特效图片
 LoadTexture('particles', 'THlib/misc/particles.png')
 LoadImageGroup('parimg', 'particles', 0, 0, 32, 32, 4, 4)

@@ -2,7 +2,8 @@
 
 Include('THlib.lua')
 
-require("doremy.main")
+--require("doremy.main")
+require("game.menu.main")
 satori_player = require("game.player.satori")
 AddPlayerToPlayerList('Satori Komeiji','satori_player','Satori')
 

@@ -3,7 +3,7 @@ boss.addspell {
     name = "Nonspell #1",
     owner = "Haiji Senri",
     comment = "This is the first spell I made for the game! I was testing the bullets\n\
-                and familiars here.",
+and familiars here.",
     id = "game.boss.haiji.nonspell1"
 }
 M.boss = "game.boss.haiji"

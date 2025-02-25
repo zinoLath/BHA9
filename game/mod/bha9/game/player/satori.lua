@@ -54,6 +54,11 @@ function satori_player:init()
     function self:spell()
         self.nextspell = 300 * self.stats.spell_rate
         local bomb = New(satori_player.default_bomb,self)
+        task.New(bomb, function()
+            task.Wait(60)
+            ex.SmoothSetValueTo("size",0,10,MOVE_DECEL,nil,0,MODE_SET)
+            Del(bomb)
+        end)
     end
 end
 function satori_player:add_modifier(priority, name, func)
@@ -85,7 +90,7 @@ function satori_player:frame()
     for k,v in pairs(self.stats) do
         self.stats[k] = 1
     end
-    self.stats.shot_rate = 0.5
+    --self.stats.shot_rate = 0.5
     table.sort(self.modifiers,priosort)
     for k, mod in ipairs(self.modifiers) do
         mod.func(self.stats)

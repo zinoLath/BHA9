@@ -4,7 +4,7 @@ boss.addspell {
     name = "Nether Puppet \"European Doll Dance\"",
     owner = "Haiji Senri",
     comment = "I really like using this spellcard on Hisoutensoku!! Blockstrings\n\
-                go crazy with this one!",
+go crazy with this one!",
     id = "game.boss.haiji.spell2"
 }
 

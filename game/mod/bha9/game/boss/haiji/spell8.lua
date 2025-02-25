@@ -4,7 +4,7 @@ boss.addspell {
     name = "System \"Me and the OoMF-ies\"",
     owner = "Haiji Senri",
     comment = "I've always wanted to make a spellcard with as many bosses\n\
-                as this one, and I was surprised at how easy it was!",
+as this one, and I was surprised at how easy it was!",
     id = "game.boss.haiji.spell8"
 }
 local bullet = require("zinolib.bullet")

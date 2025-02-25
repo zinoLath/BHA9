@@ -4,7 +4,7 @@ boss.addspell {
     name = "Suddenly Powerful \"ElectroFeedback\"",
     owner = "Haiji Senri",
     comment = "I really like this game, can't wait for it to release! But I think that\n\
-                the survival of stage 2 is a bit too difficult.",
+the survival of stage 2 is a bit too difficult.",
     id = "game.boss.haiji.spell4"
 }
 local bullet = require("zinolib.bullet")

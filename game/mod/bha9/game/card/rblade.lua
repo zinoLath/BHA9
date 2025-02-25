@@ -18,6 +18,9 @@ local afor = require("zinolib.advancedfor")
 local colli = require("zinolib.misc.collision")
 
 local rbladebul = Class()
+rbladebul.damage_delay = 4
+rbladebul.damage_factor = 0.8
+rbladebul.dmgtype = "shot"
 function rbladebul:init(master,card)
     self.fire = 0
     self.master = master
@@ -32,6 +35,7 @@ function rbladebul:init(master,card)
     self._a = 64
     self.scale = 1
     self.bound = false
+    self.dmg = 1.8
 end
 function rbladebul:frame()
     local master = self.master
@@ -43,6 +47,8 @@ function rbladebul:frame()
     self.x, self.y = master.x,master.y + 16
     self.vscale = self.fire * self.scale
     self.hscale = self.scale*1.1
+    self.w = self.vscale * 128
+    self.h = self.hscale * 256
 
     local scale_table = {
         1,1.2,1.4,2
@@ -57,6 +63,16 @@ function rbladebul:frame()
     }
     self.hue = hue_table[lvl]
     
+    for i,o in ObjList(GROUP_ENEMY) do
+        if colli:CircleToCapsule(o._pos,o.a,self._pos, self._pos + math.polar(self.h,self.rot),self.w) then
+            o.class.colli(o,self)
+        end
+    end
+    for i,o in ObjList(GROUP_NONTJT) do
+        if colli:CircleToCapsule(o._pos,o.a,self._pos, self._pos + math.polar(self.h,self.rot),self.w) then
+            o.class.colli(o,self)
+        end
+    end
     task.Do(self)
     
 end

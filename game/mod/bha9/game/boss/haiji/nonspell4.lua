@@ -3,7 +3,7 @@ boss.addspell {
     name = "Nonspell #4",
     owner = "Haiji Senri",
     comment = "I guess this is the Haiji-est pattern of this game, haha! I really\n\
-                enjoy this one.",
+enjoy this one.",
     id = "game.boss.haiji.nonspell4"
 }
 M.boss = "game.boss.haiji"
