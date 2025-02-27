@@ -8,12 +8,14 @@ local difficulty = require("game.menu.difficulty")
 local deck = require("game.menu.deck")
 local option = require("game.menu.option")
 local spprac = require("game.menu.spprac")
+local mroom = require("game.menu.mroom")
 manager.menus = {
     "game.menu.title",
     "game.menu.difficulty",
     "game.menu.deck",
     "game.menu.option",
     "game.menu.spprac",
+    "game.menu.mroom",
 }
 function manager:init()
     self.bg = New(manager.background)
@@ -26,11 +28,13 @@ function manager:init()
     self.difficulty = New(difficulty,self)
     self.option = New(option,self)
     self.spprac = New(spprac,self)
+    self.mroom = New(mroom,self)
     _connect(self,self.title)
     _connect(self,self.deck)
     _connect(self,self.difficulty)
     _connect(self,self.option)
     _connect(self,self.spprac)
+    _connect(self,self.mroom)
     table.insert(self.menu_stack, self.title)
     table.insert(self.children,self.bg)
     table.insert(self.children,self.lightpart)

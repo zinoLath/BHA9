@@ -65,10 +65,8 @@ function deck_creation:co_update()
         end
         menu.select_dir(self, direction)
         if KeyIsDown("spell") then
+            SaveScoreData()
             self.manager.class.pop(self.manager)
-        end
-        if KeyIsDown("shoot") then
-            print(self.selected.card)
         end
 
         local _, leftval = coroutine.resume(self.check_left,"left") 
@@ -83,6 +81,7 @@ function deck_creation:co_update()
         end
         if directionH ~= 0 and math.clamp(count + directionH,0,4) == count+directionH and total + directionH <= 20 then        
             scoredata.deck[self.selected.card] = count + directionH
+            PlaySound("select00")
         end
         coroutine.yield()
     end
@@ -91,6 +90,7 @@ function deck_creation:select_update(new_opt)
     if self.selected == new_opt then
         return 
     end
+    PlaySound("select00")
     menu.select_update(self,new_opt)
     local dir = self.direction
     --print(dir)
@@ -178,7 +178,7 @@ end
 
 local afor = require("zinolib.advancedfor")
 function cardoption:render()
-    if self._a == 0 then
+    if self._a == 0 or self.y < -30 then
         return 
     end
     cm:RenderCard(self.cardclass.img,self.x,self.y,0,0.4,nil,self._color)

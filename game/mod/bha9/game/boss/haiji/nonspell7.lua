@@ -6,7 +6,7 @@ boss.addspell {
     comment = "A really big inspiration for this non came from a Yukari script,\n\
 and since this is Haiji, I had the opportunity to reheat some\n\
 nachos.",
-    id = "game.boss.haiji.nonspell3"
+    id = "game.boss.haiji.nonspell7"
 }
 M.boss = "game.boss.haiji"
 local bullet = require("zinolib.bullet")

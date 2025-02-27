@@ -25,6 +25,7 @@ local console = require("game.debug.console")
 MusicRecord("stage", "assets/music/stage.mp3", 120 + 16, 120 + 13)
 MusicRecord("title", "assets/music/title.wav", 120 + 3, 120 + 0)
 MusicRecord("boss", "assets/music/boss.mp3", 180 + 51, 180 + 51)
+MusicRecord("spellcard", "assets/music/spellcard.ogg", 120 + 23, 120 + 23)
 musicentry = {
     stage = {
         name = "Traversing The Sky Across this Starry Night",
@@ -60,7 +61,24 @@ the transcription may be a bit rough and some notes may be off so I
 apologize for that. I hope you enjoy the song regardless though.]],
         id = "boss"
     },
+    spellcard = {
+        name = "Call of the Vulpes Lagopus",
+        comment = 
+[[Author:PumpkinPielex
+This is the theme from act 4 of AoUK. At the time of writing this the
+theme is almost 6 years old, it had originally been recycled to be used
+in another game and now this game. It's so old, why do people enjoy it
+so much? Haha. Maybe it's just nostalgia, I still like it a bit too
+despite its age.]],
+        id = "spellcard"
+    },
 }
+musicorder = {
+    "title", "stage", "boss", "spellcard"
+}
+for index, value in ipairs(musicorder) do
+    LoadMusicRecord(value)
+end
 
 LoadImageFromFile("reddebug","debug_red.png",true,0,0,false)
 local hud = require "game.ui.hud"

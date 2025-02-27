@@ -62,26 +62,28 @@ function satori_player:init()
             Del(bomb)
         end)
     end
-    function self:shoot()
-        while true do
-            local dmg = 1
-            if lstg.var.spprac then
-                dmg = 2
+    function self:shoot(slow)
+        return function()
+            while true do
+                local dmg = 1
+                if lstg.var.spprac then
+                    dmg = 2
+                end
+                while self.fire > 0 and player.slow == slow do
+                    local obj = New(satori_player.shot,"amulet", self.x-10, self.y, 16, 90, dmg)
+                    obj._blend = "hue+alpha"
+                    obj._color = BulletColor(-30,nil,128)
+                    local obj = New(satori_player.shot,"amulet", self.x+10, self.y, 16, 90, dmg)
+                    obj._blend = "hue+alpha"
+                    obj._color = BulletColor(-30,nil,128)
+                    task.Wait(4)
+                end
+                task.Wait(1)
             end
-            while self.fire > 0 do
-                local obj = New(satori_player.shot,"amulet", self.x-10, self.y, 16, 90, dmg)
-                obj._blend = "hue+alpha"
-                obj._color = BulletColor(-30,nil,128)
-                local obj = New(satori_player.shot,"amulet", self.x+10, self.y, 16, 90, dmg)
-                obj._blend = "hue+alpha"
-                obj._color = BulletColor(-30,nil,128)
-                task.Wait(4)
-            end
-            task.Wait(1)
         end
     end
-    task.NewNamed(self,"shot_1",self.shoot)
-    task.NewNamed(self,"shot_0",self.shoot)
+    task.NewNamed(self,"shot_1",self:shoot(1))
+    task.NewNamed(self,"shot_0",self:shoot(0))
 end
 function satori_player:add_modifier(priority, name, func)
     table.insert(self.modifiers, {priority = priority, name = name, func = func})
@@ -97,8 +99,14 @@ end
 local function priosort(mod1, mod2)
     return mod1.priority < mod2.priority
 end
-
+local cardmanager = require("zinolib.card.manager")
 function satori_player:frame()
+    if KeyIsPressed("special") then
+        cardmanager:use_card()
+    end
+    if KeyIsPressed("shuffle") then
+        cardmanager:scroll_hand()
+    end
     local prevspell = self.nextspell
 	player_class.frame(self)
     self.slist = {

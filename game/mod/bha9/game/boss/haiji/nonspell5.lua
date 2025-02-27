@@ -4,7 +4,7 @@ boss.addspell {
     owner = "Haiji Senri",
     comment = "For this game, I used some code from Forlorn Souls of Wicked Past\n\
 to have really colorful bullets!",
-    id = "game.boss.haiji.nonspell6"
+    id = "game.boss.haiji.nonspell5"
 }
 M.boss = "game.boss.haiji"
 local bullet = require("zinolib.bullet")

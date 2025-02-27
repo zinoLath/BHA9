@@ -96,6 +96,7 @@ function option:co_update()
         end
         menu.select_dir(self, directionV)
         if isok then
+            PlaySound("ok00")
             print(PrintTable(self.setting))
             setting.bgmvolume = self.setting.bgm.state*10
             setting.sevolume = self.setting.sfx.state*10
@@ -147,6 +148,7 @@ function option:select_update(new_opt)
     if self.selected == new_opt then
         return 
     end
+    PlaySound("select00")
     menu.select_update(self,new_opt)
     local dir = self.direction
     --print(dir)

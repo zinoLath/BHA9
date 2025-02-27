@@ -90,6 +90,7 @@ function title_menu:co_update()
         end
         menu.select_dir(self, direction)
         if ok and (not prevok) then
+            PlaySound("ok00")
             if title_menu.enterfunc[self.selected.name] then
                 title_menu.enterfunc[self.selected.name](self)
             end
@@ -104,6 +105,7 @@ function title_menu:select_update(new_opt)
     if self.selected == new_opt then
         return 
     end
+    PlaySound("select00")
     menu.select_update(self,new_opt)
     local dir = self.direction
     --print(dir)
@@ -316,6 +318,9 @@ function efunc:option()
 end
 function efunc:spprac()
     self.manager.class.push(self.manager,self.manager.spprac)
+end
+function efunc:mroom()
+    self.manager.class.push(self.manager,self.manager.mroom)
 end
 function efunc:quit()
     stage.QuitGame()

@@ -2,7 +2,7 @@
 local hud = require "game.ui.hud"
 local bg = require "game.background"
 
-stage.group.New('SpPrac', 'init', {lifeleft=2,power=100,faith=30000,bomb=3}, false, 1)
+stage.group.New('SpPrac', 'init', {lifeleft=0,power=100,faith=30000,bomb=3}, false, 1)
 stage.group.AddStage('SpPrac', '1@SpPrac', {lifeleft=8,power=400,faith=30000,bomb=8}, false)
 stage.group.DefStageFunc('1@SpPrac', "init", function(self)
     _init_item(self)
@@ -12,14 +12,14 @@ stage.group.DefStageFunc('1@SpPrac', "init", function(self)
     New(satori_player)
     New(hud)
     New(bg)
-    LoadMusicRecord('spellcard')
+    --LoadMusicRecord('spellcard')
 
     task.New(self, function()
-        PlayMusic('spellcard', 0.5, 0)
-        package.loaded[lstg.var.spellid] = nil
+        _play_music('spellcard')
+        --package.loaded[lstg.var.spellid] = nil
         local spell = require(lstg.var.spellid)
         local bossid = spell.boss 
-        package.loaded[bossid] = nil
+        --package.loaded[bossid] = nil
         local bossclass = require(bossid)
         InitAllClass()
 

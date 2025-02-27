@@ -35,6 +35,7 @@ function haiji:init(cards)
     
     self._wisys = BossWalkImageSystem(self)
     self._wisys:SetImage("assets/boss/haijisprite.png", 4,6, {6,4,4,4}, {2,2,2}, 6, 16,16)
+    self._wisys:SetFloat(0, 14 * sin(self.timer*4))
     self.hscale, self.vscale = 0.75/2.25, 0.75/2.25
 
     self.ui.drawhp = false 

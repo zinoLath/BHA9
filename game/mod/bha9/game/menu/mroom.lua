@@ -1,6 +1,6 @@
 local menu = require("zinolib.menu.menu")
 local M = Class(menu)
-local spprac = M
+local mroom = M
 local afor = require("zinolib.advancedfor")
 local yabmfr = require("yabmfr")
 local hadirsans = require("game.font").hadirsans
@@ -32,8 +32,8 @@ function select_sq:render()
     RenderFadingRect(self._pos, self.w1,self.w2,self.h,self.rot,self._color)
     RenderFadingRect(self._pos, self.w1,self.w2,self.h,self.rot+180,self._color)
 end
-spprac.spacing = Vector(0,-30)
-function spprac:init(manager)
+mroom.spacing = Vector(0,-30)
+function mroom:init(manager)
     menu.init(self)
     menu.select_init(self)
     self.manager = manager
@@ -42,14 +42,14 @@ function spprac:init(manager)
     self._in = 0
     self.selectables = {
     }
-    for index, value in ipairs(boss.spells) do
+    for index, value in ipairs(musicorder) do
         
-        table.insert(self.selectables,New(spprac.opt,self, value, index, "perf"))
+        table.insert(self.selectables,New(mroom.opt,self, musicentry[value], index, "perf"))
     end
     self.selected = self.selectables[self.select_id]
     self.selected.selected = 1
     New(select_sq,self)
-    New(select_sq,self,Vector(320,170),280,32,100)
+    New(select_sq,self,Vector(320,150),280,32,150)
     self.ysel = 0
     
 end
@@ -57,7 +57,7 @@ local function Wrap(x, x_min, x_max)
     return (((x - x_min) % (x_max - x_min)) + (x_max - x_min)) % (x_max - x_min) + x_min;
 end
 
-function spprac:co_update()
+function mroom:co_update()
     while true do
         local _, upval = coroutine.resume(self.check_up,"up") 
         local _, downval = coroutine.resume(self.check_down,"down")
@@ -72,13 +72,18 @@ function spprac:co_update()
             self.manager.class.pop(self.manager)
         end
         if KeyIsPressed("shoot") then
-            lstg.var.spellid = self.selected.spell.id
-            stage.group.Start("SpPrac")
+            local sound, _ = EnumRes('bgm')
+            for _,v in pairs(sound) do
+                if GetMusicState(v)=='playing' and v ~= 'pause' then
+                    PauseMusic(v)
+                end
+            end
+            PlayMusic(self.selected.spell.id)
         end
         coroutine.yield()
     end
 end
-function spprac:move_in()
+function mroom:move_in()
     local t = 60
     task.NewNamed(self,"move", function()
         local initin = self._in
@@ -88,7 +93,7 @@ function spprac:move_in()
         end
     end)
 end
-function spprac:move_out()
+function mroom:move_out()
     local t = 30
     task.NewNamed(self,"move", function()
         local initin = self._in
@@ -98,7 +103,7 @@ function spprac:move_out()
         end
     end)
 end
-function spprac:select_update(new_opt)
+function mroom:select_update(new_opt)
     if self.selected == new_opt then
         return 
     end
@@ -110,7 +115,7 @@ function spprac:select_update(new_opt)
     task.NewNamed(self, "selectcardmove", function()
         local init = self.ysel
         for iter in afor(15) do
-            self.ysel = iter:linear(init,(self.select_id-1) * spprac.spacing,MOVE_DECEL)
+            self.ysel = iter:linear(init,(self.select_id-1) * mroom.spacing,MOVE_DECEL)
             task.Wait(1)
         end
     end)
@@ -122,7 +127,7 @@ end
 
 local mopt = Class()
 mopt[".render"] = true
-spprac.opt = mopt
+mroom.opt = mopt
 function mopt:init(menu,spell,id,func)
     local name = spell.name
     self.spell = spell
@@ -133,7 +138,7 @@ function mopt:init(menu,spell,id,func)
     self.id = id
     self.t = (id-1)/5
     local ylvl = 350
-    self._pos = Vector(100,ylvl) + spprac.spacing * (self.id-1)
+    self._pos = Vector(100,ylvl) + mroom.spacing * (self.id-1)
     _connect(menu, self)
     self.selected = 0
     self.selalpha = 0
@@ -142,7 +147,7 @@ function mopt:init(menu,spell,id,func)
 end
 function mopt:frame()
     local ylvl = 350
-    self._pos = Vector(50,ylvl) + spprac.spacing * (self.id-1) - self.menu.ysel
+    self._pos = Vector(50,ylvl) + mroom.spacing * (self.id-1) - self.menu.ysel
     local yalpha = math.clamp((self.y-270)/80,0,1)
     if self.y > ylvl then
         yalpha = 1-math.clamp((self.y-ylvl)/45,0,1)
@@ -151,7 +156,7 @@ function mopt:frame()
     self.selalpha = math.lerp(self.selalpha,(self.selected),0.2)
     self._a = 255 * self.menu._in * math.lerp(0.5,1,self.selalpha) * yalpha
     if (not IsValid(self.desc) or self.dying == true) and (self.selected == 1 and self.menu._in == 1) then
-        self.desc = New(spprac.desc,self.spell.comment,self.menu)
+        self.desc = New(mroom.desc,self.spell.comment,self.menu)
     end
     if (IsValid(self.desc) or self.dying == false) and (self.selected == 0 or self.menu._in ~= 1) then
         Kill(self.desc)
@@ -200,7 +205,7 @@ function mopt:render()
 end
 
 local desc = Class()
-spprac.desc = desc
+mroom.desc = desc
 desc[".render"] = true
 
 function desc:init(txt,menu)
@@ -235,7 +240,7 @@ function desc:render()
     end
     self.txt:Clean()
     
-    self.txt:Transform(self._pos + Vector(0,10),0,0.2)
+    self.txt:Transform(self._pos + Vector(0,10),0,0.15)
     local distance = Vector(6,-3)
     local alpha = 0.2
     local c1 = math.lerpcolor(ColorS("FFC3BFFF"),ColorS("FFFFFFFF"),self.selalpha)
@@ -244,7 +249,8 @@ function desc:render()
     c2.a = self._a
     self.txt:Apply(function (font,p)
         p.rot = sin(self.timer*5+p.extra3*30)*3 * self.selalpha
-        for iter in afor(8) do
+        for iter in afor(2) do
+            do break end
             local off = math.polar(4,iter:circle()) + distance
             lstg.RenderTextureRect(
                 font.font.texture, "", 

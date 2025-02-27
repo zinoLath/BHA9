@@ -5,7 +5,7 @@ boss.addspell {
     owner = "Haiji Senri",
     comment = "Fun fact! This nonspell made me write a whole SVG interpreter.\n\
 I guess memes are a really good motivator.",
-    id = "game.boss.haiji.nonspell6"
+    id = "game.boss.haiji.nonspell9"
 }
 M.boss = "game.boss.haiji"
 local bullet = require("zinolib.bullet")

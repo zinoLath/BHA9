@@ -51,7 +51,7 @@ function WalkImageSystem:render(dmgt, dmgmaxt)
     end
     dx, dy = self.dx or 0, self.dy or 0
     if self.float_func then
-        tmpx, tmpy = self.float_func(obj.ani)
+        tmpx, tmpy = self.float_func(obj.timer)
         dx, dy = tmpx or dx, tmpy or dy
         self.dx, self.dy = dx, dy
     end

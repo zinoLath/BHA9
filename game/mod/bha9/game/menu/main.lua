@@ -4,10 +4,10 @@ local main_manager = require("game.menu.manager")
 local cardmanager = require("zinolib.card.manager")
 
 function stage_init:init()
-
     New(mask_fader,'open')
-    self.menuman = New(main_manager)
     cardmanager:init_save()
+    self.menuman = New(main_manager)
+    _play_music("title")
 end
 local delboss = false 
 local delboss_press = false

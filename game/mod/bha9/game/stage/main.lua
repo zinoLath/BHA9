@@ -1,9 +1,9 @@
 local afor = require("zinolib.advancedfor")
 local bullet = require("zinolib.bullet")
+local cardmanager = require("zinolib.card.manager")
 local function stage_main(self)
-    LoadMusicRecord("stage")
     _play_music("stage")
-
+    cardmanager:get_gauge(500)
     --[[
     task.Wait(180)
     for siter in afor(5) do

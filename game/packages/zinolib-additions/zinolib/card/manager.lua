@@ -24,12 +24,17 @@ local starting_deck = {
     grimoire = 4,
 }
 local starting_unlock = {
+    clock = true,
     crod = true,
-    corolla = true,
-    rblade = true,
-    tfan = true,
+    gourd = true,
     grimoire = true,
-    gourd = true
+    tfan = true,
+    corolla = true,
+    sp_doll = true,
+    rblade = true,
+    earrow = true,
+    archerd = true,
+    hfield = true,
 }
 local shuffle = function (tbl)
     local maxSize = #tbl
@@ -41,14 +46,14 @@ local shuffle = function (tbl)
     end
 end
 function cardmanager:init_save()
-    if scoredata.deck == nil or is_debug then
+    if scoredata.deck == nil then
         scoredata.deck = {}
         for key, value in pairs(starting_deck) do
             scoredata.deck[key] = value
         end
         SaveScoreData()
     end
-    if scoredata.cardunlock == nil or is_debug then
+    if scoredata.cardunlock == nil then
         scoredata.cardunlock = {}
         for key, value in pairs(starting_unlock) do
             scoredata.cardunlock[key] = value
@@ -70,6 +75,7 @@ function cardmanager:initialize()
         tfan = 4,
         grimoire = 4,
     }
+    print("housama",PrintTable(deckdef))
     for k,v in pairs(deckdef) do
         for i = 1, v do
             table.insert(deck,k)
@@ -142,34 +148,34 @@ function cardmanager:use_card(cardname)
         cm.context.cards[card.id].enabled = true
 
         if (not IsValid(player.cards[card.id]) and cm.context.cards[card.id].enabled == false) then
-            local cardobj = New(card,player.slow)
+            local focus = player.slow
+            if IsValid(player.focus_card) then
+                focus = 0
+            elseif IsValid(player.unfocus_card) then
+                focus = 1
+            end
+            local cardobj = New(card,focus)
             if card.type == cm.TYPE_SKILL then
-                if player.slow == 1 then
-                    if player.focus_card ~= nil and player.focus_card.class.id ~= card.id then
-                        Kill(player.focus_card)
-                    end
+                if focus == 1 and player.focus_card == nil then
                     player.focus_card = cardobj
                 else
-                    if player.unfocus_card ~= nil and player.unfocus_card.class.id ~= card.id then
-                        Kill(player.unfocus_card)
-                    end
                     player.unfocus_card = cardobj
                 end
             end
         end
         card.lvlup(card)
     else
-        local cardobj = New(card,player.slow)
+        local focus = player.slow
+        if IsValid(player.focus_card) then
+            focus = 0
+        elseif IsValid(player.unfocus_card) then
+            focus = 1
+        end
+        local cardobj = New(card,focus)
         if card.type == cm.TYPE_SKILL then
-            if player.slow == 1 then
-                if player.focus_card ~= nil then
-                    Kill(player.focus_card)
-                end
+            if focus == 1 and player.focus_card == nil then
                 player.focus_card = cardobj
             else
-                if player.unfocus_card ~= nil then
-                    Kill(player.unfocus_card)
-                end
                 player.unfocus_card = cardobj
             end
         end

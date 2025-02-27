@@ -15,9 +15,7 @@ function boss:init(x, y, name, cards, bg, diff)
     self._bosssys = boss.system(self, name, cards, bg, diff)
     --boss行走图系统
     self._wisys = BossWalkImageSystem(self)
-    self._wisys:SetFloat(function(ani)
-        return 0, 4 * sin(ani * 4)
-    end)
+    self._wisys:SetFloat(0,0)
     lstg.tmpvar.boss = self
     _boss = self
 end

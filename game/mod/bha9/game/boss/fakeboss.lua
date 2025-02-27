@@ -10,9 +10,6 @@ function fakeboss:init(master)
     self.a = 32
     self.b = 32
     self._wisys = BossWalkImageSystem(self)
-    self._wisys:SetFloat(function(ani)
-        return 0, 4 * sin(ani * 4)
-    end)
 end
 function fakeboss:frame()
     SetAttr(self, 'colli', BoxCheck(self, lstg.world.boundl, lstg.world.boundr, lstg.world.boundb, lstg.world.boundt) and self._colli)

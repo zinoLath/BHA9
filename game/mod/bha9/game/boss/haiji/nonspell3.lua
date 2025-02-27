@@ -3,7 +3,7 @@ boss.addspell {
     name = "Nonspell #3",
     owner = "Haiji Senri",
     comment = "I am a sucker for Nue Houjuu's nonspells, so I made one for Haiji too!",
-    id = "game.boss.haiji.nonspell6"
+    id = "game.boss.haiji.nonspell3"
 }
 M.boss = "game.boss.haiji"
 local bullet = require("zinolib.bullet")

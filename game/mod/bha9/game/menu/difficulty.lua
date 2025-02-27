@@ -3,6 +3,7 @@ local M = Class(menu)
 local difficulty = M
 local afor = require("zinolib.advancedfor")
 LoadImageFromFile("diff_select", "assets/menu/mdiff.png")
+local cardmanager = require("zinolib.card.manager")
 
 function difficulty:init(manager)
     menu.init(self)
@@ -20,6 +21,13 @@ function difficulty:co_update()
         end
         coroutine.yield()
         if KeyIsPressed("shoot") then
+            PlaySound("ok00")
+            lstg.var.starting_deck = {}
+            for key, value in pairs(cardmanager.cardlist) do
+                if scoredata.deck[key] and scoredata.deck[key] > 0 then
+                    lstg.var.starting_deck[key] = scoredata.deck[key]
+                end
+            end
             stage.group.Start("MainGame")
         end
     end

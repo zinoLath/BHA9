@@ -595,9 +595,11 @@ end
 --声音
 
 function _play_music(name, ptime)
-    local _, bgm = EnumRes('bgm')
-    for _, v in pairs(bgm) do
-        StopMusic(v)
+    local sound, _ = EnumRes('bgm')
+    for _,v in pairs(sound) do
+        if GetMusicState(v)=='playing' and v ~= 'pause' then
+            StopMusic(v)
+        end
     end
     PlayMusic(name, 1.0, ptime)
 end
