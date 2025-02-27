@@ -63,10 +63,10 @@ function Wrap(x, x_min, x_max)
 end
 function bha9bg:render()
 	SetViewMode'3d'
+	background.WarpEffectCapture()
 	ClearZBuffer(1)
 	SetZBufferEnable(0)
 	local scale = 20.9/16.3
-	background.WarpEffectCapture()
     RenderClearViewMode(self.fagcolor)
 	SetViewMode'world'
 	local l,r,t,b = lstg.world.l,lstg.world.r,lstg.world.b,lstg.world.t

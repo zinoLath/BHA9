@@ -18,17 +18,18 @@ cardmanager.maxhand = 5
 
 local starting_deck = {
     crod = 4,
-    clock = 4,
-    gourd = 4,
+    corolla = 4,
+    rblade = 4,
     tfan = 4,
     grimoire = 4,
 }
 local starting_unlock = {
     crod = true,
-    clock = true,
-    gourd = true,
+    corolla = true,
+    rblade = true,
     tfan = true,
-    grimoire = true
+    grimoire = true,
+    gourd = true
 }
 local shuffle = function (tbl)
     local maxSize = #tbl
@@ -40,14 +41,14 @@ local shuffle = function (tbl)
     end
 end
 function cardmanager:init_save()
-    if scoredata.deck == nil then
+    if scoredata.deck == nil or is_debug then
         scoredata.deck = {}
         for key, value in pairs(starting_deck) do
             scoredata.deck[key] = value
         end
         SaveScoreData()
     end
-    if scoredata.cardunlock == nil then
+    if scoredata.cardunlock == nil or is_debug then
         scoredata.cardunlock = {}
         for key, value in pairs(starting_unlock) do
             scoredata.cardunlock[key] = value
@@ -138,16 +139,18 @@ function cardmanager:use_card(cardname)
             return
         end
         cm.context.cards[card.id].lvl = cm.context.cards[card.id].lvl + 1
-        if not IsValid(player.cards[card.id]) or cm.context.cards[card.id].enabled == false then
+        cm.context.cards[card.id].enabled = true
+
+        if (not IsValid(player.cards[card.id]) and cm.context.cards[card.id].enabled == false) then
             local cardobj = New(card,player.slow)
             if card.type == cm.TYPE_SKILL then
                 if player.slow == 1 then
-                    if player.focus_card ~= nil then
+                    if player.focus_card ~= nil and player.focus_card.class.id ~= card.id then
                         Kill(player.focus_card)
                     end
                     player.focus_card = cardobj
                 else
-                    if player.unfocus_card ~= nil then
+                    if player.unfocus_card ~= nil and player.unfocus_card.class.id ~= card.id then
                         Kill(player.unfocus_card)
                     end
                     player.unfocus_card = cardobj

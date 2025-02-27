@@ -1,4 +1,4 @@
-local M = boss.card.New("Influencer Trap \"Virginia Betting\"", 3, 5, 60, 100, {0, 0, 0}, false)
+local M = boss.card.New("Influencer Trap \"Virginia Betting\"", 3, 5, 60, 3000, {0, 0, 0}, false)
 M.boss = "game.boss.haiji"
 boss.addspell {
     name = "Influencer Trap \"Virginia Betting\"",
@@ -36,6 +36,7 @@ function M:init()
                         for delayter in afor(2) do
                             local __sign = delayter:sign()
                             local del = delay(fam.x,fam.y,ang+90 + 90 * __sign,Color(64,0,0,255))
+                            _connect(self,del,0,true)
                             del.hscale = 1000
                             task.New(del,function()
                                 ex.SmoothSetValueTo("vscale", 2,30,MOVE_DECEL)
@@ -74,7 +75,7 @@ function M:init()
                     Del(fam)
                 end)
             end
-            task.Wait(180)
+            task.Wait(90)
         end
         
     end)

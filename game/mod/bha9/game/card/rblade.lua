@@ -35,7 +35,7 @@ function rbladebul:init(master,card)
     self._a = 64
     self.scale = 1
     self.bound = false
-    self.dmg = 1.8
+    self.killflag = true
 end
 function rbladebul:frame()
     local master = self.master
@@ -43,12 +43,15 @@ function rbladebul:frame()
         Kill(self)
         return
     end
+    local _card = self.card
+    self.dmg = ({1.4,1.6,1.8,2})[_card.context.lvl]
     local lvl = self.card.context.lvl
     self.x, self.y = master.x,master.y + 16
     self.vscale = self.fire * self.scale
     self.hscale = self.scale*1.1
-    self.w = self.vscale * 128
-    self.h = self.hscale * 256
+    self.w = self.vscale * 64/2.25
+    self.h = self.hscale * 256/2
+
 
     local scale_table = {
         1,1.2,1.4,2
@@ -62,18 +65,29 @@ function rbladebul:frame()
         0,-15,-30,-60
     }
     self.hue = hue_table[lvl]
+    task.Do(self)
+    if self.fire <= 0.3 then
+        return 
+    end
     
     for i,o in ObjList(GROUP_ENEMY) do
-        if colli:CircleToCapsule(o._pos,o.a,self._pos, self._pos + math.polar(self.h,self.rot),self.w) then
+        local iscolli = colli:AABB(o._pos,o.a*2,o.a*2,self._pos + Vector(0,self.h/2),self.w,self.h)
+        if self.card.context.lvl == 4 then
+            iscolli = iscolli or colli:AABB(o._pos,o.a*2,o.a*2,self._pos + Vector(0,self.h/4),256,self.h/2)
+        end
+        if iscolli then
             o.class.colli(o,self)
         end
     end
     for i,o in ObjList(GROUP_NONTJT) do
-        if colli:CircleToCapsule(o._pos,o.a,self._pos, self._pos + math.polar(self.h,self.rot),self.w) then
+        local iscolli = colli:AABB(o._pos,o.a*2,o.a*2,self._pos + Vector(0,self.h/2),self.w,self.h)
+        if self.card.context.lvl == 4 then
+            iscolli = iscolli or colli:AABB(o._pos,o.a*2,o.a*2,self._pos + Vector(0,self.h/4),256,self.h/2)
+        end
+        if iscolli then
             o.class.colli(o,self)
         end
     end
-    task.Do(self)
     
 end
 

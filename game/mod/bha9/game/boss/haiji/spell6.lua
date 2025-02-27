@@ -1,4 +1,4 @@
-local M = boss.card.New("Hanafuda Mirror \"Spreading Amulet\"", 3, 5, 60, 100, {0, 0, 0}, false)
+local M = boss.card.New("Hanafuda Mirror \"Spreading Amulet\"", 3, 5, 60, 8000, {0, 0, 0}, false)
 boss.addspell {
     name = "Hanafuda Mirror \"Spreading Amulet\"",
     owner = "Haiji Senri",

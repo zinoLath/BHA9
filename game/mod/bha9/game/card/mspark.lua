@@ -25,7 +25,7 @@ function bomb:init(player,size)
     self.size = 0
     self.rect = false 
     self.group = GROUP_SPELL
-    self.layer = LAYER_PLAYER_BULLET-50
+    self.layer = LAYER_PLAYER+100
     self.dmg = 1000
     self.bound = false
     self.img = "msparkthing"
@@ -44,6 +44,7 @@ function bomb:frame()
     self.hscale = self.size
     self.a = self.hscale
     self.b = self.vscale
+
 end
 
 function bomb:colli(other)
@@ -59,7 +60,7 @@ function card:init(is_focus)
     function player.spell(pl)
         pl.nextspell = ({300,270,240,210})[self.context.lvl] * pl.stats.spell_rate
         pl.death = 0
-        pl.protect = 30
+        pl.protect = math.clamp(60,0,pl.protect)
         task.New(self, function()
             local bomb = New(card.obj,pl,({30,45,60,90})[self.context.lvl])
             task.New(bomb, function()

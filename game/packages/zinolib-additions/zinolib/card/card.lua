@@ -55,7 +55,7 @@ function card:throw()
 end
 
 function card:debug_lvl_up(id)
-    if is_debug == true then
+    if is_debug == true or true then
         task.New(player,function()
             local prev_val = false
             local val = false

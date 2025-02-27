@@ -15,10 +15,13 @@ end
 
 function difficulty:co_update()
     while true do
-        if KeyIsDown("spell") then
+        if KeyIsPressed("spell") then
             self.manager.class.pop(self.manager)
         end
         coroutine.yield()
+        if KeyIsPressed("shoot") then
+            stage.group.Start("MainGame")
+        end
     end
 end
 function difficulty:move_in()

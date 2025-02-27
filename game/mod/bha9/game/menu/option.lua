@@ -42,13 +42,29 @@ function option:init(manager)
         New(option.opt,self, "BGM Volume", 3, "bgm"),
         New(option.opt,self, "Resolution", 4, "res"),
         New(option.opt,self, "Fullscreen", 5, "fs"),
-        New(option.opt,self, "Background Brightness", 6, "bg"),
-        New(option.opt,self, "Judge Mode", 7, "judge"),
-        New(option.opt,self, "Go Back", 8, "back"),
+        New(option.opt,self, "Vsync", 6, "vsync"),
+        New(option.opt,self, "Background Brightness", 7, "bg"),
+        New(option.opt,self, "Judge Mode", 8, "judge"),
+        New(option.opt,self, "Go Back", 9, "back"),
     }
     self.selected = self.selectables[self.select_id]
     self.selected.selected = 1
     New(select_sq,self)
+    local ssetting = self.setting
+    local res = self.setting.res.res
+    ssetting.res.state = 0
+    for k,v in ipairs(res) do
+        if v.x == setting.resx and v.y == setting.resy then
+            ssetting.res.state = k-1
+            break
+        end
+    end
+    ssetting.bgm.state = setting.bgmvolume/10
+    ssetting.sfx.state = setting.sevolume/10
+    ssetting.fs.state = setting.windowed and 0 or 1
+    ssetting.vsync.state = setting.vsync and 1 or 0
+    ssetting.judge.state = setting.judge and 1 or 0
+    ssetting.perf.state = setting.perf and 1 or 0
     
 end
 local function Wrap(x, x_min, x_max)
@@ -80,9 +96,26 @@ function option:co_update()
         end
         menu.select_dir(self, directionV)
         if isok then
+            print(PrintTable(self.setting))
+            setting.bgmvolume = self.setting.bgm.state*10
+            setting.sevolume = self.setting.sfx.state*10
+            local res = self.setting.res.res[self.setting.res.state+1]
+            setting.resx = res.x
+            setting.resy = res.y
+            setting.windowed = self.setting.fs.state == 0
+            setting.vsync = self.setting.vsync.state == 1
+            setting.judge = self.setting.judge.state == 1
+            setting.perf = self.setting.perf.state == 1
             local ret = self.selected:confirm()
-            print(isok)
-            self.manager.class.pop(self.manager)
+            lstg.SetWindowed(setting.windowed)
+            lstg.SetResolution(setting.resx,setting.resy)
+            lstg.SetVsync(setting.vsync)
+            lstg.SetSEVolume(setting.sevolume/100)
+            lstg.SetBGMVolume(setting.bgmvolume/100)
+            saveConfigure()
+            if ret == "quit" then
+                self.manager.class.pop(self.manager)
+            end
         end
         if KeyIsPressed("spell") then
             self.manager.class.pop(self.manager)
@@ -136,12 +169,14 @@ mopt[".render"] = true
 option.opt = mopt
 function mopt:init(menu,name,id,func)
     self.menu = menu
+    menu.setting = menu.setting or {}
+    menu.setting[func] = self
     self.name = yabmfr(hadirsans,string.len(name))
     self.name:PushString(name)
     self.bound = false
     self.id = id
     self.t = (id-1)/5
-    self._pos = math.lerp(Vector(320,400),Vector(320,300),self.t)
+    self._pos = math.lerp(Vector(320,450),Vector(320,350),self.t)
     _connect(menu, self)
     self.selected = 0
     self.selalpha = 0
@@ -153,6 +188,7 @@ function mopt:init(menu,name,id,func)
         bgm = 10,
         res = 4,
         fs = 1,
+        vsync = 1,
         bg = 10,
         judge = 1,
         back = 0,

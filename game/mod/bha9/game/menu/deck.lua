@@ -32,6 +32,8 @@ function deck_creation:init(manager)
     self.manager = manager
     self.check_up = coroutine.create(menu.input_checker)
     self.check_down = coroutine.create(menu.input_checker)
+    self.check_left = coroutine.create(menu.input_checker)
+    self.check_right = coroutine.create(menu.input_checker)
     self.direction = 1
     self.selectables = {}
     local i = 0
@@ -67,6 +69,20 @@ function deck_creation:co_update()
         end
         if KeyIsDown("shoot") then
             print(self.selected.card)
+        end
+
+        local _, leftval = coroutine.resume(self.check_left,"left") 
+        local _, rightval = coroutine.resume(self.check_right,"right")
+        local is_left = leftval and -1 or 0
+        local is_right = rightval and 1 or 0
+        local directionH = is_left + is_right
+        local count = scoredata.deck[self.selected.card] or 0
+        local total = 0 
+        for k,v in pairs(cm.cardlist) do
+            total = total + (scoredata.deck[k] or 0)
+        end
+        if directionH ~= 0 and math.clamp(count + directionH,0,4) == count+directionH and total + directionH <= 20 then        
+            scoredata.deck[self.selected.card] = count + directionH
         end
         coroutine.yield()
     end
@@ -134,8 +150,13 @@ function cardoption:init(card,id,_menu)
     self.name:PushString(self.cardclass.name)
     self.desc = yabmfr(hadirsans,string.len(self.cardclass.description))
     self.desc:PushString(self.cardclass.description)
+    self.count = scoredata.deck[card] or 0
+    self.prevcount = self.count
     self.selected = 0
     self.selalpha = 0
+    local strcount = string.format("%d/4",self.count)
+    self.countpool = yabmfr(hadirsans,string.len(strcount))
+    self.countpool:PushString(strcount)
 end
 
 function cardoption:frame()
@@ -146,6 +167,13 @@ function cardoption:frame()
     end
     self.selalpha = math.lerp(self.selalpha,self.selected,0.2)
     self._a = self.heightalpha * 255 * self.menu._in * math.lerp(0.5,1,self.selalpha)
+    self.count = scoredata.deck[self.card] or 0
+    if self.count ~= self.prevcount then
+        self.prevcount = self.count
+        local strcount = string.format("%d/4",self.count)
+        self.countpool = yabmfr(hadirsans,string.len(strcount))
+        self.countpool:PushString(strcount)
+    end
 end
 
 local afor = require("zinolib.advancedfor")
@@ -157,8 +185,10 @@ function cardoption:render()
     SetFontState("menu", "", self._color)
     self.name:Clean()
     self.desc:Clean()
+    self.countpool:Clean()
     self.name:Transform(self._pos + Vector(40,40),0,0.6/3)
     self.desc:Transform(self._pos + Vector(50,15),0,0.4/3)
+    self.countpool:Transform(self._pos + Vector(200,40),0,0.4/3)
     
     local alpha = 0.2
     local distance = Vector(6,-3)
@@ -201,6 +231,25 @@ function cardoption:render()
         end
         p.color = self._color
     end)
+    self.countpool:Apply(function (font,p)
+        for iter in afor(8) do
+            local off = math.polar(4,iter:circle()) + distance
+            lstg.RenderTextureRect(
+                font.font.texture, "", 
+                p.pos+off, 
+                lstg.Rect(p.u, p.v, p.u + p.w, p.v + p.h), 
+                p.rot, p.scale, Color(self._a*alpha,0,0,0)
+            )
+            local off = math.polar(2,iter:circle())
+            lstg.RenderTextureRect(
+                font.font.texture, "", 
+                p.pos+off, 
+                lstg.Rect(p.u, p.v, p.u + p.w, p.v + p.h), 
+                p.rot, p.scale, Color(self._a,0,0,0)
+            )
+        end
+        p.color = self._color
+    end)
     local c1 = Color(self._a,255,255,255)
     local c2 = ColorS("FFC3BFFF")
     c2.a = self._a
@@ -213,6 +262,17 @@ function cardoption:render()
         )
     end)
     self.desc:Apply(function (font,p)
+        lstg.RenderTextureRect(
+            font.font.texture, "", 
+            p.pos, 
+            RectWH(p.u, p.v, p.w, p.h), 
+            p.rot, p.scale, c1,c1,c2,c2
+        )
+    end)
+    local c1 = Color(self._a,255,255,255)
+    local c2 = ColorS("FFFFBFBF")
+    c2.a = self._a
+    self.countpool:Apply(function (font,p)
         lstg.RenderTextureRect(
             font.font.texture, "", 
             p.pos, 

@@ -4,11 +4,8 @@ local main_manager = require("game.menu.manager")
 local cardmanager = require("zinolib.card.manager")
 
 function stage_init:init()
-    local ca = Color(255,255,255,255)
-    local cb = Color(0,0,0,0)
-    print(ca + (cb-ca) * 0.5)
-    print(ca - (ca-cb) * 0.5)
-    print(math.lerp(ca,cb,0.5))
+
+    New(mask_fader,'open')
     self.menuman = New(main_manager)
     cardmanager:init_save()
 end

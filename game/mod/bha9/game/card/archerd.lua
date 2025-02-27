@@ -15,9 +15,9 @@ local afor = require("zinolib.advancedfor")
 local bullet = Class()
 bullet[".render"] = true 
 bullet.damage_delay = 4
-bullet.damage_factor = 0.5
+bullet.damage_factor = 1
 bullet.dmgtype = "item"
-function bullet:init(x,y,rot)
+function bullet:init(x,y,rot,dmg)
     self.x, self.y = x,y
     self._speed = 15
     self._angle = rot
@@ -27,7 +27,7 @@ function bullet:init(x,y,rot)
     self._blend = "hue+alpha"
     self._color = BulletColor(60,nil,90)
     self.navi = true
-    self.dmg = 0.5
+    self.dmg = dmg
     self.rot = rot
     self.hscale, self.vscale = 0.2,0.2
 end
@@ -42,7 +42,8 @@ function card:init(is_focus)
                     for iter in afor(self.context.lvl) do
                         local offset = Vector(5,0) * siter:sign() * iter:increment(0,1)
                         local ang = 90 + (0 + iter:increment(-2,2) )* -siter:sign()
-                        bullet(player.x+offset.x,player.y+offset.y,ang)
+                        local dmglist = {0.2,0.4,0.6,0.8}
+                        bullet(player.x+offset.x,player.y+offset.y,ang,dmglist[self.context.lvl])
                     end
                 end
                 task.Wait(4)

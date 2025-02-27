@@ -376,22 +376,21 @@ function system:init(b, name, cards, bg, diff)
         self:doCards(cards)
     end
 end
-
----boss系统帧逻辑
+---boss system frame logic
 function system:frame()
-    --执行自身task
+    -- execute own tasks
     local b = self.boss
-    b.__card_timer = b.__card_timer + 1 --更新阶段计时器
-    self:checkHP() --检查血量
-    self:checkAutoSPPoint() --检查auto阶段点
-    self:doTask() --执行task
-    self:updateHPFlags() --更新血条flag
-    --出屏判定关闭
+    b.__card_timer = b.__card_timer + 1 -- update phase timer
+    self:checkHP() -- check health
+    self:checkAutoSPPoint() -- check auto phase points
+    self:doTask() -- execute tasks
+    self:updateHPFlags() -- update health bar flags
+    -- disable out-of-bounds collision
     local bound = BoxCheck(b, lstg.world.boundl, lstg.world.boundr, lstg.world.boundb, lstg.world.boundt)
     SetAttr(b, 'colli', bound and b._colli)
-    self:updatePosition() --更新位置指示器
-    self:updateBG() --更新符卡背景
-    --魔法阵透明度更新
+    self:updatePosition() -- update position indicator
+    self:updateBG() -- update spell card background
+    -- update magic circle transparency
     b.aura_alpha = b.aura_alpha + b.aura_alpha_d
     b.aura_alpha = min(max(0, b.aura_alpha), 128)
     if self.aura then

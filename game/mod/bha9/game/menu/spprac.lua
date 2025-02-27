@@ -6,6 +6,9 @@ local yabmfr = require("yabmfr")
 local hadirsans = require("game.font").hadirsans
 LoadImageFromFile("yass", "assets/menu/yass.png")
 LoadImageFromFile("naur", "assets/menu/naur.png")
+local midboss = require("game.boss.midboss")
+local haiji = require("game.boss.haiji")
+local scprac = require("game.stage.scprac")
 
 local select_sq = Class()
 select_sq[".render"] = true
@@ -67,6 +70,10 @@ function spprac:co_update()
         menu.select_dir(self, directionV)
         if KeyIsDown("spell") then
             self.manager.class.pop(self.manager)
+        end
+        if KeyIsPressed("shoot") then
+            lstg.var.spellid = self.selected.spell.id
+            stage.group.Start("SpPrac")
         end
         coroutine.yield()
     end

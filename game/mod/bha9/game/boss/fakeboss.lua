@@ -1,6 +1,6 @@
 local M = Class(enemybase)
 local fakeboss = M
-fakeboss[".render"] = true
+--fakeboss[".render"] = true
 
 function fakeboss:init(master)
     enemybase.init(self)
@@ -9,6 +9,10 @@ function fakeboss:init(master)
     self.bound = false
     self.a = 32
     self.b = 32
+    self._wisys = BossWalkImageSystem(self)
+    self._wisys:SetFloat(function(ani)
+        return 0, 4 * sin(ani * 4)
+    end)
 end
 function fakeboss:frame()
     SetAttr(self, 'colli', BoxCheck(self, lstg.world.boundl, lstg.world.boundr, lstg.world.boundb, lstg.world.boundt) and self._colli)
@@ -20,12 +24,17 @@ function fakeboss:frame()
     self.hp = master.hp
     self.maxhp = master.maxhp
     task.Do(self)
+    self._wisys:frame() --行走图系统帧逻辑
 end
 function fakeboss:colli(other)
     if not IsValid(self.master) then
         return
     end
     self.master.class.colli(self.master,other)
+end
+function fakeboss:render()
+
+    self._wisys:render(0,1) --行走图渲染
 end
 
 

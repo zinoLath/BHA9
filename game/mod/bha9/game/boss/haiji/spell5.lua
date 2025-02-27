@@ -1,4 +1,4 @@
-local M = boss.card.New("Argentina Lace \"Wig the Stealer\"", 3, 5, 60, 100, {0, 0, 0}, false)
+local M = boss.card.New("Argentina Lace \"Wig the Stealer\"", 6, 8, 60, 6000, {0, 0, 0}, false)
 M.boss = "game.boss.haiji"
 boss.addspell {
     name = "Argentina Lace \"Wig the Stealer\"",

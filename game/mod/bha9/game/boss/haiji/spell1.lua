@@ -1,4 +1,4 @@
-local M = boss.card.New("Explosive Bikini \"Sponge Homeland\"", 3, 5, 60, 100, {0, 0, 0}, false)
+local M = boss.card.New("Explosive Bikini \"Sponge Homeland\"", 3, 5, 60, 3000, {0, 0, 0}, false)
 M.boss = "game.boss.haiji"
 boss.addspell {
     name = "Explosive Bikini \"Sponge Homeland\"",
@@ -67,6 +67,13 @@ function M:init()
             end
             task.Wait(180)
             for signiter in afor(6) do
+                task.NewNamed(self,"move", function()
+                    task.MoveToPlayer(55, 
+                                        -150, 150, 60, 150, 
+                                        32, 64, 16, 32, 
+                                        MOVE_ACC_DEC, MOVE_X_TOWARDS_PLAYER
+                    )
+                end)
                 task.Wait(15)
                 for iter in afor(10) do
                     task.Wait(2)

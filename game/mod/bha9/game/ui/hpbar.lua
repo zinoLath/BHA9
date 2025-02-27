@@ -59,6 +59,7 @@ function hpbar:init(master)
     self.blood_level = 0
     self.blood_speed = 1/240
     self.w = 6
+    self._w = 0
     self.r = 64
     self.border = 3
     self._a = 255
@@ -91,16 +92,21 @@ function hpbar:frame()
         self._a = math.lerp(self._a, 255, 0.1)
     end
     task.Do(self)
+    if lstg.player.dialog then
+        self._w = math.lerp(self._w,0,0.1)
+    else
+        self._w = math.lerp(self._w,1,0.1)
+    end
 end
 function hpbar:render()
     local ca = Color(self._a,255,255,255)
     local n = 64
     SetImageState("white","",self.cback * ca)
-    RenderRing("white",self.x,self.y,1,self.r,self.w+self.border,self.rot+90,n)
+    RenderRing("white",self.x,self.y,1,self.r,self._w*self.w+self.border*self._w,self.rot+90,n)
     SetImageState("white","",self.cbleed * ca)
-    RenderRing("white",self.x,self.y,self.blood_level,self.r,self.w,self.rot+90,n)
+    RenderRing("white",self.x,self.y,self.blood_level,self.r,self._w*self.w,self.rot+90,n)
     SetImageState("white","",self.cjuice * ca)
-    RenderRing("white",self.x,self.y,self.current_level,self.r,self.w,self.rot+90,n)
+    RenderRing("white",self.x,self.y,self.current_level,self.r,self._w*self.w,self.rot+90,n)
 end
 
 return M

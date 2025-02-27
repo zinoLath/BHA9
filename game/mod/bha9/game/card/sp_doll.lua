@@ -17,7 +17,7 @@ SetTextureSamplerState("sp_doll_laser","point+wrap")
 LoadImageFromFile("sp_doll_laser_glow","game/card/sp_doll_laser_glow.png",true,64,32,true)
 card.shot = Class()
 local shot = card.shot
-shot.damage_delay = 4
+shot.damage_delay = 16
 shot.damage_factor = 0.8
 shot.dmgtype = "shot"
 function shot:init(x,y,time,dmg,width,ang,omiga,rx,ry)
@@ -97,7 +97,7 @@ function shot:render()
 end
 
 function card:init(is_focus)
-    is_focus = 1
+    --is_focus = 1
     bcard.init(self,is_focus)
     bcard.debug_lvl_up(self,card.id)
     task.NewNamed(player,"shot_" .. is_focus, function()
@@ -127,12 +127,13 @@ function card:init(is_focus)
                 player.charge_value = 0
                 local lvl = self.context.lvl
                 local count = {2 ,3 ,4 ,6}
-                local dmg =   {1 ,1.3 ,1.6 ,2}
+                local dmg =   {2.2 ,2.8,3.2,4}
                 local width = {12,14,16,18}
                 local rx =    {32,48,64,72}
+                local mul = 1
                 for iter in afor(count[lvl]) do
                     local ang = iter:linearA(0,360)
-                    New(card.shot,player.x,player.y+32,time,dmg[lvl],width[lvl],ang,omiga,rx[lvl],8)
+                    New(card.shot,player.x,player.y+32,time,dmg[lvl]*mul,width[lvl],ang,omiga,rx[lvl],8)
                 end
                 task.Wait(60)
             end

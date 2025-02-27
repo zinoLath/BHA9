@@ -135,7 +135,7 @@ function card:init(is_focus)
                 local rx =    {32,48,64,72}
                 for iter in afor(count[lvl]) do
                     local ang = iter:linearA(0,360)
-                    New(card.shot,player.x,player.y,ang-90,self)
+                    New(card.shot,player.x,player.y,ang+90,self)
                 end
                 task.Wait(60)
             end

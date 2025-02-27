@@ -1,5 +1,6 @@
 local M = Class(player_class)
 local satori_player = M
+satori_player[".render"] = true
 LoadTexture('marisa_player','game/player/marisa.png')
 LoadImageGroup('marisa_player','marisa_player',0,0,32,48,8,3,1,1)
 LoadImage('marisa_support','marisa_player',144,144,16,16)
@@ -53,13 +54,34 @@ function satori_player:init()
 	}
     function self:spell()
         self.nextspell = 300 * self.stats.spell_rate
+        self.protect = math.max(self.protect, 60)
         local bomb = New(satori_player.default_bomb,self)
         task.New(bomb, function()
-            task.Wait(60)
+            task.Wait(120)
             ex.SmoothSetValueTo("size",0,10,MOVE_DECEL,nil,0,MODE_SET)
             Del(bomb)
         end)
     end
+    function self:shoot()
+        while true do
+            local dmg = 1
+            if lstg.var.spprac then
+                dmg = 2
+            end
+            while self.fire > 0 do
+                local obj = New(satori_player.shot,"amulet", self.x-10, self.y, 16, 90, dmg)
+                obj._blend = "hue+alpha"
+                obj._color = BulletColor(-30,nil,128)
+                local obj = New(satori_player.shot,"amulet", self.x+10, self.y, 16, 90, dmg)
+                obj._blend = "hue+alpha"
+                obj._color = BulletColor(-30,nil,128)
+                task.Wait(4)
+            end
+            task.Wait(1)
+        end
+    end
+    task.NewNamed(self,"shot_1",self.shoot)
+    task.NewNamed(self,"shot_0",self.shoot)
 end
 function satori_player:add_modifier(priority, name, func)
     table.insert(self.modifiers, {priority = priority, name = name, func = func})
@@ -76,7 +98,8 @@ local function priosort(mod1, mod2)
     return mod1.priority < mod2.priority
 end
 
-function satori_player:frame() 
+function satori_player:frame()
+    local prevspell = self.nextspell
 	player_class.frame(self)
     self.slist = {
         {            nil,          nil,              nil,            nil},
@@ -112,6 +135,9 @@ function satori_player:frame()
             self.anglist[index] = math.lerp(value, tgtang,0.1)
         end
     end
+    if self.nextspell == 0 and prevspell > 0 then
+        PlaySound('lgodsget',0.6)
+    end
 end
 
 function satori_player:shoot()
@@ -119,6 +145,7 @@ function satori_player:shoot()
 end
 
 function satori_player:spell()
+    PlaySound('lgods3',0.6)
     self:spell()
 end
 
@@ -128,6 +155,10 @@ function satori_player:render()
 			--Render('marisa_support',self.supportx+self.sp[i][1],self.supporty+self.sp[i][2],self.timer*3)
 		end
 	end
+    local c = self._color
+    if self.protect % 3 == 1 then
+        c = Color(self._a, 0, 0, 255)
+    end
     for k,v in ipairs(self.drawlist)do
         local pos = self.poslist[v]
         if pos == nil then
@@ -135,6 +166,7 @@ function satori_player:render()
         end
         local scale = 0.15
         local finalpos = Vector(pos[1].x, pos[1].y) * scale + math.vecfromobj(self) + Vector(0,6)
+        SetImageState(v,self._blend,c)
         Render(v, finalpos.x, finalpos.y,self.anglist[v],scale,scale)
     end
 	--player_class.render(self)
@@ -183,7 +215,20 @@ function bomb:colli(other)
 end
 
 function bomb:render()
+    SetImageState('_sub_white', 'mul+sub',
+            Color(255, 100, 100, 100),
+            Color(255, 255, 255, 255),
+            Color(255, 0, 0, 0),
+            Color(255, 0, 0, 0)
+    )
     rendercircle(self.x, self.y, self.size, 60)
 end
+
+satori_player.shot = Class(player_bullet_straight)
+local shot = satori_player.shot
+shot[".render"] = true
+shot.damage_delay = 4
+shot.damage_factor = 0.8
+shot.dmgtype = "shot"
 
 return M

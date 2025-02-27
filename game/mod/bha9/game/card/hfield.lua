@@ -23,16 +23,18 @@ function card:init(is_focus)
     task.NewNamed(player,"hfield", function()
         while true do
             while player.fire > 0 do
-                self.dmg = ({0.2,0.3,0.4,0.5})[self.context.lvl]
-                self.rad = ({64,96,128,256})[self.context.lvl]
+                local maxdmg = ({1.4,1.6,1.8,2})[self.context.lvl]
+                self.rad = ({128,160,200,256})[self.context.lvl]
                 self.fire = math.lerp(self.fire,1,0.2)
                 for i,o in ObjList(GROUP_ENEMY) do
                     if Dist(player,o) < self.rad then
+                        self.dmg = maxdmg*(1-Dist(player,o)/self.rad)
                         o.class.colli(o,self)
                     end
                 end
                 for i,o in ObjList(GROUP_NONTJT) do
                     if Dist(player,o) < self.rad then
+                        self.dmg = maxdmg*(1-Dist(player,o)/self.rad)
                         o.class.colli(o,self)
                     end
                 end

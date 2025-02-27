@@ -343,8 +343,8 @@ function M.frame(self)
     end
 end
 
-M.sc_pr_fast_retry = false
-M.sc_pr_auto_retry = false
+M.sc_pr_fast_retry = true
+M.sc_pr_auto_retry = true
 
 ---@param self stage.group.Stage
 function M.frame_sc_pr(self)

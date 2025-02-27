@@ -1,5 +1,12 @@
 local M = boss.card.New("", 5, 10, 60, 1000, {0, 0, 0}, false)
 
+boss.addspell {
+    name = "Midboss Nonspell #1",
+    owner = "Belle & Misaki",
+    comment = "Belle's wave-y attack is a reference to a common practice in Brazil\n\
+of jumping 7 waves on New Year's Eve for good luck.",
+    id = "game.boss.midboss.nonspell1"
+}
 M.boss = "game.boss.midboss"
 
 local bullet = require("zinolib.bullet")

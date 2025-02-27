@@ -1,5 +1,11 @@
-local M = boss.card.New("Jeweled Treasure \"Event Horizon\"", 5, 10, 60, 1000, {0, 0, 0}, false)
+local M = boss.card.New("Jeweled Treasure \"Event Horizon\"", 5, 10, 60, 2000, {0, 0, 0}, false)
 
+boss.addspell {
+    name = "Jeweled Treasure \"Event Horizon\"",
+    owner = "Belle & Misaki",
+    comment = "I still don't know what Misaki's powers do lol.",
+    id = "game.boss.midboss.spell1"
+}
 M.boss = "game.boss.midboss"
 
 local bullet = require("zinolib.bullet")
@@ -15,15 +21,24 @@ require("math.additions")
 
 function M:init()
     local color_familiar = HSVColor(100,240/3.6,100,100)
+    task.Clear(self.belle)
+    task.Clear(self.misaki)
+    for index, value in ipairs(self.belle._servants) do
+        Del(value)
+    end
+    for index, value in ipairs(self.misaki._servants) do
+        Del(value)
+    end
     task.New(self, function()
         task.AsyncMoveTo(self.belle,0,50,60,MOVE_ACC_DEC)
         task.AsyncMoveTo(self.misaki,0,0,60,MOVE_ACC_DEC)
         local belle, misaki = self.belle, self.misaki
+        task.Wait(60)
         task.New(belle, function()
             local ang = 0
             local angvel = 15.0
             local angaccel = 0.05*2
-            task.Wait(120)
+            task.Wait(60)
             while true do
                 for iter in afor(2) do
                     local _ang = ang + iter:circle()
@@ -51,8 +66,8 @@ function M:init()
                 local pullforce = 5
                 local wvel = 0.1
                 for i, obj in ObjList(GROUP_ENEMY_BULLET) do
-                    local v = obj.var
-                    obj.varcount = obj.varcount + v
+                    local v = obj.var or 0
+                    obj.varcount = obj.varcount or 0 + v
                     --local r, t = Dist(misaki,obj), Angle(obj,misaki)
                     local mp = Vector(misaki.x, misaki.y)
                     local bultom = Vector(obj.x, obj.y) - mp
@@ -65,7 +80,7 @@ function M:init()
             end
         end)
         task.New(misaki, function()
-            task.Wait(120)
+            task.Wait(60)
             while true do
                 local overshoot = 0.4
                 local mp, pp = Vector(misaki.x, misaki.y), Vector(player.x, player.y)

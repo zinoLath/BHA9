@@ -43,6 +43,16 @@
             "args": ["--bg", "${input:bgID}"],
             "cwd": "${workspaceFolder}/",
         },
+        {
+            "name": "Debug Stage",
+            "type": "lua-local",
+            "request": "launch",
+            "program": {
+                "command": "./LuaSTG"
+            },
+            "args": ["--stage", "true"],
+            "cwd": "${workspaceFolder}/",
+        },
     ],
     "inputs": [
         {
@@ -108,7 +118,7 @@
                 "game.card.mbend",
                 "game.card.mspark",
             ],
-            "default": "game.card.mspark"
+            "default": "game.card.rblade"
             
         }
     ]

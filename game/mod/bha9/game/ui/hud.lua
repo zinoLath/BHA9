@@ -323,8 +323,6 @@ function ui:frame()
             end)
         end
     end
-    cardmanager:get_gauge(100/60)
-    lstg.var.score = lstg.var.score + 10000
 end
 
 function ui:render()
@@ -395,7 +393,7 @@ function ui:render()
     end)
     self.state.graze.pool:Render()
 
-    local health_count = 0.3
+    local health_count = math.clamp(lstg.var.lifeleft/5 + (lstg.var.chip/5)/10,0,1)
     local bg_rect = RectWHV(Vector(w.scrr+100,321),Vector(120,15))
     local bg_uv = RectWH(0,0,GetTextureSize("bg_scroll"))
     RenderTextureRectR("bg_scroll", "", bg_uv + Vector(self.timer*-2,0), bg_rect)
@@ -454,6 +452,13 @@ function ui:render()
         t = math.clamp(t,0,1)
         local cl = cardmanager.cardlist[lstg.var.card_context.hand[1]]
         cardmanager:RenderCard(cl.img,p1.x+10,p1.y,0,0.4,0.4*t)
+    end
+    if is_debug then
+        
+        local viewmode = lstg.viewmode
+        SetViewMode('ui')
+        RenderText("menu",self.timer,0,0,0.5,"left","bottom")
+        SetViewMode(viewmode)
     end
 end
 

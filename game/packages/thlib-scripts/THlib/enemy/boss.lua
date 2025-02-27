@@ -51,12 +51,17 @@ function boss:take_damage(dmg,other,mul1)
         self.dmgt = self.dmgmaxt
     end
     if not self.protect then
+        local dmg0 = dmg * self.dmg_factor * self.DMG_factor
         if other == nil then
             other = {}
-            other.class = {
-            }
         end
-        local mul = player.stats.damage
+        if other.class == nil then
+            other.class = {}
+        end
+        if not self.damage_instances[other.class] then
+            self.damage_instances[other.class] = 0
+        end
+        local mul = player.stats.damage * dmg0
         if other.class.dmgtype == "shot" then
             mul = mul * player.stats.shot_damage
         end
@@ -69,7 +74,8 @@ function boss:take_damage(dmg,other,mul1)
         if not self.damage_instances[other.class] then
             self.damage_instances[other.class] = 0
         end
-        self.damage_instances[other.class] = math.lerp(self.damage_instances[other.class], dmg*mul*(other.class.damage_delay or 1), (other.class.damage_factor or 0.5)*mul1)
+        local dmg = math.lerp(self.damage_instances[other.class], dmg*mul*(other.class.damage_delay or 1), (other.class.damage_factor or 0.5))
+        self.damage_instances[other.class] = math.lerp(self.damage_instances[other.class], dmg, mul1)
     
         lstg.var.score = lstg.var.score + 10
     end

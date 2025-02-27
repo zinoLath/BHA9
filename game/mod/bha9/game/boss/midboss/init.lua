@@ -2,7 +2,10 @@ local M = Class(boss)
 local midboss = M
 
 boss.record.midboss = midboss
-midboss.cards = {}
+midboss.cards = {
+    require("game.boss.midboss.nonspell1"),
+    require("game.boss.midboss.spell1"),
+}
 midboss.name = "Belle and Misaki"
 midboss.difficulty = "All"
 midboss.pos = Vector(0,500)
@@ -16,14 +19,21 @@ local hpbar = require("game.ui.hpbar")
 local fakeboss = require("game.boss.fakeboss")
 
 function midboss:init(cards)
+    self.bound = false
+    print("midboss:init")
     local _cards = cards or self.class.cards
+    print(self.class.cards)
     boss.init(self, self.class.pos.x, self.class.pos.y, self.class.name, _cards, New(spellcard_background), "All")
-  
+    --error("hrlp")
     self.belle = fakeboss(self)
     self.belle.x = 240
     self.belle.y = 400
+    self.belle.bound = false
     self.belle.img = "belle_spr"
     local bhp = hpbar(self.belle)
+    self.belle._wisys = BossWalkImageSystem(self.belle)
+    self.belle._wisys:SetImage("assets/boss/bellesprite.png", 4,6, {6,4,4,4}, {2,2,2}, 6, 16,16)
+    self.belle.hscale, self.belle.vscale = 0.75/2.25, 0.75/2.25
 
     bhp.cjuice = ColorS("FFC5FFE9")
     bhp.cjuiceflash = ColorS("FFFFD0A3")
@@ -33,8 +43,12 @@ function midboss:init(cards)
     self.misaki = fakeboss(self)
     self.misaki.x = -240
     self.misaki.y = 400
+    self.misaki.bound = false
     self.misaki.img = "misaki_spr"
     local mhp = hpbar(self.misaki)
+    self.misaki._wisys = BossWalkImageSystem(self.misaki)
+    self.misaki._wisys:SetImage("assets/boss/misakisprite.png", 4,6, {6,4,4,4}, {2,2,2}, 6, 16,16)
+    self.misaki.hscale, self.misaki.vscale = 0.75/2.25, 0.75/2.25
 
     mhp.cjuice = ColorS("FFD897FD")
     mhp.cjuiceflash = ColorS("FFFFD0A3")
@@ -42,4 +56,4 @@ function midboss:init(cards)
     mhp.cbleed = ColorS("FF430269")
 end
 
-return M
+return midboss

@@ -17,5 +17,6 @@
     "workbench.editor.customLabels.enabled": true,
     "workbench.editor.customLabels.patterns": {
         "*/init.lua": "${dirname(1)}/init.lua"
-    }
+    },
+    "Lua.completion.autoRequire": false
 }

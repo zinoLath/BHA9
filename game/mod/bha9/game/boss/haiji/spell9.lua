@@ -1,4 +1,4 @@
-local M = boss.card.New("Curse \"Cursed Nachos\"", 3, 5, _infinite, 100, {0, 0, 0}, false)
+local M = boss.card.New("Curse \"Cursed Nachos\"", 3, 5, 60, 4000, {0, 0, 0}, false)
 boss.addspell {
     name = "Curse \"Cursed Nachos\"",
     owner = "Haiji Senri",

@@ -1,4 +1,4 @@
-local M = boss.card.New("Suddenly Powerful \"ElectroFeedback\"", 3, 5, 60, 100, {0, 0, 0}, false)
+local M = boss.card.New("Suddenly Powerful \"ElectroFeedback\"", 3, 5, 60, 5000, {0, 0, 0}, false)
 M.boss = "game.boss.haiji"
 boss.addspell {
     name = "Suddenly Powerful \"ElectroFeedback\"",

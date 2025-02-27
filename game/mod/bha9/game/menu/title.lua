@@ -9,6 +9,7 @@ local w,h = 384,128
 local afor = require("zinolib.advancedfor")
 local tween = require("math.tween")
 LoadImageFromFile("logo_menu_thing", "assets/menu/logo.png")
+LoadImageFromFile("satoricunt", "assets/menu/satoricunt.png")
 LoadImage(prefix.."start"..suffix1,"title_options",0,h*0,w,h)
 LoadImage(prefix.."deck"..suffix1,"title_options",0,h*1,w,h)
 LoadImage(prefix.."option"..suffix1,"title_options",0,h*2,w,h)
@@ -54,12 +55,12 @@ function title_menu:init(manager)
         "spprac",
         "deck",
         "mroom",
-        "replay",
+        --"replay",
         "option",
         "quit",
     }
     for index, value in ipairs(opttable) do
-        local t = (index-1)/7-0.5
+        local t = (index-1)/6-0.5
         table.insert(self.selectables, New(title_menu.option,value,t,self))
     end
     self.selectables[self.select_id].selected = 1
@@ -68,6 +69,8 @@ function title_menu:init(manager)
     end
     self.logo = New(title_menu.logo)
     table.insert(self.children,self.logo)
+    self.satoricunt = New(title_menu.satoricunt)
+    table.insert(self.children,self.satoricunt)
     self.selected = self.selectables[self.select_id]
     self._in = 1
     New(select_sq,self)
@@ -105,7 +108,7 @@ function title_menu:select_update(new_opt)
     local dir = self.direction
     --print(dir)
 
-    local dist = -(dir)/7
+    local dist = -(dir)/6
     for index, obj in ipairs(self.selectables) do
         obj.selected = 0
         task.New(obj, function ()
@@ -139,6 +142,20 @@ function title_menu:move_in()
         end
     end)
 
+    task.NewNamed(self.satoricunt,"move", function()
+        local initx = self.satoricunt._x
+        local tgtx = 500
+        local initrot = self.satoricunt._rot
+        local inita = self.satoricunt._a
+        for iter in afor(t) do
+            local t = iter:linear(0,1,MOVE_ACC_DEC)
+            self.satoricunt._a = math.lerp(inita,255,t)
+            self.satoricunt._x = math.lerp(initx,tgtx,t)
+            self.satoricunt._rot = math.lerp(initrot,0,t)
+            task.Wait(1)
+        end
+    end)
+
 end
 function title_menu:move_out()
     local t = 60
@@ -159,6 +176,19 @@ function title_menu:move_out()
             self.logo._a = math.lerp(inita,0,t)
             self.logo._x = math.lerp(initx,tgtx,t)
             self.logo._rot = math.lerp(initrot,10,t)
+            task.Wait(1)
+        end
+    end)
+    task.NewNamed(self.satoricunt,"move", function()
+        local initx = self.satoricunt._x
+        local tgtx = 600
+        local initrot = self.satoricunt._rot
+        local inita = self.satoricunt._a
+        for iter in afor(t) do
+            local t = iter:linear(0,1,MOVE_ACC_DEC)
+            self.satoricunt._a = math.lerp(inita,0,t)
+            self.satoricunt._x = math.lerp(initx,tgtx,t)
+            self.satoricunt._rot = math.lerp(initrot,-30,t)
             task.Wait(1)
         end
     end)
@@ -232,6 +262,42 @@ function logo:render()
         Render(self.img,pos.x,pos.y,self.rot,self.hscale,self.vscale)
     end
     SetImageState(self.img, "hue+alpha", BulletColor(16*sin(self.timer),nil,self._a))
+    Render(self.img,self.x,self.y,self.rot,self.hscale,self.vscale)
+end
+
+
+local satoricunt = Class()
+title_menu.satoricunt = satoricunt
+satoricunt[".render"] = true
+function satoricunt:init()
+    --self.layer = LAYER_UI
+    self._x, self._y = 500, 200
+    self.img = "satoricunt"
+    self.bound = false
+    self.x, self.y = self._x, self._y
+    local scale = 0.45
+    self.hscale, self.vscale = scale,scale
+    self.dist = 32
+    self._a = 255
+    self._rot = 0
+end
+function satoricunt:frame()
+    local spd = 0.5
+    self.y = self._y + 15 * sin(self.timer*spd)
+    self.x = self._x
+    self.dist = math.lerp(16,32,nsin(self.timer*spd))/4
+    self.rad = math.lerp(4,6,nsin(self.timer*spd))
+    self.rot = self._rot + math.lerp(-3,6,nsin(self.timer*spd*-2))
+    task.Do(self)
+end
+function satoricunt:render()
+    SetImageState(self.img, "", Color(8*self._a/255,0,0,0))
+    local vec = math.vecfromobj(self) + math.polar(self.dist,-45)
+    for iter in afor(32) do
+        local pos = vec + math.polar(self.rad,iter:circle())
+        Render(self.img,pos.x,pos.y,self.rot,self.hscale,self.vscale)
+    end
+    SetImageState(self.img, "", self._color)
     Render(self.img,self.x,self.y,self.rot,self.hscale,self.vscale)
 end
 

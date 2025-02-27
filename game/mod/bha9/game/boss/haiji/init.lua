@@ -32,6 +32,11 @@ haiji.cards = {
 function haiji:init(cards)
     local _cards = cards or self.class.cards
     boss.init(self, self.class.pos.x, self.class.pos.y, self.class.name, _cards, New(spellcard_background), "All")
+    
+    self._wisys = BossWalkImageSystem(self)
+    self._wisys:SetImage("assets/boss/haijisprite.png", 4,6, {6,4,4,4}, {2,2,2}, 6, 16,16)
+    self.hscale, self.vscale = 0.75/2.25, 0.75/2.25
+
     self.ui.drawhp = false 
     hpbar(self)
 end

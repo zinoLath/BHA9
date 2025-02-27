@@ -1,4 +1,4 @@
-local M = boss.card.New("System \"Me and the OoMF-ies\"", 3, 5, 60, 100, {0, 0, 0}, false)
+local M = boss.card.New("System \"Me and the OoMF-ies\"", 3, 5, 60, 5000, {0, 0, 0}, false)
 M.boss = "game.boss.haiji"
 boss.addspell {
     name = "System \"Me and the OoMF-ies\"",
@@ -26,6 +26,9 @@ local function clone1(self)
     self.clone1.img = "white"
     local bhp = hpbar(self.clone1)
     local clone = self.clone1
+    clone._wisys = BossWalkImageSystem(clone)
+    clone._wisys:SetImage("assets/boss/haijisprite1.png", 4,4, {4,4,4,4}, {4,2,2,4}, 6, 16,16)
+    clone.hscale, clone.vscale = 0.75/2.25, 0.75/2.25
 
     bhp.cjuice = ColorS("FFC5FFE9")
     bhp.cjuiceflash = ColorS("FFFFD0A3")
@@ -38,16 +41,16 @@ local function clone1(self)
         task.New(clone, function()
             while true do
                 bullet("scale",BulletColor(330),clone.x,clone.y,ran:Float(1,3),-90+ran:Float(-10,10))
-                task.Wait(10)
+                task.Wait(7)
             end
         end)
         while true do
-            task.MoveToPlayer(15, 
+            task.MoveToPlayer(30, 
                               -150, 150, 60, 150, 
                               32, 64, 16, 32, 
                               MOVE_ACC_DEC, MOVE_X_TOWARDS_PLAYER
             )
-            task.Wait(45)
+            task.Wait(30)
         end
     end)
 end
@@ -58,6 +61,9 @@ local function clone2(self)
     self.clone2.img = "white"
     local bhp = hpbar(self.clone2)
     local clone = self.clone2
+    clone._wisys = BossWalkImageSystem(clone)
+    clone._wisys:SetImage("assets/boss/haijisprite2.png", 4,4, {4,4,4,4}, {4,2,2,4}, 6, 16,16)
+    clone.hscale, clone.vscale = 0.75/2.25, 0.75/2.25
 
     bhp.cjuice = ColorS("FFFFC5C5")
     bhp.cjuiceflash = ColorS("FFFFD0A3")
@@ -94,6 +100,9 @@ end
 local function clone3(self)
     local clone = fakeboss(self)
     self.clone3 = clone
+    clone._wisys = BossWalkImageSystem(clone)
+    clone._wisys:SetImage("assets/boss/haijisprite3.png", 4,4, {4,4,4,4}, {4,2,2,4}, 6, 16,16)
+    clone.hscale, clone.vscale = 0.75/2.25, 0.75/2.25
     clone.x = 240
     clone.y = 400
     clone.img = "white"
@@ -178,4 +187,26 @@ function M:init()
     end)
 end
 
+function M:kill()
+    if self.clone1 then
+        Kill(self.clone1)
+    end
+    if self.clone2 then
+        Kill(self.clone2)
+    end
+    if self.clone3 then
+        Kill(self.clone3)
+    end
+end
+function M:del()
+    if self.clone1 then
+        Del(self.clone1)
+    end
+    if self.clone2 then
+        Del(self.clone2)
+    end
+    if self.clone3 then
+        Del(self.clone3)
+    end
+end
 return M

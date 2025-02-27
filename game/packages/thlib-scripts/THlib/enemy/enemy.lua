@@ -69,7 +69,7 @@ end
 
 function enemybase:frame()
     SetAttr(self, 'colli', BoxCheck(self, lstg.world.boundl, lstg.world.boundr, lstg.world.boundb, lstg.world.boundt) and self._colli)
-    
+    --print(PrintTable(self.damage_instances))
     for key, value in pairs(self.damage_instances) do
         if self.timer % (key.damage_delay or 1) == 0 then
             self.hp = self.hp - value
@@ -122,8 +122,8 @@ end
 
 function Damage(obj, dmg, other,mul)
     mul = mul or 1
-    if obj.class.base.take_damage then
-        obj.class.base.take_damage(obj, dmg,other,mul)
+    if obj.class.take_damage then
+        obj.class.take_damage(obj, dmg,other,mul)
     end
 end
 
@@ -137,10 +137,20 @@ function enemy:init(style, hp, clear_bullet, auto_delete, nontaijutsu)
     self.clear_bullet = clear_bullet
     self.auto_delete = auto_delete
     self._wisys = EnemyWalkImageSystem(self, style, 8)--by OLC，新行走图系统
+    self.dps = 0
+    self.prevhp = hp
+    self.display = 0
 end
 
 function enemy:frame()
+    self.prevhp = self.hp
     enemybase.frame(self)
+    self.dps = self.dps + (self.prevhp - self.hp)
+    if self.timer % 60 == 0 then
+        self.display = self.dps
+        print(self.display, self.hp)
+        self.dps = 0
+    end
     self._wisys:frame()--by OLC，新行走图系统
     if self.dmgt then
         self.dmgt = max(0, self.dmgt - 1)
@@ -161,8 +171,12 @@ function enemy:take_damage(dmg,other,mul1)
     if not self.protect then
         if other == nil then
             other = {}
-            other.class = {
-            }
+        end
+        if other.class == nil then
+            other.class = {}
+        end
+        if not self.damage_instances[other.class] then
+            self.damage_instances[other.class] = 0
         end
         local mul = player.stats.damage
         if other.class.dmgtype == "shot" then

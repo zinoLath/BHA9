@@ -98,7 +98,7 @@ function item_power:init(x, y, v, a)
     item.init(self, x, y, 1, v, a)
 end
 function item_power:collect()
-    GetPower(1)
+    cardmanager:get_gauge(100/20)
 end
 
 item_power_large = Class(item)
@@ -106,7 +106,7 @@ function item_power_large:init(x, y, v, a)
     item.init(self, x, y, 6, v, a)
 end
 function item_power_large:collect()
-    GetPower(100)
+    cardmanager:get_gauge(100)
 end
 
 item_power_full = Class(item)
@@ -114,7 +114,7 @@ function item_power_full:init(x, y)
     item.init(self, x, y, 4)
 end
 function item_power_full:collect()
-    GetPower(400)
+    cardmanager:get_gauge(500)
 end
 
 item_extend = Class(item)
@@ -294,16 +294,8 @@ function item:StartChipBonus()
 end
 
 function item:EndChipBonus(x, y)
-    if self.chip_bonus and self.bombchip_bonus then
-        New(item_chip, x - 20, y)
-        New(item_bombchip, x + 20, y)
-    else
-        if self.chip_bonus then
-            New(item_chip, x, y)
-        end
-        if self.bombchip_bonus then
-            New(item_bombchip, x, y)
-        end
+    if self.chip_bonus then
+        New(item_chip, x, y)
     end
 end
 

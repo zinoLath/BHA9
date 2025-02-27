@@ -56,6 +56,7 @@ function shot:frame()
 end
 
 function card:init(is_focus)
+    --is_focus = 1
     bcard.init(self,is_focus)
     bcard.debug_lvl_up(self,card.id)
     task.NewNamed(player,"shot_" .. is_focus, function()
@@ -71,10 +72,11 @@ function card:init(is_focus)
                     6,
                     8
                 }
+                local dmglist = {1.5,1.8,2.1,2.5}
                 for iter in afor(count[self.context.lvl]) do
                     local s = iter:linear(5,4.8)
                     local t = iter:linear(120,180)
-                    New(card.shot,x,y,128,s,t,1.6)
+                    New(card.shot,x,y,128,s,t,dmglist[self.context.lvl])
                     task.Wait(5)
                 end
                 if self.context.lvl ~= 4 then          

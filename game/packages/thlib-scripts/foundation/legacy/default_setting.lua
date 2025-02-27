@@ -9,6 +9,7 @@ local p1 = {
 	shoot = KEY.Z,
 	spell = KEY.X,
 	special = KEY.C,
+	shuffle = KEY.V,
 }
 
 ---@type legacy.default_setting.player_keys
@@ -21,6 +22,7 @@ local p2 = {
 	shoot = KEY.S,
 	spell = KEY.D,
 	special = KEY.F,
+	shuffle = KEY.V,
 }
 
 ---@class legacy.default_setting.system_keys

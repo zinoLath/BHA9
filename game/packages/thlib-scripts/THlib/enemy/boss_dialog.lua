@@ -217,21 +217,21 @@ end
 ----------------------------------------
 --boss dialog sentence
 
----boss对话语句气泡
----@param img string @显示图像
----@param pos string @显示方位
----@param text string @文本语句
----@param t number @语句时长
----@param hscale number @图像横向缩放比
----@param vscale number @图像纵向缩放比
----@param tpic number @气泡样式
----@param num string|number @方位图像编号
----@param px number @方位图像x坐标(ADD UP
----@param py number @方位图像y坐标(ADD UP
----@param tx number @气泡x坐标(ADD UP
----@param ty number @气泡y坐标(ADD UP
----@param tn number @语句保留条数
----@param stay boolean @对话后是否保持激活
+---boss dialog bubble
+---@param img string @display image
+---@param pos string @display position
+---@param text string @text content
+---@param t number @duration of the sentence
+---@param hscale number @horizontal scale of the image
+---@param vscale number @vertical scale of the image
+---@param tpic number @bubble style
+---@param num string|number @position image number
+---@param px number @position image x coordinate
+---@param py number @position image y coordinate
+---@param tx number @bubble x coordinate
+---@param ty number @bubble y coordinate
+---@param tn number @number of lines to keep
+---@param stay boolean @whether to stay active after the dialog
 function boss.dialog:sentence(img, pos, text, t, hscale, vscale, tpic, num, px, py, tx, ty, tn, stay)
     if pos == "left" then
         pos = 1

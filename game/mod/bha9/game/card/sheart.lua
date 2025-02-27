@@ -10,8 +10,8 @@ card.cost = 1
 card.discard = false
 card.type = manager.TYPE_SKILL
 
-LoadImage("sheart","cvfx1",768,256,256,256)
-LoadImage("sbullet","cvfx1",768,512,256,256)
+LoadImage("sheart","cvfx1",768,256,256,256,64,64,false)
+LoadImage("sbullet","cvfx1",768,512,256,256,64,64,false)
 --SetImageCenter("sheart",12,128)
 SetImageScale("sheart",1/2.25)
 SetImageScale("sbullet",1/2.25)
@@ -22,9 +22,9 @@ local colli = require("zinolib.misc.collision")
 local heartbullet = Class()
 heartbullet[".render"] = true 
 heartbullet.damage_delay = 4
-heartbullet.damage_factor = 0.4
+heartbullet.damage_factor = 0.5
 heartbullet.dmgtype = "shot"
-function heartbullet:init(x,y,rot)
+function heartbullet:init(x,y,rot,dmg)
     self.x, self.y = x,y
     self._speed = ran:Float(13,16)
     self._angle = rot
@@ -33,7 +33,7 @@ function heartbullet:init(x,y,rot)
     self.img = "sbullet"
     self.navi = true
     self._a = 128
-    self.dmg = 4
+    self.dmg = dmg
 end
 
 local seekingheart = Class()
@@ -48,7 +48,7 @@ function seekingheart:init(master,card,rot,id)
     self.img = "sheart"
     self.hue = 0
     self.layer = LAYER_PLAYER_BULLET+2
-    self.group = GROUP_PLAYER_BULLET
+    --self.group = GROUP_PLAYER_BULLET
     self._a = 32
     self.scale = 1
     self.bound = false
@@ -72,7 +72,7 @@ function seekingheart:frame()
         local var = ({2,3,5,10})[_card.context.lvl]
         for iter in afor(count) do
             local ang = Angle(self,player) + iter:linear(-spread,spread) + ran:Float(-var,var)
-            New(heartbullet,self.x,self.y,ang)
+            New(heartbullet,self.x,self.y,ang,({2,2.3,2.6,3})[_card.context.lvl])
         end
     end
 end
