@@ -6,7 +6,7 @@ card.id = "rblade"
 card.img = manager:LoadCardIcon("rblade","rblade")
 card.name = "Radiant Blade"
 card.description = "Fires a short-range, consistent laser"
-card.cost = 1
+card.cost = 3
 card.discard = false
 card.type = manager.TYPE_SKILL
 

@@ -55,6 +55,7 @@ function satori_player:init()
     function self:spell()
         self.nextspell = 300 * self.stats.spell_rate
         self.protect = math.max(self.protect, 60)
+        self.collecttimer = 60
         local bomb = New(satori_player.default_bomb,self)
         task.New(bomb, function()
             task.Wait(120)
@@ -73,10 +74,14 @@ function satori_player:init()
                     local obj = New(satori_player.shot,"amulet", self.x-10, self.y, 16, 90, dmg)
                     obj._blend = "hue+alpha"
                     obj._color = BulletColor(-30,nil,128)
+                    obj.a = 32
+                    obj.b = 32
                     local obj = New(satori_player.shot,"amulet", self.x+10, self.y, 16, 90, dmg)
                     obj._blend = "hue+alpha"
                     obj._color = BulletColor(-30,nil,128)
-                    task.Wait(4)
+                    obj.a = 32
+                    obj.b = 32
+                    task.Wait(2)
                 end
                 task.Wait(1)
             end
@@ -84,6 +89,7 @@ function satori_player:init()
     end
     task.NewNamed(self,"shot_1",self:shoot(1))
     task.NewNamed(self,"shot_0",self:shoot(0))
+    self.collecttimer = 0
 end
 function satori_player:add_modifier(priority, name, func)
     table.insert(self.modifiers, {priority = priority, name = name, func = func})
@@ -101,6 +107,7 @@ local function priosort(mod1, mod2)
 end
 local cardmanager = require("zinolib.card.manager")
 function satori_player:frame()
+    self.collecttimer = math.max(0, self.collecttimer - 1)
     if KeyIsPressed("special") then
         cardmanager:use_card()
     end

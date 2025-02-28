@@ -6,7 +6,7 @@ card.id = "crod"
 card.img = manager:LoadCardIcon("crod","crod")
 card.name = "Control Rod"
 card.description = "Increases your damage overall."
-card.cost = 3
+card.cost = 1
 card.discard = false
 card.type = manager.TYPE_SYSTEM
 

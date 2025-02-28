@@ -1,4 +1,4 @@
-local M = boss.card.New("Nether Puppet \"European Doll Dance\"", 3, 5, 60, 3000, {0, 0, 0}, false)
+local M = boss.card.New("Nether Puppet \"European Doll Dance\"", 3, 5, 60, 3000, {60, 0, 0}, false)
 M.boss = "game.boss.haiji"
 boss.addspell {
     name = "Nether Puppet \"European Doll Dance\"",

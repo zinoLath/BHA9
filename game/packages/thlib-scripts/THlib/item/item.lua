@@ -98,7 +98,7 @@ function item_power:init(x, y, v, a)
     item.init(self, x, y, 1, v, a)
 end
 function item_power:collect()
-    cardmanager:get_gauge(100/20)
+    cardmanager:get_gauge(100/80)
 end
 
 item_power_large = Class(item)

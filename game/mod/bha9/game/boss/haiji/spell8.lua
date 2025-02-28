@@ -1,4 +1,4 @@
-local M = boss.card.New("System \"Me and the OoMF-ies\"", 3, 5, 60, 5000, {0, 0, 0}, false)
+local M = boss.card.New("System \"Me and the OoMF-ies\"", 3, 5, 60, 5000, {60, 0, 0}, false)
 M.boss = "game.boss.haiji"
 boss.addspell {
     name = "System \"Me and the OoMF-ies\"",

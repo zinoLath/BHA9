@@ -1,4 +1,4 @@
-local M = boss.card.New("", 5, 10, 60, 1000, {0, 0, 0}, false)
+local M = boss.card.New("", 5, 5, 20, 250, {80, 0, 0}, false)
 
 boss.addspell {
     name = "Midboss Nonspell #1",
@@ -28,7 +28,7 @@ function M:init()
         local sign_pattern = 1
         task.AsyncMoveTo(self.misaki,-100*sign_pattern,120,60,MOVE_ACC_DEC)
         task.AsyncMoveTo(self.belle,100*sign_pattern,120,60,MOVE_ACC_DEC)
-        task.Wait(60)
+        task.Wait(120)
         while true do
             local _ang = Angle(belle,player)
             for iter1 in afor(20) do

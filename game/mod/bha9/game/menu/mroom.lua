@@ -78,7 +78,7 @@ function mroom:co_update()
                     PauseMusic(v)
                 end
             end
-            PlayMusic(self.selected.spell.id)
+            _play_music(self.selected.spell.id)
         end
         coroutine.yield()
     end

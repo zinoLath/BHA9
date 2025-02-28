@@ -22,10 +22,11 @@ lstg.var.starting_deck = {
 local cardmanager = require("zinolib.card.manager")
 local haiji_boss = require("game.boss.haiji")
 local console = require("game.debug.console")
-MusicRecord("stage", "assets/music/stage.mp3", 120 + 16, 120 + 13)
+MusicRecord("stage", "assets/music/stage.ogg", 120 + 16, 120 + 13)
 MusicRecord("title", "assets/music/title.wav", 120 + 3, 120 + 0)
-MusicRecord("boss", "assets/music/boss.mp3", 180 + 51, 180 + 51)
+MusicRecord("boss", "assets/music/boss.ogg", 180 + 51, 180 + 51)
 MusicRecord("spellcard", "assets/music/spellcard.ogg", 120 + 23, 120 + 23)
+local volmul = 2
 musicentry = {
     stage = {
         name = "Traversing The Sky Across this Starry Night",
@@ -36,7 +37,8 @@ I think it's very satisfying to see that, and it's a testament of how much
 I've improved over years of making touhou music. With that said, I really 
 love the bass and overall melodies here, it really gives the feeling of 
 Satori flying at night.]],
-        id = "stage"
+        id = "stage",
+        vol = 12*volmul
     },
     title = {
         name = "Memoirs Scattered Across Fantasy",
@@ -49,7 +51,8 @@ But I suppose a game or a good nap could drown out the noise. Those are
 routes I tend to take, at least.
 By the way, this was composed a while ago. It could very well be considered 
 a scattered memory at this point.]],
-        id = "title"
+        id = "title",
+        vol = 0.1*volmul
     },
     boss = {
         name = "Eternal Imitation Dance ~ Spell Collector",
@@ -59,7 +62,8 @@ Honestly, there's needs to be more covers and remixes of Len'en songs,
 they're soooo good! This is also my first time transcribing a song too, 
 the transcription may be a bit rough and some notes may be off so I 
 apologize for that. I hope you enjoy the song regardless though.]],
-        id = "boss"
+        id = "boss",
+        vol = 12*volmul
     },
     spellcard = {
         name = "Call of the Vulpes Lagopus",
@@ -70,7 +74,8 @@ theme is almost 6 years old, it had originally been recycled to be used
 in another game and now this game. It's so old, why do people enjoy it
 so much? Haha. Maybe it's just nostalgia, I still like it a bit too
 despite its age.]],
-        id = "spellcard"
+        id = "spellcard",
+        vol = 0.1*volmul
     },
 }
 musicorder = {
@@ -139,7 +144,11 @@ stage.group.DefStageFunc('1@MainGame', "init", function(self)
         print(stagefunc)
         stagefunc(self)
         --task.Wait(180)
-        New(haiji_boss)
+        local ref = New(haiji_boss)
+        while IsValid(ref) do
+            task.Wait(1)
+            print(ref)
+        end
         task.Wait(60)
         New(mask_fader,'close')
         task.Wait(30)

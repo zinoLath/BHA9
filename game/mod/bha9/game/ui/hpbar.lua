@@ -57,7 +57,7 @@ function hpbar:init(master)
     self.update_pos = true
     self.current_level = 1
     self.blood_level = 0
-    self.blood_speed = 1/240
+    self.blood_speed = 1/600
     self.w = 6
     self._w = 0
     self.r = 64
@@ -66,11 +66,13 @@ function hpbar:init(master)
     self.is_dying = false
 end
 function hpbar:frame()
+    local tgta = 255
     if IsValid(self.master) then
         if self.update_pos then
             self.x, self.y = self.master.x, self.master.y
         end
         self.current_level = self.master.hp/self.master.maxhp
+        tgta = self.master._a or 255
     else
         if not self.is_dying then
             task.New(self, function()
@@ -89,7 +91,7 @@ function hpbar:frame()
     if Dist(self,player) < self.r * 1.5 then
         self._a = math.lerp(self._a, 32, 0.1)
     else
-        self._a = math.lerp(self._a, 255, 0.1)
+        self._a = math.lerp(self._a, tgta, 0.1)
     end
     task.Do(self)
     if lstg.player.dialog then

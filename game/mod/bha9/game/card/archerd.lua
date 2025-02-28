@@ -7,7 +7,7 @@ card.id = "archerd"
 card.img = manager:LoadCardIcon("archerd","archerd")
 card.name = "Archer Doll"
 card.description = "Shoots arrows vertically independently of your shot type."
-card.cost = 1
+card.cost = 2
 card.discard = false
 card.type = manager.TYPE_SYSTEM
 CopyImage("aarrow","earrow")

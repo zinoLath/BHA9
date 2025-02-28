@@ -6,7 +6,7 @@ card.id = "earrow"
 card.img = manager:LoadCardIcon("earrow","earrow")
 card.name = "Entropy Arrow"
 card.description = "Charges up and shoots omnidirectional arrows"
-card.cost = 1
+card.cost = 2
 card.discard = false
 card.type = manager.TYPE_SKILL
 
@@ -23,7 +23,7 @@ local shot = card.shot
 shot.damage_delay = 4
 shot.damage_factor = 1
 shot.dmgtype = "shot"
-function shot:init(x,y,rot,_card)
+function shot:init(x,y,rot,dmg,_card)
     self.x, self.y = x,y
     self._x, self._y = x,y
     self.bound = false 
@@ -35,7 +35,7 @@ function shot:init(x,y,rot,_card)
     self.rect = false
     self.colli = true
     self.killflag=true
-    self.dmg = 1.7
+    self.dmg = dmg
     self.w = 0
     self.h = 0
     self.rot = rot
@@ -63,12 +63,42 @@ end
 function shot:frame()
     task.Do(self)
     for i,o in ObjList(GROUP_ENEMY) do
-        if colli:CircleToCapsule(o._pos,o.a,self._pos, self._pos + math.polar(self.h,self.rot),self.w) then
+        local colli = false
+
+        local x = o.x - self.x
+        local y = o.y - self.y
+        local rot = self.rot
+        local dist = 2
+        x, y = x * cos(rot) + y * sin(rot), y * cos(rot) - x * sin(rot)
+        y = abs(y)
+        if x > 0 then
+            if x < self.h then
+                if y < self.w/2 then
+                    colli = true
+                end
+            end
+        end
+        if colli then
             o.class.colli(o,self)
         end
     end
     for i,o in ObjList(GROUP_NONTJT) do
-        if colli:CircleToCapsule(o._pos,o.a,self._pos, self._pos + math.polar(self.h,self.rot),self.w) then
+        local colli = false
+
+        local x = o.x - self.x
+        local y = o.y - self.y
+        local rot = self.rot
+        local dist = 2
+        x, y = x * cos(rot) + y * sin(rot), y * cos(rot) - x * sin(rot)
+        y = abs(y)
+        if x > 0 then
+            if x < self.h then
+                if y < self.w/2 then
+                    colli = true
+                end
+            end
+        end
+        if colli then
             o.class.colli(o,self)
         end
     end
@@ -113,8 +143,8 @@ function card:init(is_focus)
                 player.charge_value = 0
             end
             prev_slow = player.slow
-            local max_charge = 180
-            local min_charge = 120
+            local max_charge = 60
+            local min_charge = 45
             while player.fire > 0 and player.slow == self.context.is_focus and charge < max_charge do
                 if charge == 0 then
                     PlaySound("ch00",0.2,player.x/1024)
@@ -130,12 +160,12 @@ function card:init(is_focus)
                 player.charge_value = 0
                 local lvl = self.context.lvl
                 local count = {1 ,2 ,4 ,16}
-                local dmg =   {1 ,2 ,3 ,3}
+                local dmg =   {3 ,3.5 ,3.5 ,4}
                 local width = {12,14,16,18}
                 local rx =    {32,48,64,72}
                 for iter in afor(count[lvl]) do
                     local ang = iter:linearA(0,360)
-                    New(card.shot,player.x,player.y,ang+90,self)
+                    New(card.shot,player.x,player.y,ang+90,dmg[lvl],self)
                 end
                 task.Wait(60)
             end

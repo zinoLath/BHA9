@@ -601,7 +601,7 @@ function _play_music(name, ptime)
             StopMusic(v)
         end
     end
-    PlayMusic(name, 1.0, ptime)
+    PlayMusic(name, musicentry[name].vol, ptime)
 end
 function _pause_music()
     local _, bgm = EnumRes('bgm')

@@ -6,7 +6,7 @@ card.id = "corolla"
 card.img = manager:LoadCardIcon("corolla","corolla")
 card.name = "Corolla Eye"
 card.description = "Shoots a slow moving projectile that covers a wide area."
-card.cost = 1
+card.cost = 3
 card.discard = false
 card.type = manager.TYPE_SKILL
 

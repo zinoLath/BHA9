@@ -3,18 +3,28 @@ local midboss = M
 
 boss.record.midboss = midboss
 midboss.cards = {
+    require("game.boss.midboss.dialog"),
     require("game.boss.midboss.nonspell1"),
     require("game.boss.midboss.spell1"),
+    require("game.boss.midboss.spell2"),
 }
 midboss.name = "Belle and Misaki"
 midboss.difficulty = "All"
-midboss.pos = Vector(0,500)
+midboss.pos = Vector(0,300)
 
 LoadImageFromFile("misaki_spr", "assets/boss/misaki.png", true, 32,32,false)
 SetImageScale("misaki_spr", 0.05)
 LoadImageFromFile("belle_spr", "assets/boss/belle.png", true, 32,32,false)
 SetImageScale("belle_spr", 0.05)
 
+LoadImageFromFile("bellesakibg", "assets/boss/bellesakibg.png", true, 0, 0, false)
+LoadImageFromFile("bellesakibgmask", "assets/boss/bellesakibgmask.png", true, 0, 0, false)
+bellesaki_bg = Class(_spellcard_background)
+bellesaki_bg.init = function(self)
+    _spellcard_background.init(self)
+    _spellcard_background.AddLayer(self, "bellesakibgmask", true, 0, 0, 0, 0, 3, 0, "", 1/2.25, 1/2.25, nil, nil)
+    _spellcard_background.AddLayer(self, "bellesakibg", false, 0, 0, 0, 0, 0, 0, "", 1/2.25, 1/2.25, nil, nil)
+end
 local hpbar = require("game.ui.hpbar")
 local fakeboss = require("game.boss.fakeboss")
 
@@ -23,7 +33,7 @@ function midboss:init(cards)
     print("midboss:init")
     local _cards = cards or self.class.cards
     print(self.class.cards)
-    boss.init(self, self.class.pos.x, self.class.pos.y, self.class.name, _cards, New(spellcard_background), "All")
+    boss.init(self, self.class.pos.x, self.class.pos.y, self.class.name, _cards, New(bellesaki_bg), "All")
     --error("hrlp")
     self.belle = fakeboss(self)
     self.belle.x = 240

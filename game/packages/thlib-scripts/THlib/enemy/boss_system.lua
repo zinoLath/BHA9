@@ -1110,16 +1110,8 @@ function system:endChipBonus(x, y)
     if not b.is_combat then
         return
     end
-    if b.chip_bonus and b.bombchip_bonus then
-        New(item_chip, x - 20, y)
-        New(item_bombchip, x + 20, y)
-    else
-        if b.chip_bonus then
-            New(item_chip, x, y)
-        end
-        if b.bombchip_bonus then
-            New(item_bombchip, x, y)
-        end
+    if b.chip_bonus then
+        New(item_chip, x, y)
     end
 end
 

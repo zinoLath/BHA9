@@ -108,12 +108,14 @@ function option:co_update()
             setting.judge = self.setting.judge.state == 1
             setting.perf = self.setting.perf.state == 1
             local ret = self.selected:confirm()
+            saveConfigure()
             lstg.SetWindowed(setting.windowed)
             lstg.SetResolution(setting.resx,setting.resy)
             lstg.SetVsync(setting.vsync)
             lstg.SetSEVolume(setting.sevolume/100)
             lstg.SetBGMVolume(setting.bgmvolume/100)
-            saveConfigure()
+            lstg.VideoModeWindowed(setting.resx, setting.resy, setting.vsync,0)
+            ResetScreen2()
             if ret == "quit" then
                 self.manager.class.pop(self.manager)
             end

@@ -453,6 +453,16 @@ function ui:render()
         local cl = cardmanager.cardlist[lstg.var.card_context.hand[1]]
         cardmanager:RenderCard(cl.img,p1.x+10,p1.y,0,0.4,0.4*t)
     end
+    if #hand == 0 then
+        local ww, wh = GetImageSize("white")
+        local w, h = GetImageSize("card_bg")
+        SetImageState("white","", Color(128,255,0,0))
+        local val = lstg.var.card_context.gauge/100
+        SetImageCenter("white",8,16)
+        local scale = 0.4
+        Render("white",p1.x+10,p1.y-h*scale/2,0,w*scale/ww,h*scale*val/wh)
+        SetImageCenter("white",8,8)
+    end
     if is_debug then
         
         local viewmode = lstg.viewmode

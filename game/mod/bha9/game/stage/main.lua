@@ -3,8 +3,8 @@ local bullet = require("zinolib.bullet")
 local cardmanager = require("zinolib.card.manager")
 local function stage_main(self)
     _play_music("stage")
-    cardmanager:get_gauge(500)
-    --[[
+    --cardmanager:get_gauge(500)
+    ---[[
     task.Wait(180)
     for siter in afor(5) do
         local _sign = siter:sign()
@@ -40,7 +40,7 @@ local function stage_main(self)
     task.Wait(120)
     for iter2 in afor(5) do
         local x = iter2:linear(-100,100)
-        local obj = New(enemy,20,200,false,false,false)
+        local obj = New(enemy,20,100,false,false,false)
         obj.drop = {5,0,0}
         obj._pos = Vector(x,400)
         task.New(obj, function()
@@ -68,7 +68,7 @@ local function stage_main(self)
     task.Wait(300)
     for siter in afor(2) do
         local _sign = siter:sign()
-        local obj = New(enemy,1, 600, false, true, false)
+        local obj = New(enemy,1, 300, false, true, false)
         obj.drop = {20,0,0}
         local x = 120 * _sign
         obj._pos = Vector(x,400)
@@ -111,7 +111,7 @@ local function stage_main(self)
         task.Wait(90)
     end
     task.Wait(360)
-    local obj = New(enemy,1, 600, false, true, false)
+    local obj = New(enemy,1, 300, false, true, false)
     obj.drop = {30,0,0}
     obj._pos = Vector(0,400)
     task.AsyncMoveTo(obj,0,50,120,MOVE_DECEL)
@@ -138,8 +138,48 @@ local function stage_main(self)
         task.MoveTo(0,400,120,MOVE_DECEL)
         Del(obj)
     end)
-    task.Wait(300)
+    task.Wait(600)
     --]]
+    for iter in afor(12) do
+        local _sign = iter:sign()
+        local obj = New(enemy,7, 50, false, true, false)
+        obj.drop = {20,0,0}
+        obj._pos = Vector(-220*_sign,iter:linear(150,100))
+        task.New(obj, function()
+            task.MoveToEx(500*_sign,20,600,MOVE_ACC_DEC)
+            Del(obj)
+        end)
+        obj.hue = iter:circle()
+        task.New(obj, function()
+            task.Wait(60)
+            while true do
+                local baseang = Angle(obj,player)
+                for iter1 in afor(10) do
+                    for iter2 in afor(10) do
+                        local ang = baseang + iter1:circle() + iter2:linear(-10,10)
+                        local pos = obj._pos
+                        local bul = bullet("amulet", BulletColor(obj.hue), pos.x, pos.y, 1,ang)
+                        local spd = iter2:zigzag(1,1.05,2)
+                        task.New(bul, function()
+                            task.Wait(15)
+                            ex.SmoothSetValueTo("_speed",spd,60,MOVE_ACC_DEC)
+                        end)
+                        --task.Wait(1)
+                    end
+                end
+                task.Wait(90)
+            end
+        end)
+        task.Wait(120)
+    end
+    task.Wait(300+180)
+    for i,o in ObjList(GROUP_ENEMY) do
+        Del(o)
+    end
+    for i,o in ObjList(GROUP_NONTJT) do
+        Del(o)
+    end
+    --task.Wait(1200)
 
     local midboss = lstg.DoFile("game/boss/midboss/init.lua")
     InitAllClass()

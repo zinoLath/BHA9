@@ -157,7 +157,7 @@ local defaultFrameEvent = {
     end },
     ["frame.itemCollect"] = { 95, function(self)
         if self.__death_state == 0 then
-            if self.y > self.collect_line then
+            if self.y > self.collect_line or (self.collecttimer or 0) > 0 then
                 for _, o in ObjList(GROUP_ITEM) do
                     local flag = false
                     if o.attract < 8 then

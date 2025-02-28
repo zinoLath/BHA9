@@ -1,4 +1,4 @@
-local M = boss.card.New("", 3, 5, 60, 2000, {0, 0, 0}, false)
+local M = boss.card.New("", 3, 5, 60, 2000, {30, 0, 0}, false)
 boss.addspell {
     name = "Nonspell #1",
     owner = "Haiji Senri",

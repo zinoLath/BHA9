@@ -57,9 +57,10 @@ function card:init(is_focus)
     bcard.debug_lvl_up(self,card.id)
 
     function player.spell(pl)
+        pl.collecttimer = 60
         pl.nextspell = ({360,320,280,260})[self.context.lvl] * pl.stats.spell_rate
         pl.death = 0
-        pl.protect = math.clamp(60,0,pl.protect)
+        pl.protect = math.clamp(90,0,pl.protect)
         task.New(self, function()
             for iter in afor(16) do
                 local vec = pl._pos + math.polar(({60,90,120,180})[self.context.lvl],iter:circle())

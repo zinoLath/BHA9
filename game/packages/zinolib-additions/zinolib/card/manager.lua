@@ -35,6 +35,8 @@ local starting_unlock = {
     earrow = true,
     archerd = true,
     hfield = true,
+    mbend = true,
+    mspark = true,
 }
 local shuffle = function (tbl)
     local maxSize = #tbl

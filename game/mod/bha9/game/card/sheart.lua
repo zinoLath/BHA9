@@ -6,7 +6,7 @@ card.id = "sheart"
 card.img = manager:LoadCardIcon("sheart","sheart")
 card.name = "Seeking Heart"
 card.description = "Fires hearts that shoot bullets aimed at you"
-card.cost = 1
+card.cost = 2
 card.discard = false
 card.type = manager.TYPE_SKILL
 

@@ -92,9 +92,11 @@
                 "game.boss.haiji.spell9",
                 "game.boss.midboss.nonspell1",
                 "game.boss.midboss.spell1",
+                "game.boss.midboss.spell2",
                 "game.boss.haiji.dialog",
+                "game.boss.midboss.dialog",
             ],
-            "default": "game.boss.haiji.dialog"
+            "default": "game.boss.haiji.spell5"
             
         },
         {

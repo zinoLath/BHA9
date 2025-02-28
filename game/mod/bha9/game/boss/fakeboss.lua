@@ -1,6 +1,6 @@
 local M = Class(enemybase)
 local fakeboss = M
---fakeboss[".render"] = true
+fakeboss[".render"] = true
 
 function fakeboss:init(master)
     enemybase.init(self)

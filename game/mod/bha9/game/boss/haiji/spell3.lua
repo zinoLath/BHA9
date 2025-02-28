@@ -1,4 +1,4 @@
-local M = boss.card.New("Eleventh Curse \"Precursor of Kaiser\"", 3, 5, 60, 3000, {0, 0, 0}, false)
+local M = boss.card.New("Eleventh Curse \"Precursor of Kaiser\"", 3, 5, 60, 3000, {60, 0, 0}, false)
 M.boss = "game.boss.haiji"
 boss.addspell {
     name = "Eleventh Curse \"Precursor of Kaiser\"",

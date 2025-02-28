@@ -1,4 +1,4 @@
-local M = boss.card.New("Jeweled Treasure \"Event Horizon\"", 5, 10, 60, 2000, {0, 0, 0}, false)
+local M = boss.card.New("Jeweled Treasure \"Event Horizon\"", 5, 10, 60, 500, {90, 0, 0}, false)
 
 boss.addspell {
     name = "Jeweled Treasure \"Event Horizon\"",
