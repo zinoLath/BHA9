@@ -1,4 +1,4 @@
-local M = boss.card.New("", 3, 5, 60, 2000, {30,0,0}, false)
+local M = boss.card.New("", 4, 6, 60, 2000, {30,0,0}, false)
 
 boss.addspell {
     name = "Nonspell #2",
@@ -18,7 +18,8 @@ require("math.additions")
 
 function M:init()
     task.New(self, function()
-        task.MoveTo(0,120,60,MOVE_ACC_DEC)
+        task.MoveTo(0,120,120,MOVE_ACC_DEC)
+        task.Wait(60)
         for count in afor(_infinite) do
             local baseang = ran:Float(0,360)
             for iter in afor(20) do

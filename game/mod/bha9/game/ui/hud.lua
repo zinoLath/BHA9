@@ -117,7 +117,7 @@ function ui:init()
             p.sx = 0.2
             p.sy = 0.2
             p.color = Color(255,255,255,255)
-            p.extra1 = iter.current*iter1.max_count+iter1.current
+            p.extra1 = (iter.current-1)*iter1.max_count+(iter1.current-1)
             p.extra2 = 0
             p.vy = p.y
         end
@@ -136,7 +136,7 @@ function ui:init()
             p.sx = 0.2
             p.sy = 0.2
             p.color = Color(255,255,255,255)
-            p.extra1 = iter.current*iter1.max_count+iter1.current
+            p.extra1 = (iter.current-1)*iter1.max_count+(iter1.current-1)
             p.extra2 = 0
             p.vy = p.y
         end

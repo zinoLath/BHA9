@@ -39,7 +39,7 @@ end
 function M:init()
 
     task.New(self, function()
-        task.MoveTo(0,120,60,MOVE_ACC_DEC)
+        task.MoveTo(0,120,120,MOVE_ACC_DEC)
         task.Wait(60)
         local time_sign = 1
         while true do

@@ -1,4 +1,4 @@
-local M = boss.card.New("", 3, 5, 60, 100, {0, 0, 0}, false)
+local M = boss.card.New("", 4, 6, 60, 100, {0, 0, 0}, false)
 M.boss = "game.boss.haiji"
 local bullet = require("zinolib.bullet")
 local afor = require("zinolib.advancedfor")

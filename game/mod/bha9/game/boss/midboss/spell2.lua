@@ -1,4 +1,4 @@
-local M = boss.card.New("Karmic Prophecy \"Starry Night\"", 5, 10, 30, 500, {90, 0, 0}, false)
+local M = boss.card.New("Karmic Prophecy \"Starry Night\"", 5, 10, 60, 2000, {90, 0, 0}, false)
 
 boss.addspell {
     name = "Karmic Prophecy \"Starry Night\"",

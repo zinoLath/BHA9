@@ -13,7 +13,7 @@ card.type = manager.TYPE_SYSTEM
 function card:init(is_focus)
     bcard.init(self,is_focus)
     player.class.add_modifier(player, 100, "crod", function(stats)
-        stats.damage = stats.damage + self.context.lvl * 0.1
+        stats.damage = stats.damage + self.context.lvl * 0.2
     end)
 end
 manager.cardlist[card.id] = M 

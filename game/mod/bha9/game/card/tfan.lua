@@ -13,7 +13,7 @@ card.type = manager.TYPE_SYSTEM
 function card:init(is_focus)
     bcard.init(self,is_focus)
     player.class.add_modifier(player, 100, "tfan", function(stats)
-        stats.speed = stats.speed + self.context.lvl * 0.3
+        stats.speed = stats.speed + self.context.lvl * 0.4
     end)
 end
 

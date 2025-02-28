@@ -1,4 +1,4 @@
-local M = boss.card.New("Influencer Trap \"Virginia Betting\"", 3, 5, 60, 3000, {60, 0, 0}, false)
+local M = boss.card.New("Influencer Trap \"Virginia Betting\"", 4, 6, 60, 4000, {60, 0, 0}, false)
 M.boss = "game.boss.haiji"
 boss.addspell {
     name = "Influencer Trap \"Virginia Betting\"",
@@ -23,7 +23,7 @@ SetImageCenter("delaywhite",0,8)
 function M:init()
 
     task.New(self, function()
-        task.MoveTo(0,120,60,MOVE_ACC_DEC)
+        task.MoveTo(0,120,120,MOVE_ACC_DEC)
         task.Wait(60)
         while true do
             
@@ -79,6 +79,18 @@ function M:init()
         end
         
     end)
+end
+function M:del()
+    for _, obj in ObjList(GROUP_ENEMY_BULLET) do
+        if IsValid(obj) then
+            Del(obj)
+        end
+    end
+    for _, obj in ObjList(GROUP_INDES) do
+        if IsValid(obj) then
+            Del(obj)
+        end
+    end
 end
 
 return M

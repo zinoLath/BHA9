@@ -1,4 +1,4 @@
-local M = boss.card.New("Hanafuda Mirror \"Spreading Amulet\"", 3, 5, 60, 8000, {60, 0, 0}, false)
+local M = boss.card.New("Hanafuda Mirror \"Spreading Amulet\"", 4, 6, 60, 8000, {60, 0, 0}, false)
 boss.addspell {
     name = "Hanafuda Mirror \"Spreading Amulet\"",
     owner = "Haiji Senri",
@@ -21,7 +21,7 @@ require("math.additions")
 function M:init()
 
     task.New(self, function()
-        task.MoveTo(0,120,60,MOVE_ACC_DEC)
+        task.MoveTo(0,120,120,MOVE_ACC_DEC)
         task.Wait(60)
         local function bounce(obj,count)
             task.New(obj,function()

@@ -1,4 +1,4 @@
-local M = boss.card.New("Eleventh Curse \"Precursor of Kaiser\"", 3, 5, 60, 3000, {60, 0, 0}, false)
+local M = boss.card.New("Eleventh Curse \"Precursor of Kaiser\"", 4, 6, 60, 3000, {60, 0, 0}, false)
 M.boss = "game.boss.haiji"
 boss.addspell {
     name = "Eleventh Curse \"Precursor of Kaiser\"",
@@ -121,7 +121,8 @@ function M:init()
             local obj = New(pop_rt)
             _connect(self, obj, 0, true)
         end)
-        task.MoveTo(0,120,60,MOVE_ACC_DEC)
+        task.MoveTo(0,120,120,MOVE_ACC_DEC)
+        task.Wait(60)
         --task.Wait(60)
         task.New(self,function()
             local spin_rot = 0.6

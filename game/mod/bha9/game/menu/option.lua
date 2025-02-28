@@ -335,6 +335,8 @@ function mopt:render()
             namerect.b = math.min(namerect.b,p.y - p.h/2)
             p.rot = sin(self.timer*3+p.extra3*30)*2
         end)
+        SetFontState("menu","",Color(128,255,255,255))
+        RenderText("menu","Please restart the game after changing resolution",pos.x,pos.y-10,0.3,"center")
         pool:Transform(pos - Vector(0,-7),0,0.2)
         pool:Apply(function (font,p)
             p.rot = sin(self.timer*5+p.extra3*30)*5 * self.selalpha

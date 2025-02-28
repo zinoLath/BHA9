@@ -17,12 +17,20 @@ function select_sq:init(master)
     self._pos = Vector(0,300)
     _connect(master, self, 0, true)
     self._color = Color(255,0,0,0)
+    self.total = 0
 end
 function select_sq:frame()
     self._a = 128 * self.menu._in
+    local total = 0 
+    for k,v in pairs(cm.cardlist) do
+        total = total + (scoredata.deck[k] or 0)
+    end
+    self.total = total
 end
 function select_sq:render()
     RenderFadingRect(self._pos, 400,128,96,0,self._color)
+    SetFontState("menu","",Color(128,255,255,255),Color(128,255,255,255),Color(128,128,128,255),Color(128,128,128,255))
+    RenderText("menu", string.format("%d/20",self.total), 600, self._pos.y,0.6,"right","vcenter")
 end
 
 deck_creation.spacing = 100
@@ -76,12 +84,18 @@ function deck_creation:co_update()
         local directionH = is_left + is_right
         local count = scoredata.deck[self.selected.card] or 0
         local total = 0 
+        local selected_shots = {}
         for k,v in pairs(cm.cardlist) do
             total = total + (scoredata.deck[k] or 0)
+            if scoredata.deck[k] and scoredata.deck[k] > 0 and v.type == cm.TYPE_SKILL then
+                table.insert(selected_shots,k)
+            end
         end
         if directionH ~= 0 and math.clamp(count + directionH,0,4) == count+directionH and total + directionH <= 20 then        
-            scoredata.deck[self.selected.card] = count + directionH
-            PlaySound("select00")
+            if not (cm.cardlist[self.selected.card].type == cm.TYPE_SKILL and #selected_shots >= 2 and (scoredata.deck[self.selected.card] or 0) <= 0) then
+                scoredata.deck[self.selected.card] = count + directionH
+                PlaySound("select00")
+            end
         end
         coroutine.yield()
     end

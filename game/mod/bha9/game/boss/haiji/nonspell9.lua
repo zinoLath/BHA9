@@ -1,4 +1,4 @@
-local M = boss.card.New("", 3, 5, 60, 2000, {30, 0, 0}, false)
+local M = boss.card.New("", 4, 6, 60, 2000, {30, 0, 0}, false)
 
 boss.addspell {
     name = "Nonspell #9",
@@ -23,7 +23,7 @@ local signal = "samasanae"
 function M:init()
 
     task.New(self, function()
-        task.MoveTo(0,120,60,MOVE_ACC_DEC)
+        task.MoveTo(0,120,120,MOVE_ACC_DEC)
         task.Wait(60)
         ex.SetSignal(signal,0)
         

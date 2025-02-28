@@ -303,7 +303,7 @@ function item.PlayerInit()
     cardmanager.initialize()
     lstg.var.spell_cd = 0
     lstg.var.power = 100
-    lstg.var.lifeleft = 2
+    lstg.var.lifeleft = 10
     lstg.var.bomb = 3
     lstg.var.bonusflag = 0
     lstg.var.chip = 0
@@ -326,7 +326,7 @@ end
 function item.PlayerReinit()
     lstg.var.spell_cd = 0
     lstg.var.power = 400
-    lstg.var.lifeleft = 2
+    lstg.var.lifeleft = 10
     lstg.var.chip = 0
     lstg.var.bomb = 3
     lstg.var.bomb_chip = 0

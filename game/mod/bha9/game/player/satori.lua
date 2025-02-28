@@ -53,8 +53,8 @@ function satori_player:init()
 		{{-30,10,-15,20},{-7.5,32,-7.5,29},{7.5,32,7.5,29},{30,10,15,20}},
 	}
     function self:spell()
-        self.nextspell = 300 * self.stats.spell_rate
-        self.protect = math.max(self.protect, 60)
+        self.nextspell = 360 * self.stats.spell_rate
+        self.protect = math.max(self.protect, 30)
         self.collecttimer = 60
         local bomb = New(satori_player.default_bomb,self)
         task.New(bomb, function()

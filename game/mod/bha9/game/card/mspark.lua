@@ -59,11 +59,12 @@ function card:init(is_focus)
 
     function player.spell(pl)
         pl.collecttimer = 60
-        pl.nextspell = ({300,270,240,210})[self.context.lvl] * pl.stats.spell_rate
+        pl.nextspell = ({300,260,220,200})[self.context.lvl] * pl.stats.spell_rate
         pl.death = 0
-        pl.protect = math.clamp(90,0,pl.protect)
+        local timeinvul = ({60,75,90,105})[self.context.lvl]
+        pl.protect = math.clamp(timeinvul,0,pl.protect)
         task.New(self, function()
-            local bomb = New(card.obj,pl,({30,45,60,90})[self.context.lvl])
+            local bomb = New(card.obj,pl,({30,60,90,120})[self.context.lvl])
             task.New(bomb, function()
                 task.Wait(({60,60,70,90})[self.context.lvl])
                 ex.SmoothSetValueTo("size",0,10,MOVE_DECEL,nil,0,MODE_SET)

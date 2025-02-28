@@ -13,7 +13,7 @@ card.type = manager.TYPE_SYSTEM
 function card:init(is_focus)
     bcard.init(self,is_focus)
     player.class.add_modifier(player, 100, "grimoire", function(stats)
-        stats.spell_rate = stats.spell_rate - self.context.lvl * 0.1
+        stats.spell_rate = stats.spell_rate - self.context.lvl * 0.2
     end)
 end
 manager.cardlist[card.id] = M 

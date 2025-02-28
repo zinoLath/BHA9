@@ -13,7 +13,7 @@ card.type = manager.TYPE_SYSTEM
 function card:init(is_focus)
     bcard.init(self,is_focus)
     player.class.add_modifier(player, 100, "gourd", function(stats)
-        stats.card_rate = stats.card_rate + self.context.lvl * 0.2
+        stats.card_rate = stats.card_rate + self.context.lvl * 0.4
     end)
 end
 manager.cardlist[card.id] = M 

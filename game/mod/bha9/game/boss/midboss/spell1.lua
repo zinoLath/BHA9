@@ -1,4 +1,4 @@
-local M = boss.card.New("Jeweled Treasure \"Event Horizon\"", 5, 10, 60, 500, {90, 0, 0}, false)
+local M = boss.card.New("Jeweled Treasure \"Event Horizon\"", 5, 10, 20, 500, {90, 0, 0}, false)
 
 boss.addspell {
     name = "Jeweled Treasure \"Event Horizon\"",
@@ -67,7 +67,8 @@ function M:init()
                 local wvel = 0.1
                 for i, obj in ObjList(GROUP_ENEMY_BULLET) do
                     local v = obj.var or 0
-                    obj.varcount = obj.varcount or 0 + v
+                    obj.var = v
+                    obj.varcount = (obj.varcount or 0) + v
                     --local r, t = Dist(misaki,obj), Angle(obj,misaki)
                     local mp = Vector(misaki.x, misaki.y)
                     local bultom = Vector(obj.x, obj.y) - mp

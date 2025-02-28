@@ -1,4 +1,4 @@
-local M = boss.card.New("Explosive Bikini \"Sponge Homeland\"", 3, 5, 60, 3000, {60, 0, 0}, false)
+local M = boss.card.New("Explosive Bikini \"Sponge Homeland\"", 4, 6, 60, 4000, {60, 0, 0}, false)
 M.boss = "game.boss.haiji"
 boss.addspell {
     name = "Explosive Bikini \"Sponge Homeland\"",
@@ -37,7 +37,8 @@ end
 function M:init()
     local color_familiar = HSVColor(100,240/3.6,100,100)
     task.New(self, function()
-        task.MoveTo(0,120,60,MOVE_ACC_DEC)
+        task.MoveTo(0,120,120,MOVE_ACC_DEC)
+        task.Wait(60)
         --task.Wait(60)
         while true do
             ---[[

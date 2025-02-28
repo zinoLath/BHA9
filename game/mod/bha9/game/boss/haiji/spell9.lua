@@ -1,4 +1,4 @@
-local M = boss.card.New("Curse \"Cursed Nachos\"", 3, 5, 60, 4000, {0, 0, 0}, false)
+local M = boss.card.New("Curse \"Cursed Nachos\"", 4, 6, 60, 4000, {0, 0, 0}, false)
 boss.addspell {
     name = "Curse \"Cursed Nachos\"",
     owner = "Haiji Senri",
@@ -20,6 +20,8 @@ local housama = svg("game/housama/housama.xml")
 function M:init()
 
     task.New(self, function()
+        task.MoveTo(0,120,120,MOVE_ACC_DEC)
+        task.Wait(60)
         local scale = 1.3
         local size = housama.viewbox.dimension
         local list = housama:getAllPath()

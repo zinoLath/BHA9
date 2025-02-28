@@ -108,8 +108,8 @@ function card:init(is_focus)
                 player.charge_value = 0
             end
             prev_slow = player.slow
-            local max_charge = 180
-            local min_charge = 120
+            local min_charge = ({120,110,100,90})[self.context.lvl]
+            local max_charge = min_charge*1.25
             local time = 90
             local omiga = 7.5
             while player.fire > 0 and player.slow == self.context.is_focus and charge < max_charge do
@@ -127,7 +127,7 @@ function card:init(is_focus)
                 player.charge_value = 0
                 local lvl = self.context.lvl
                 local count = {2 ,3 ,4 ,6}
-                local dmg =   {2.2 ,2.8,3.2,4}
+                local dmg =   {2.2 ,2.6,3,3.4}
                 local width = {12,14,16,18}
                 local rx =    {32,48,64,72}
                 local mul = 1

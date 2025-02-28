@@ -1,4 +1,4 @@
-local M = boss.card.New("Nether Puppet \"European Doll Dance\"", 3, 5, 60, 3000, {60, 0, 0}, false)
+local M = boss.card.New("Nether Puppet \"European Doll Dance\"", 4, 6, 60, 3000, {60, 0, 0}, false)
 M.boss = "game.boss.haiji"
 boss.addspell {
     name = "Nether Puppet \"European Doll Dance\"",
@@ -94,7 +94,8 @@ end
 function M:init()
     local color_familiar = HSVColor(100,0/3.6,100,100)
     task.New(self, function()
-        task.MoveTo(0,120,60,MOVE_ACC_DEC)
+        task.MoveTo(0,120,120,MOVE_ACC_DEC)
+        task.Wait(60)
         local omg = 0.5
         task.New(self,function() 
             holland_doll(self,100,0,-omg)
