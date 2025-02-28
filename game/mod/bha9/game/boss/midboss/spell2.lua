@@ -62,6 +62,7 @@ function M:init()
                         end
                     end
                 end
+                PlaySound("kira00")
                 task.Wait(120)
                 _sign = -_sign
             end
@@ -92,6 +93,7 @@ function M:init()
                 while true do
                     local baseang = Angle(misaki,player)
                     local spd = ran:Float(3,6)
+                    PlaySound("tan00")
                     for iter in afor(4) do
                         for iter1 in afor(4) do
                             local ang = baseang + iter:circle() + iter1:linear(-2,2)

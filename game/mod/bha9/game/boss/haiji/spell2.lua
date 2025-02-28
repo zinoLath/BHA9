@@ -27,6 +27,7 @@ local function holland_doll(self,x,y,omiga)
         fam.ang = 0
         fam.eang = 0
         fam.eomg = 0
+        PlaySound("kira00")
         ex.AsyncSmoothSetValueTo(fam,"radius",32,60,MOVE_DECEL)
         task.New(fam, function()
             fam.ang1 = Angle(0,0,fam.x,fam.y)
@@ -120,6 +121,7 @@ function M:init()
                         local ang = ang1 + iter2:circle()
                         bullet("amulet",BulletColor(-60),self.x,self.y,2,ang)
                     end
+                    PlaySound("tan00")
                     task.Wait(wait)
                 end
                 task.Wait(120)

@@ -34,7 +34,8 @@ function M:init()
         end)
         while true do
             for iter1 in afor(25) do
-                for iter in afor(40) do
+                PlaySound("tan00")
+                for iter in afor(20) do
                     local offset =15 * cos(self.timer)*1.5
                     local ang = iter:circle()+offset
                     local bul = bullet("amulet", BulletColor(120),self._pos.x,self._pos.y,0,ang)

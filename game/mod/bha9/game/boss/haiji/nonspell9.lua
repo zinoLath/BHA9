@@ -51,6 +51,7 @@ function M:init()
             local cur_signal = ex.GetSignal(signal)
             for index, value in ipairs(list) do
                 for iter in afor(bulcount[index]) do
+                    PlaySound("tan00")
                     local p = self._pos + value:sample(iter:linear(0,1))
                     --print(tostring(p) .. " | " .. tostring(index))
                     local bul = bullet("star", BulletColor(120),p.x,p.y,0,0,0,0)
@@ -60,6 +61,7 @@ function M:init()
                         ex.WaitForSignal(signal,cur_signal+1)
                         for iter1 in afor(3) do
                             local ang = iter1:circle() - 90
+                            PlaySound("kira00")
                             local bul2 = bullet("amulet", BulletColor(240),bul.x,bul.y,0,ang)
                             bul2.offset = bul.offset - Vector(0,0.2)
                             bul2.scale = 0.8
@@ -99,6 +101,7 @@ function M:init()
                 local _ang = iter:increment(0, 10)
                 local pos = self._pos + Vector(30,0)
                 for iter1 in afor(8) do
+                    PlaySound("tan00")
                     for iter2 in afor(7) do
                         local ang = iter2:circle() + _ang + iter1:linear(0,10)
                         local bul = bullet("scale", BulletColor(30), pos.x, pos.y, 0, ang)
@@ -111,6 +114,7 @@ function M:init()
                 end
                 local pos = self._pos + Vector(-30,0)
                 for iter1 in afor(6) do
+                    PlaySound("tan00")
                     for iter2 in afor(7) do
                         local ang = iter2:circle() - _ang + iter1:linear(0,-10)
                         local bul = bullet("scale", BulletColor(-30), pos.x, pos.y, 0, ang)

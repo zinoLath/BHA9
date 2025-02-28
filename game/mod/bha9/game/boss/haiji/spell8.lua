@@ -40,6 +40,7 @@ local function clone1(self)
         --task.Wait(120)
         task.New(clone, function()
             while true do
+                PlaySound("tan00")
                 bullet("scale",BulletColor(330),clone.x,clone.y,ran:Float(1,3),-90+ran:Float(-10,10))
                 task.Wait(7)
             end
@@ -82,6 +83,7 @@ local function clone2(self)
             local bang = Angle(clone,player)
             for iter in afor(45) do
                 local spread = iter:linear(180,15)
+                PlaySound("tan01")
                 for iter1 in afor(2) do
                     local _sign = iter1:sign()
                     for iter2 in afor(3) do
@@ -122,6 +124,7 @@ local function clone3(self)
                               MOVE_ACC_DEC, MOVE_RANDOM
             )
             local bang = ran:Float(0,360)
+            PlaySound("kira00")
             for iter in afor(3) do --count of rings
                 for iter1 in afor(10) do --ring count
                     local ang = iter:increment(0,180/iter1.max_count) + bang + iter1:circle()
@@ -166,6 +169,7 @@ function M:init()
         task.New(self, function()
             while true do
                 local bang = Angle(self,player)
+                PlaySound("kira01")
                 for iter in afor(20) do
                     for iter1 in afor(5) do
                         local spd = iter1:linear(3,4)

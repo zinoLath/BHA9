@@ -19,6 +19,7 @@ require("math.additions")
 
 
 local function wigstealer(x,y,baseang,c1,c2,w1,w2,a1,a2,r,__sign)
+    PlaySound("tan00")
     for iter in afor(c1) do
         for iter1 in afor(c2) do
             local ang = iter:circle() + iter1:linearA(0,360/iter.max_count) * __sign+baseang
@@ -28,6 +29,7 @@ local function wigstealer(x,y,baseang,c1,c2,w1,w2,a1,a2,r,__sign)
             task.New(obj,function()
                 task.MoveTo(obj.x + r * cos(obj._angle), obj.y + r * sin(obj._angle),60,MOVE_DECEL)
                 task.Wait(waittime)
+                PlaySound("kira00")
                 obj._color = BulletColor(obj.timer * 10)
                 ex.AsyncSmoothSetValueTo(obj,"_angle",obj._angle+ang_add,60,MOVE_DECEL)
                 ex.AsyncSmoothSetValueTo(obj,"_speed",5,120,MOVE_DECEL)
@@ -50,7 +52,6 @@ function M:init()
                 local fam = familiar(self,self.x,self.y,9000,ColorS("FFFBFF0B"), 0)
                 task.New(fam, function()
                     task.MoveTo(100 * _sign, 0, 120, MOVE_ACC_DEC)
-                    print(Angle(fam,player))
                     wigstealer(fam.x,fam.y,-90+30*_sign,10,15,30,120,0,0,96,-_sign)
                     wigstealer(fam.x,fam.y,-90-30*_sign,10,15,120,180,0,0,64,_sign)
                     Del(fam)

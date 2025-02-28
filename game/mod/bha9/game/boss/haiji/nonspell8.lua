@@ -64,6 +64,7 @@ function M:init()
                     task.Wait(60)
                     while true do
                         local ang = (fam.timer-60) * 0.5
+                        PlaySound("tan00")
                         for iter1 in afor(30) do
                             for iter2 in afor(5) do
                                 local _ang = iter1:circle() + ang + iter2:linear(5,0) * fam._sign
@@ -78,6 +79,7 @@ function M:init()
                         task.Wait(90)
                         local ang = Angle(fam,player)
                         local _pos = fam._pos
+                        PlaySound("kira00")
                         for iter1 in afor(15) do
                             local pos = _pos + math.polar(ran:Float(-16,16),ang+90)
                             bullet("amulet",BulletColor(60),pos.x,pos.y,iter1:linear(5,3),ang)

@@ -49,6 +49,7 @@ function M:init()
                         Del(obj)
                     end)
                 end
+                PlaySound("tan00")
                 task.Wait(2)
             end
             task.MoveToPlayer(60, 
@@ -77,6 +78,7 @@ function M:init()
                             end
                         end
                     end
+                    PlaySound("tan00")
                     task.Wait(2)
                 end
             end)
@@ -97,6 +99,7 @@ function M:init()
                             end)
                         end
                     end
+                    PlaySound("tan01")
                     task.Wait(2)
                 end
             end)
@@ -125,6 +128,7 @@ function M:init()
                         end
                         Del(bul)
                     end)
+                    PlaySound("tan00")
                     task.Wait(1)
                 end
                 task.MoveToPlayer(15, 

@@ -55,6 +55,7 @@ function M:init()
                     task.Wait(wait_time)
                     create_explosion(fam.x,fam.y)
                     task.Wait(15)
+                    PlaySound("tan01")
                     for iter2 in afor(6) do
                         local ang = ran:Float(0,360)
                         for iter1 in afor(10) do
@@ -102,7 +103,7 @@ function M:init()
                                 for iter1 in afor(3) do
                                     local ang = angbase + iter1:linearA(0,5*ssign)
                                     local spd = iter1:linear(5,2)
-                                    PlaySound("tan00")
+                                    PlaySound("tan01")
                                     local obj = bullet("amulet", BulletColor(120),fam.x,fam.y,4,ang)
                                     task.New(obj, function()
                                         ex.SmoothSetValueTo("_speed", 1, 30,MOVE_DECEL)

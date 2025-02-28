@@ -32,6 +32,7 @@ function M:init()
             local sqang = 45
             for sinter in afor(8) do
                 for iter in afor(5) do
+                    PlaySound("tan00")
                     for iter1 in afor(32) do
                         local bul = bullet("amulet", BulletColor(240),self.x,self.y,0,iter1:circle())
                         bul.center = Vector(self.x,self.y)

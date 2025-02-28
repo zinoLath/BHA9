@@ -34,6 +34,7 @@ function M:init()
                     task.Wait(60)
                     while true do
                         local ang = fam.theta + self.timer*2+120
+                        PlaySound("tan01")
                         local bul = bullet("amulet", BulletColor(self.timer),fam.x,fam.y,0,ang)
                         ex.AsyncSmoothSetValueTo(bul, "_speed", 3, 60, MOVE_DECEL)
                         task.Wait(3)
@@ -44,6 +45,7 @@ function M:init()
         task.Wait(60)
         while true do
             for iter1 in afor(10) do
+                PlaySound("tan00")
                 for iter in afor(5) do
                     local ang = Angle(self,player) + iter:linear(-90,90)
                     local spd = iter1:linear(1,5)

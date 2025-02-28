@@ -54,6 +54,7 @@ function M:init()
                         local accel = iter1:linearA(0.1,0.1)
                         local obj = bullet("cursor",BulletColor(30,100),last.x,last.y,2,180+self.famangle - 45 * cos(last.ang-90))
                         SetA(obj,accel,self.famangle+ran:Float(-1,1),maxv,0,0,true)
+                        PlaySound("tan00")
                         task.Wait(1)
                     end
                     task.Wait(15)
@@ -65,6 +66,7 @@ function M:init()
                 local ang = ran:Float(0,360)
                 for iter3 in afor(10) do
                     for iter2 in afor(2) do
+                        PlaySound("tan00")
                         for iter in afor(15) do
                             local ang2 = iter:circle() + ang
                             local s =  iter2:sign()

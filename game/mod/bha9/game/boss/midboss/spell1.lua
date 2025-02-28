@@ -40,6 +40,7 @@ function M:init()
             local angaccel = 0.05*2
             task.Wait(60)
             while true do
+                PlaySound("tan00")
                 for iter in afor(2) do
                     local _ang = ang + iter:circle()
                     local bul = bullet("star",BulletColor(180),belle.x-25,belle.y+25,0.1,_ang,false,true)

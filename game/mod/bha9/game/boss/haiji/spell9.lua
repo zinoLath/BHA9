@@ -67,13 +67,16 @@ function M:init()
                                 --task.Wait(1)
                             end
                         end
+                        PlaySound("tan00")
                         task.Wait(5)
                     end
                     Del(bulmaster)
                 end)
+                PlaySound("kira01")
                 task.Wait(1)
             end
             task.Wait(180)
+            PlaySound("kira00")
 
             for index, value in ipairs(list) do
                 for iter in afor(bulcount[index]*2) do

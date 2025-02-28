@@ -61,10 +61,12 @@ function M:init()
                                 
                             end
                         end
+                        PlaySound("tan00")
                         task.Wait(10)
                     end
                     task.Wait(150)
                     local sqang = Angle(fam,player) + 45
+                    PlaySound("tan01")
                     for itersq in afor(12) do
                         local pos = math.vecfromobj(fam) + math.polygon(4,itersq:circle()/360) * -16
                         local obj = bullet("scale", BulletColor(210),pos.x, pos.y, 0, itersq:circle())

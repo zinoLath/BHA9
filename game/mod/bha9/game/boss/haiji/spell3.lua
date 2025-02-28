@@ -129,6 +129,7 @@ function M:init()
             local spin = 0
             local wttime = 2
             for iter_master in afor(_infinite) do
+                PlaySound("tan01")
                 for iter1 in afor(7) do
                     for iter in afor(5) do
                         local ang = spin + iter:circle() + iter1:linear(0,wttime*spin_rot)*5
@@ -156,6 +157,7 @@ function M:init()
                 local ang = ran:Float(0,360)
                 local count = 13
                 local spread = 5
+                PlaySound("tan00")
                 for iter1 in afor(count) do
                     for iter2 in afor(5) do
                         local _ang = ang + iter1:circle() + iter2:linear(-spread,spread)

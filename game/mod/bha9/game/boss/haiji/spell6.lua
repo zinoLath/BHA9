@@ -55,9 +55,11 @@ function M:init()
                         task.Wait(1)
                     end
                     obj._color = BulletColor(iter:linear(210,360))
-                    if axis == 1 then                    
+                    if axis == 1 then
+                        PlaySound("kira00")                   
                         obj.x = lstg.world.r * -dir
                     else
+                        PlaySound("kira00")
                         obj.y = lstg.world.t * -dir
                     end
                 end
@@ -68,8 +70,10 @@ function M:init()
             local obj = bullet("amulet",BulletColor(180),self.x,self.y, 5, Angle(self,player))
             obj.scale = 5
             task.New(obj,function()
+                PlaySound("ch00")
                 ex.SmoothSetValueTo("_speed", 0, 60,MOVE_DECEL)
                 local bang = Angle(obj,player)
+                PlaySound("tan00")
                 for iter1 in afor(2) do
                     for iter2 in afor(15) do
                         for iter3 in afor(10) do

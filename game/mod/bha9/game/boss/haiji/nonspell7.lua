@@ -40,6 +40,7 @@ function M:init()
                     task.New(fam, function()
                         ex.AsyncSmoothSetValueTo(fam,"rad", 128, t, MOVE_DECEL)
                         for iter1 in afor(60) do
+                            PlaySound("tan00")
                             local bul = bullet("kunai", BulletColor(0), fam.x, fam.y, 0, fam.theta)
                             task.New(bul, function()
                                 task.Wait(30)
@@ -49,6 +50,7 @@ function M:init()
                         end
 
                         local sqang = fam.theta
+                        PlaySound("tan01")
                         for itersq in afor(18) do
                             local vec = math.rotate2(math.polygon(6,itersq:circle()/360),-sqang)
                             local pos = math.vecfromobj(fam) + vec * 32

@@ -36,6 +36,7 @@ function M:init()
                     for iter1 in afor(10) do
                         local fx, fy = fam.x, fam.y
                         local fang = AngDelta(fam)
+                        PlaySound("tan00")
                         for iter2 in afor(5) do
                             local pos = Vector2(fx,fy) + math.polar(iter2:linear(-16,16),fam.theta+90)
                             local bul = bullet("amulet",BulletColor(240),pos.x,pos.y,0.01,fam.theta+180)
@@ -50,6 +51,7 @@ function M:init()
                             local _ang = iter2:linear(-45,45) + ang_to_player +ran:Float(-4,4)
                             local spd = iter1:linear(4,2)
                             bullet("amulet",BulletColor(0),fam.x,fam.y,spd,_ang)
+                            PlaySound("tan01")
                         end
                         task.Wait(2)
                     end

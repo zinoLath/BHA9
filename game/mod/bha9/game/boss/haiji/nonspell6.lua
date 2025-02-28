@@ -39,6 +39,7 @@ function M:init()
             local spdofftime = self.timer*4 + 45
             local spd1, spd2 = 3,5
             local count = 15
+            PlaySound("tan00")
             for iter in afor(count) do
                 local ang = iter:circle() + angoff
                 local spd = math.lerp(spd1, spd2, nsin(spdofftime))

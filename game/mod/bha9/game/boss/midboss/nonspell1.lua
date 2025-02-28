@@ -71,6 +71,7 @@ function M:init()
                     ex.SmoothSetValueTo("_speed",5, 120, MOVE_ACCEL)
 
                 end)
+                PlaySound("kira00")
                 task.Wait(2)
             end
             task.Wait(30)
@@ -92,6 +93,7 @@ function M:init()
                 ex.AsyncSmoothSetValueTo(fam,"vscale",1.4,time,tween.circOut)
                 task.New(fam, function()
                     for iter2 in afor(15) do
+                        PlaySound("tan00")
                         for iter3 in afor(5) do
                             local __ang = fam.theta*2 + iter3:circle()
                             local bul = bullet("amulet", BulletColor(270),fam.x, fam.y, 1,__ang)

@@ -19,7 +19,7 @@ local function stage_main(self)
                 Del(obj)
             end)
             task.New(obj, function()
-                task.Wait(ran:Float(0,60))
+                task.Wait(ran:Float(30,60))
                 while obj.timer < 75 do
                     task.New(obj, function()
                         
